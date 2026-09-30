@@ -376,17 +376,35 @@ function render(){const r=route();$$('.nav-item').forEach(x=>x.classList.toggle(
 
 function renderHome(){
  const total=allLessons().length;
- $('#view').innerHTML=`<section class="hero simple-hero"><div class="eyebrow">FERIXDI AI · ОХВАТЫ НА AI</div><h1>От идеи до охватов и монетизации</h1><p>Не нужно изучать всё сразу. Сайт построен как маршрут: сначала инструменты, затем ролики, публикация, аналитика и монетизация.</p><div class="hero-actions"><button class="btn" onclick="go('lesson/welcome')">Начать обучение →</button><button class="btn secondary" onclick="go('prompts')">Открыть промпты</button></div></section>
- <section class="start-map">
- <div class="start-step"><span>01</span><div><strong>Понять систему</strong><p>Старт, рабочая область и вирусная механика.</p></div></div>
- <div class="start-step"><span>02</span><div><strong>Собрать ролик</strong><p>Идея → Video Factory → Frame 0 → Omni 1.1.</p></div></div>
- <div class="start-step"><span>03</span><div><strong>Опубликовать и повторить</strong><p>CapCut → Reels/Shorts → регулярность → аналитика.</p></div></div>
- <div class="start-step"><span>04</span><div><strong>Направить внимание</strong><p>Монетизация, партнёрки и дальнейшее масштабирование.</p></div></div>
+ $('#view').innerHTML=`<section class="hero simple-hero">
+   <div class="eyebrow">FERIXDI AI · ОХВАТЫ НА AI</div>
+   <h1>Научись делать AI-ролики, получать охваты и понимать, что делать дальше</h1>
+   <p>Представь, что я просто сижу рядом и показываю тебе весь процесс по шагам. Здесь не надо заранее разбираться в нейросетях. Иди сверху вниз и повторяй руками.</p>
+   <div class="hero-actions"><button class="btn" onclick="go('lesson/welcome')">Начать с нуля →</button><button class="btn secondary" onclick="go('prompts')">Мне нужен промпт</button></div>
  </section>
- <div class="callout"><strong>Как проходить:</strong> идите по модулям сверху вниз. В каждом уроке сразу видно: зачем он нужен, что вы получите и что нужно сделать.</div>
- <div class="callout"><strong>Стандарт видео:</strong> идея / референс → мастер-промпт → Frame 0 → <strong>Omni 1.1</strong> → CapCut → публикация.</div>
- <div class="section-head"><div><h2>Программа</h2><p>${modules.length} модулей · ${total} уроков. Начинайте с первого.</p></div></div>
- <div class="grid">${modules.map(m=>`<article class="card" onclick="go('module/${m.id}')"><div class="card-meta"><span class="badge">${m.icon}</span><span class="badge purple">${m.lessons.length} уроков</span></div><h3>${displayModuleTitle(m)}</h3><p class="desc">${m.desc}</p><div class="card-purpose">Зачем: ${moduleGuide[m.id]?.why||m.desc}</div></article>`).join('')}</div>`;
+
+ <section class="roadmap">
+   <div class="section-head"><div><h2>Вот весь путь. Всего 5 этапов</h2><p>Не пытайся изучить всё сразу. Проходишь один этап — переходишь к следующему.</p></div></div>
+   <div class="stage-grid">${courseStages.map(stage=>{
+      const first=stage.modules[0];
+      const mods=stage.modules.map(id=>modules.find(m=>m.id===id)).filter(Boolean);
+      return `<article class="stage-card" onclick="go('module/${first}')">
+        <div class="stage-num">${stage.num}</div>
+        <h3>${stage.title}</h3>
+        <p>${stage.text}</p>
+        <div class="stage-modules">${mods.map(m=>`<span>${displayModuleTitle(m)}</span>`).join('')}</div>
+        <button class="stage-link">Открыть этап →</button>
+      </article>`;
+   }).join('')}</div>
+ </section>
+
+ <section class="quick-rule">
+   <div><span>Главная схема видео</span><strong>Идея → Master Prompt → Frame 0 → Omni 1.1 → CapCut → публикация</strong></div>
+   <div><span>Если запутался</span><strong>Вернись сюда и продолжай по этапам сверху вниз.</strong></div>
+ </section>
+
+ <div class="section-head"><div><h2>Все модули</h2><p>${modules.length} модулей · ${total} уроков. Основные уроки видны сразу, всё дополнительное можно оставить на потом.</p></div></div>
+ <div class="grid">${modules.map(m=>`<article class="card" onclick="go('module/${m.id}')"><div class="card-meta"><span class="badge">${m.icon}</span><span class="badge purple">${m.lessons.filter(x=>isCoreLesson(x[0])).length} основных</span></div><h3>${displayModuleTitle(m)}</h3><p class="desc">${m.desc}</p><div class="card-purpose">${moduleGuide[m.id]?.why||m.desc}</div></article>`).join('')}</div>`;
 }
 function renderModule(id){
  const m=modules.find(x=>x.id===id); if(!m)return renderHome();

@@ -621,3 +621,163 @@
   .stage-card{padding:20px}
   .extra-lessons>summary{align-items:flex-start;flex-direction:column;gap:5px}
 }
+
+
+/* VISUAL LEARNING TYPES V7 */
+.content-eyebrow{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  margin-bottom:14px;
+  color:var(--accent);
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+}
+.content-eyebrow span{
+  display:grid;
+  place-items:center;
+  width:24px;height:24px;
+  border-radius:8px;
+  background:rgba(215,255,63,.08);
+  border:1px solid rgba(215,255,63,.16);
+}
+
+.module-content-group{
+  margin:34px 0 46px;
+}
+.group-head{
+  display:flex;
+  align-items:flex-end;
+  justify-content:space-between;
+  gap:24px;
+  margin-bottom:14px;
+}
+.group-head h2{
+  margin:5px 0 5px;
+  font-size:25px;
+}
+.group-head p{
+  margin:0!important;
+  color:var(--muted)!important;
+  font-size:13px!important;
+}
+.group-kicker{
+  color:var(--accent);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.11em;
+}
+.group-count{
+  flex:0 0 auto;
+  min-width:38px;height:38px;
+  display:grid;place-items:center;
+  border:1px solid var(--line);
+  border-radius:12px;
+  color:#cfd6e0;
+  background:var(--panel);
+  font-weight:800;
+  font-size:12px;
+}
+
+.lesson-row{
+  grid-template-columns:42px minmax(0,1fr) 28px!important;
+  padding:16px 17px!important;
+  gap:14px!important;
+  align-items:center!important;
+}
+.kind-chip{
+  width:36px;height:36px;
+  display:grid;place-items:center;
+  border-radius:11px;
+  border:1px solid var(--line);
+  background:#0f131b;
+  font-size:13px;
+  color:#b8c2d0;
+}
+.lesson-row-main{min-width:0}
+.row-top{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-bottom:5px;
+}
+.content-type{
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.1em;
+  color:var(--accent);
+}
+.row-num{
+  color:#687387;
+  font:700 9px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+.row-arrow{
+  color:#6e788a;
+  font-size:16px;
+  text-align:right;
+}
+.kind-video{border-color:rgba(124,92,255,.2)!important;background:linear-gradient(90deg,rgba(124,92,255,.04),transparent),var(--panel)}
+.kind-lesson{border-color:rgba(62,190,255,.16)!important}
+.kind-practice{border-color:rgba(215,255,63,.16)!important;background:linear-gradient(90deg,rgba(215,255,63,.035),transparent),var(--panel)}
+.kind-insight{background:rgba(255,255,255,.015)!important}
+.kind-guide{background:linear-gradient(90deg,rgba(255,255,255,.018),transparent),var(--panel)}
+
+.insight-hero{
+  margin:22px 0 28px;
+  padding:22px 24px;
+  border-radius:20px;
+  background:linear-gradient(135deg,rgba(215,255,63,.09),rgba(124,92,255,.05)),var(--panel);
+  border:1px solid rgba(215,255,63,.16);
+}
+.insight-hero span{
+  color:var(--accent);
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.12em;
+}
+.insight-hero p{
+  margin:10px 0 0!important;
+  color:#f3f6fb!important;
+  font-size:20px!important;
+  line-height:1.5!important;
+  max-width:900px!important;
+}
+
+.kind-page-insight .lesson-core{
+  padding:22px 24px;
+  background:var(--panel);
+}
+.kind-page-insight .lesson-core h2{
+  font-size:22px;
+}
+.kind-page-practice .friend-box{
+  border-color:rgba(215,255,63,.22);
+}
+.kind-page-video .friend-box{
+  border-color:rgba(124,92,255,.25);
+  background:linear-gradient(135deg,rgba(124,92,255,.08),rgba(42,190,255,.035)),var(--panel);
+}
+
+.module-intro{
+  position:relative;
+  padding:26px 28px 6px;
+  border-radius:24px;
+  background:radial-gradient(circle at 10% 0%,rgba(124,92,255,.08),transparent 35%);
+}
+
+.group-video .group-kicker{color:#a996ff}
+.group-practice .group-kicker{color:var(--accent)}
+.group-insight .group-kicker{color:#90a0b8}
+.group-guide .group-kicker{color:#78c7ff}
+.group-lesson .group-kicker{color:#69d8ff}
+
+@media(max-width:700px){
+  .group-head{align-items:flex-start}
+  .lesson-row{grid-template-columns:36px minmax(0,1fr) 20px!important;padding:14px!important;gap:11px!important}
+  .kind-chip{width:32px;height:32px}
+  .content-type{font-size:8px}
+  .insight-hero p{font-size:17px!important}
+  .module-intro{padding:20px 0 4px;background:none}
+}

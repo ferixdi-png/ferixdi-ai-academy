@@ -204,6 +204,58 @@ qwen:'https://chat.qwen.ai/',aistudio:'https://aistudio.google.com/',flow:'https
 };
 
 
+
+const courseStages=[
+  {id:'base',num:'01',title:'Сначала пойми основу',text:'Что мы делаем, какие инструменты нужны и почему ролик вообще может залететь.',modules:['start','workspace','viral']},
+  {id:'make',num:'02',title:'Потом научись собирать ролик',text:'Идея → мастер-промпт → Frame 0 → голос → персонажи → Omni 1.1.',modules:['ideas','factory','realism','voice','characters','video']},
+  {id:'grow',num:'03',title:'Дальше публикуй и смотри, что работает',text:'Монтаж, регулярность и простая аналитика без гаданий.',modules:['publish','regularity','analytics']},
+  {id:'money',num:'04',title:'И только потом подключай деньги',text:'Как направлять охваты в AI-инструменты, партнёрки и недвижимость.',modules:['monetize']},
+  {id:'help',num:'05',title:'Практика и помощь',text:'Задания, ответы на частые вопросы, промпты и исходные материалы.',modules:['community','faq','library']}
+];
+const coreLessonIds=new Set(['welcome','coursemap','practicefirst','support','setup','qwen','image-tools','video-tools','google-account','hook','frame0-hook','onejoke','scriptformula','share','human-humor','scenario-engine','instagram-stt','telegram-sources','apify-trends','conveyor','v40','v40-text','v40-video','outputs','author-pipeline-20s','character-photos','photo','phone-look','realism-iterate','voice-performance','speaker-lock','stress','punchline','character-test','characters','refs','identity','series','omni','recreate15','long','repair','trim','caption','profile','newaccount','regularity','30posts','repeat','boredom','metrics','outliers','scale','ladder','tools-affiliate','syntx','syntx-task','realestate','wellside','re-shift','boost','task1','task2','task3','task4','task5','task6','task7','task8','questions']);
+const lessonWhyExact={
+welcome:'Чтобы сразу понять, куда ты попал и в каком порядке проходить обучение.',
+coursemap:'Чтобы видеть весь путь целиком и не путаться, зачем тебе каждый следующий блок.',
+setup:'Чтобы один раз настроить инструменты и дальше заниматься контентом, а не настройками.',
+qwen:'Чтобы уметь нормально давать задачи текстовой нейросети и не смешивать разные контексты.',
+'image-tools':'Чтобы делать стартовый кадр, из которого потом получится нормальное видео.',
+'video-tools':'Чтобы не распыляться на десятки моделей и держать один понятный стандарт: Omni 1.1.',
+hook:'Чтобы человек не пролистал ролик в первую секунду.',
+'frame0-hook':'Чтобы первый кадр уже работал на удержание, ещё до движения и речи.',
+onejoke:'Чтобы ролик не был перегружен и зритель сразу понял, в чём ситуация.',
+scriptformula:'Чтобы строить короткий ролик по понятной схеме, а не импровизировать каждый раз.',
+'scenario-engine':'Чтобы быстро получать идеи с нормальным хуком и панчем, когда самому ничего не приходит.',
+'apify-trends':'Чтобы находить не просто популярные ролики, а то, что начинает расти прямо сейчас.',
+conveyor:'Чтобы один раз увидеть весь рабочий процесс от шутки до опубликованного ролика.',
+v40:'Чтобы понять главный мастер-промпт курса и больше не собирать производство вручную по кускам.',
+'v40-text':'Чтобы знать, что делать, когда у тебя уже есть готовая шутка или диалог.',
+'v40-video':'Чтобы уметь брать удачный видео-референс и разбирать его механику для своей версии.',
+photo:'Чтобы Frame 0 выглядел как живое фото, а не как очевидная AI-картинка.',
+'voice-performance':'Чтобы голос звучал как живой человек внутри сцены, а не как озвучка.',
+'speaker-lock':'Чтобы модель не путала, кто именно говорит каждую реплику.',
+characters:'Чтобы собрать постоянных героев, которых зритель начнёт узнавать.',
+omni:'Чтобы научиться базовой генерации видео в Omni 1.1 — это основной стандарт курса.',
+recreate15:'Чтобы быстро повторять механику удачных роликов через референс и Omni 1.1.',
+long:'Чтобы делать ролики длиннее 10 секунд без резкого скачка персонажей и сцены.',
+trim:'Чтобы ролик начинался сразу с действия или речи и не терял зрителя на пустой паузе.',
+regularity:'Чтобы сильная генерация превратилась в систему публикаций, а не осталась единичным экспериментом.',
+metrics:'Чтобы понимать, что реально работает в аккаунте, а не выбирать ролики по личному вкусу.',
+ladder:'Чтобы понимать, когда монетизировать AI-аудиторию и когда переходить к более дорогой модели.',
+syntx:'Чтобы не просто кинуть партнёрскую ссылку, а показать человеку понятный путь до результата.',
+wellside:'Чтобы понимать, как охваты превращаются в заявку на недвижимость через партнёрскую воронку.',
+'faq-flow':'Чтобы быстро решить техническую проблему с доступом и не застрять на ней на весь день.',
+prompts:'Чтобы не искать нужный файл по всему сайту и быстро открыть именно тот промпт, который нужен сейчас.'
+};
+function lessonWhyText(l){
+  if(lessonWhyExact[l.id]) return lessonWhyExact[l.id];
+  if(/^task\d+$/.test(l.id)||/задание|практика/i.test(l.title)) return 'Чтобы закрепить этот этап руками, а не просто прочитать теорию.';
+  if(l.module.id==='faq') return 'Чтобы быстро закрыть конкретный вопрос и продолжить работу, не перечитывая весь курс.';
+  if(l.module.id==='library') return 'Чтобы быстро найти исходный материал, когда он реально понадобится в работе.';
+  return 'Чтобы понять эту часть процесса и не делать её вслепую в реальной работе.';
+}
+function stageForModule(id){return courseStages.find(s=>s.modules.includes(id))}
+function isCoreLesson(id){return coreLessonIds.has(id)}
+
 const moduleGuide={
 start:{why:'Чтобы сначала понять общую систему и не прыгать хаотично между нейросетями.',result:'Поймёте, как устроено обучение и в каком порядке идти дальше.'},
 workspace:{why:'Чтобы один раз собрать рабочую среду и потом не терять время на техническую путаницу.',result:'Будет готов базовый набор: текстовая модель, Frame 0 и Omni 1.1 для видео.'},
@@ -310,7 +362,14 @@ function displayLessonTitle(l){return simpleLessonTitle[l[0]||l.id]||l[1]||l.tit
 
 function allLessons(){return modules.flatMap(m=>m.lessons.map(l=>({module:m,id:l[0],title:l[1],subtitle:l[2]})))}
 const lessonMap=Object.fromEntries(allLessons().map(x=>[x.id,x]));
-function buildNav(){ $('#nav').innerHTML=`<a class="nav-item" data-route="home"><span class="nav-icon">⌂</span><span>Главная</span></a>`+modules.map(m=>`<a class="nav-item" data-route="module/${m.id}"><span class="nav-icon">${m.icon}</span><span>${displayModuleTitle(m)}</span></a>`).join(''); $$('.nav-item').forEach(x=>x.onclick=()=>go(x.dataset.route)); }
+function buildNav(){
+  const groups=courseStages.map(stage=>{
+    const items=stage.modules.map(id=>modules.find(m=>m.id===id)).filter(Boolean);
+    return `<div class="nav-stage"><div class="nav-stage-title"><span>${stage.num}</span>${stage.title}</div>${items.map(m=>`<a class="nav-item" data-route="module/${m.id}"><span class="nav-icon">${m.icon}</span><span>${displayModuleTitle(m)}</span></a>`).join('')}</div>`;
+  }).join('');
+  $('#nav').innerHTML=`<a class="nav-item nav-home" data-route="home"><span class="nav-icon">⌂</span><span>Начать здесь</span></a>`+groups;
+  $$('.nav-item').forEach(x=>x.onclick=()=>go(x.dataset.route));
+}
 function go(route){location.hash='#/'+route}
 function route(){return location.hash.replace(/^#\//,'')||'home'}
 function render(){const r=route();$$('.nav-item').forEach(x=>x.classList.toggle('active',x.dataset.route===r||r.startsWith('lesson/')&&lessonMap[r.split('/')[1]]?.module.id===x.dataset.route?.split('/')[1])); if(r==='home')return renderHome(); if(r==='prompts')return renderPromptLibrary(); if(r==='media')return renderMedia(); if(r==='community')return renderCommunity(); if(r.startsWith('module/'))return renderModule(r.split('/')[1]); if(r.startsWith('lesson/'))return renderLesson(r.split('/')[1]); renderHome();}

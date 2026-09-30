@@ -915,3 +915,53 @@
 @media(min-width:1500px){
   .ferixdi-guide{right:46px;bottom:34px}
 }
+
+
+/* PROMPT HOWTO V10 */
+.prompt-howto{
+  display:grid;
+  gap:10px;
+  margin:16px 0 18px;
+  width:100%;
+}
+.prompt-how-step{
+  display:grid;
+  grid-template-columns:30px minmax(0,1fr);
+  gap:11px;
+  align-items:start;
+  padding:11px 12px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:rgba(255,255,255,.018);
+}
+.prompt-how-step>span{
+  width:26px;height:26px;
+  display:grid;place-items:center;
+  border-radius:9px;
+  background:rgba(215,255,63,.10);
+  color:var(--accent);
+  font:900 10px/1 ui-monospace,SFMono-Regular,Menlo,monospace;
+}
+.prompt-how-step strong{
+  display:block;
+  margin:1px 0 4px;
+  color:#f4f6f9;
+  font-size:12px;
+}
+.prompt-how-step p{
+  margin:0!important;
+  color:#bac3d0!important;
+  font-size:12px!important;
+  line-height:1.55!important;
+}
+.prompt-card.friendly-prompt{
+  gap:0;
+}
+.prompt-card.friendly-prompt .hero-actions{
+  margin-top:auto;
+  padding-top:4px;
+}
+@media(max-width:620px){
+  .prompt-how-step{grid-template-columns:27px minmax(0,1fr);padding:10px}
+  .prompt-how-step>span{width:24px;height:24px}
+}

@@ -46,7 +46,7 @@ const modules=[
 ['scene-contract','Scene Contract','До генерации фиксируются говорящие, реквизит, камера, речь и финал.'],
 ['outputs','Что должно быть на выходе','Frame 0, video prompt, аудио, QC и публикация — без незаполненных полей.'],
 ['author-pipeline-20s','Авторский 20-секундный пайплайн','Две части по 8–10 секунд, бесшовный последний кадр, упаковка и публикация.'],
-['versions','Как менялся мастер-промпт','v15 → v23.1 → v32 → v40. Старые версии — архив, а не конкуренты текущей.'] ]},
+['versions','Как менялся мастер-промпт','v15 → v23.1 → v32 → v33 → v40. Старые версии — архив, а не конкуренты текущей.'] ]},
 {id:'realism',icon:'◌',title:'06 · Frame 0 и реализм',desc:'Реализм начинается в фото, а не лечится в конце.',lessons:[
 ['character-photos','Как создать стартовые фото персонажей','Сначала делаем чистые референсы героев, потом используем их для каждого нового Frame 0.'],
 ['photo','Universal Smartphone Photorealism Engine','Не максимум красоты, а физическая достоверность случайного кадра.'],
@@ -142,7 +142,7 @@ const modules=[
 ['faq-ai-label','Что с AI-метками и metadata?','Техническая очистка не равна гарантии скрытия происхождения.'],
 ['faq-current','Как понимать, что информация ещё актуальна?','Проверять тарифы, модели, лимиты и интерфейсы перед использованием.'],
 ['faq-help','Куда отправлять работу и вопрос?','Всегда @ferixdiii с исходником, ссылкой или скрином.'] ]},
-{id:'library',icon:'⌘',title:'15 · Библиотека',desc:'Оригиналы промптов, статьи, PDF и медиа.',lessons:[
+{id:'library',icon:'⌘',title:'16 · Библиотека',desc:'Оригиналы промптов, статьи, PDF и медиа.',lessons:[
 ['prompts','Все промпты','Открыть, скопировать или скачать оригинал.'],
 ['media','Видео и скриншоты','Практические демонстрации прямо внутри базы.'],
 ['docs','Статьи и PDF','Анатомия охватов, регулярность, Wellside, Apify и версия промптов.'],
@@ -156,6 +156,7 @@ const promptLibrary=[
 {name:'VOICE PERFORMANCE',file:'assets/prompts/voice-performance.txt',status:'МОДУЛЬ',tag:'Голос',desc:'Живая человеческая речь, дыхание, просодия и связь голоса с телом.'},
 {name:'Google Flow Video Recreation v32',file:'assets/prompts/video-recreation-v32.txt',status:'СПЕЦРЕЖИМ',tag:'Видео → видео',desc:'Разбор исходного ролика и пересоздание его механики.'},
 {name:'ULTIMATE MASTER PROMPT v32.0',file:'assets/prompts/master-v32.txt',status:'АРХИВ',tag:'15.07.2026',desc:'Joke DNA, Creative Thesis, Frame 0 QC, защита панчлайна и repair.'},
+{name:'ULTIMATE MASTER PROMPT v33.0 · archive checkpoint',file:'assets/prompts/master-v33-archive-note.txt',status:'АРХИВНАЯ КАРТОЧКА',tag:'21.07.2026',desc:'Исторический переход к Literal Speaker Binding, Narrative Timeline и Language Anchor. Полный оригинальный файл v33 в текущем наборе вложений не сохранился — карточка это отмечает.'},
 {name:'REAL HUMAN COMEDY ENGINE v23.1',file:'assets/prompts/master-v23.1.txt',status:'АРХИВ',tag:'14.07.2026',desc:'Шутка → реальная ситуация → Frame 0 → 10 секунд → смех.'},
 {name:'ALL-IN-ONE VIRAL VIDEO EXECUTOR v15.0',file:'assets/prompts/master-v15.txt',status:'АРХИВ',tag:'Ранняя версия',desc:'Ранний автоматический исполнитель Frame 0 → видео → липсинк → пост.'},
 {name:'ULTRA VIDEO CLEAN / EFIX',file:'assets/prompts/ultra-video-clean.txt',status:'ТЕХНИЧЕСКИЙ',tag:'MP4',desc:'Нормализация контейнера и удаление необязательных metadata без фальсификации происхождения.'},
@@ -169,6 +170,8 @@ const promptLibrary=[
 
 const media=[
 ['syntx-demo.mp4','Syntx AI · интерфейс и партнёрский кабинет','Экранная демонстрация продукта и партнёрской механики.'],
+['prompt-forge.mp4','Qwen · главный инструмент / кузница промптов','Вводный урок по текстовой нейросети, чистому контексту и рабочей логике.'],
+['google-language.mp4','Google · как изменить язык аккаунта','Короткая настройка интерфейса после получения аккаунта.'],
 ['conveyor-masterclass-small.mp4','Полуавтоматический конвейер AI-видео','Текст → Master Prompt → Frame 0 → Omni → публикация.'],
 ['viral-reference-ai-studio.mp4','Google AI Studio · вирусный референс','Анализ исходного ролика и построение новой генерации.'],
 ['video-factory-characters.mp4','Video Factory · постоянные персонажи','Как закреплять референсы и переносить их в Frame 0 и видео.']
@@ -194,7 +197,7 @@ function render(){const r=route();$$('.nav-item').forEach(x=>x.classList.toggle(
 
 function renderHome(){
  const total=allLessons().length;
- $('#view').innerHTML=`<section class="hero"><div><div class="eyebrow">FERIXDI AI · ОХВАТЫ НА AI</div><h1>Система производства внимания через AI-контент</h1><p>Большая практическая база: от первого диалога в Qwen до регулярных охватов, аналитики, постоянных персонажей и монетизации трафика.</p><div class="hero-actions"><button class="btn" onclick="go('lesson/welcome')">Начать с первого урока</button><button class="btn secondary" onclick="go('prompts')">Библиотека промптов</button></div></div><div class="kpis"><div class="kpi"><strong>${total}</strong><span>коротких уроков</span></div><div class="kpi"><strong>15</strong><span>модулей</span></div><div class="kpi"><strong>8+</strong><span>обязательных заданий</span></div></div></section>
+ $('#view').innerHTML=`<section class="hero"><div><div class="eyebrow">FERIXDI AI · ОХВАТЫ НА AI</div><h1>Система производства внимания через AI-контент</h1><p>Большая практическая база: от первого диалога в Qwen до регулярных охватов, аналитики, постоянных персонажей и монетизации трафика.</p><div class="hero-actions"><button class="btn" onclick="go('lesson/welcome')">Начать с первого урока</button><button class="btn secondary" onclick="go('prompts')">Библиотека промптов</button></div></div><div class="kpis"><div class="kpi"><strong>${total}</strong><span>коротких уроков</span></div><div class="kpi"><strong>${modules.length}</strong><span>модулей</span></div><div class="kpi"><strong>15+</strong><span>практических заданий</span></div></div></section>
  <div class="callout"><strong>Как проходить:</strong> не пытайтесь прочитать всё за вечер. Открыли урок → сделали действие → опубликовали / проверили → только потом следующий. По заданиям и вопросам пишите <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>.</div>
  <div class="callout"><strong>Актуальность:</strong> AI-модели, тарифы, лимиты и интерфейсы меняются быстро. Цифры и названия режимов в материалах фиксируют практику на момент записи — перед покупкой или настройкой проверяйте, что актуально сейчас.</div>
  <div class="section-head"><div><h2>Программа</h2><p>Много коротких уроков вместо нескольких длинных простыней.</p></div></div><div class="grid">${modules.map(m=>`<article class="card" onclick="go('module/${m.id}')"><div class="card-meta"><span class="badge">${m.icon}</span><span class="badge purple">${m.lessons.length} уроков</span></div><h3>${m.title}</h3><p class="desc">${m.desc}</p></article>`).join('')}</div>`;
@@ -222,7 +225,7 @@ focus:`<p>Сама механика отдельных действий отно
 
 support:`${note('<strong>Единый контакт:</strong> <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>. Сюда отправляются готовые задания, ссылки на публикации и вопросы по генерации, аккаунту, монетизации и инструментам.')}<p>Если что-то сломалось, присылайте не пересказ, а скрин / видео / ссылку и коротко: что делали, что ожидали, что получили.</p>`,
 setup:`${steps(['Открыть Qwen и проверить новый чистый чат.','Проверить доступ к генерации изображений: GPT Image / Nano Banana.','Проверить видеогенерацию Google Flow / используемый видеосервис.','Сделать по одной тестовой генерации фото и видео.','Отправить «Готово» в @ferixdiii.'])}${links([['Qwen',serviceLinks.qwen],['Google AI Studio',serviceLinks.aistudio],['Google Flow',serviceLinks.flow],['ChatGPT Images',serviceLinks.images],['Поставщик Gemini Pro / Ultra',serviceLinks.supplier]])}`,
-qwen:`<p>Qwen используется как текстовый ассистент для идей, сценариев и работы с мастер-промптом.</p><div class="quote">Новый диалог = новый контекст.</div><p>Если новая задача не относится к текущей ветке, начните чистый чат. Это уменьшает влияние старых инструкций и контекстного мусора.</p>`,
+qwen:`${vid('assets/media/prompt-forge.mp4','Qwen · вводный урок и кузница промптов','Рабочая логика текстового ассистента и правило чистого контекста.')}<p>Qwen используется как текстовый ассистент для идей, сценариев и работы с мастер-промптом.</p><div class="quote">Новый диалог = новый контекст.</div><p>Если новая задача не относится к текущей ветке, начните чистый чат. Это уменьшает влияние старых инструкций и контекстного мусора.</p>`,
 'image-tools':`<p>Frame 0 можно собирать в GPT Image или Nano Banana. В текущей практике курса GPT Image чаще используется для реалистичной кожи, света и смартфонной фактуры, но конкретный инструмент не является догмой.</p>${note('Нейросети быстро меняются. Сравнивайте результат на одной и той же сцене, а не выбирайте инструмент по старому названию модели.')}`,
 'video-tools':`<p>Для видео используются Omni, Veo и другие доступные модели. Главный принцип: <strong>модель выбирается под задачу</strong> — короткий диалог, image-to-video, массовое оживление, продолжение кадра и т.д.</p><p>Можно вести аудиторию и на другие AI-инструменты: GPT Image, Nano Banana, Veo, Flux, Omni, Seedance и т.д. Но в обучении важно показывать то, чем вы сами реально пользуетесь.</p>`,
 'google-account':`${vid('assets/media/google-language.mp4','Как изменить язык Google-аккаунта')}<p>Логика: Google → управление аккаунтом → личная информация → язык → Русский. Интерфейс может меняться.</p>`,
@@ -345,8 +348,8 @@ questions:`${note('Задания не остаются «для себя». Г�
 'faq-help':`${note('По любому вопросу и для проверки заданий пишите <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>. Лучше сразу приложить ссылку на публикацию, исходное видео, скрин ошибки или промпт — тогда проблему можно разбирать по факту.')}`,
 prompts:`${promptGridHtml()}`,
 media:`${renderMediaGrid()}`,
-docs:`<div class="prompt-grid"><a class="prompt-card" href="assets/docs/anatomy-reach.html" target="_blank"><h3>Анатомия охватов</h3><p class="desc">Полная статья.</p></a><a class="prompt-card" href="assets/docs/regularity.html" target="_blank"><h3>Регулярность</h3><p class="desc">Почему скорость AI без режима публикации не работает.</p></a><a class="prompt-card" href="assets/docs/v23-to-v32.pdf" target="_blank"><h3>v23.1 → v32</h3><p class="desc">66 инженерных изменений.</p></a><a class="prompt-card" href="assets/docs/apify-own-analysis.pdf" target="_blank"><h3>Apify · свои работы</h3><p class="desc">CSV → AI Studio.</p></a><a class="prompt-card" href="assets/docs/wellside-monetization.pdf" target="_blank"><h3>Wellside</h3><p class="desc">Охват → недвижимость → лиды.</p></a></div>`,
-current:`<p>Основной вход сейчас — <strong>FERIXDI VIDEO FACTORY v40.0</strong>. v15, v23.1 и v32 сохраняются в библиотеке как история и для понимания отдельных решений.</p>`,
+docs:`<div class="prompt-grid"><a class="prompt-card" href="assets/docs/anatomy-reach.html" target="_blank"><h3>Анатомия охватов</h3><p class="desc">Полная статья.</p></a><a class="prompt-card" href="assets/docs/regularity.html" target="_blank"><h3>Регулярность</h3><p class="desc">Почему скорость AI без режима публикации не работает.</p></a><a class="prompt-card" href="assets/docs/v23-to-v32.pdf" target="_blank"><h3>v23.1 → v32</h3><p class="desc">66 инженерных изменений.</p></a><a class="prompt-card" href="assets/docs/apify-own-analysis.pdf" target="_blank"><h3>Apify · свои работы</h3><p class="desc">CSV → AI Studio.</p></a><a class="prompt-card" href="assets/docs/wellside-monetization.pdf" target="_blank"><h3>Wellside</h3><p class="desc">Охват → недвижимость → лиды.</p></a><a class="prompt-card" href="assets/docs/hashtags-wellside.pdf" target="_blank"><h3>Хештеги · недвижимость</h3><p class="desc">Практический мануал по 3–5 точным хештегам.</p></a></div>`,
+current:`<p>Основной вход сейчас — <strong>FERIXDI VIDEO FACTORY v40.0</strong>. v15, v23.1, v32 и v33 сохраняются в библиотеке как история и для понимания отдельных решений.</p>${note('Для v33 в текущем наборе вложений не найден отдельный полный оригинальный TXT. Поэтому в библиотеке лежит честно помеченная архивная карточка версии, а не выдуманный «оригинал».')}`,
 freshness:`<p>Модельные названия, тарифы, бесплатные лимиты, доступность по странам, кредитная стоимость, семейные режимы и интерфейсы могут устареть быстрее самого курса.</p>${note('Поэтому на страницах курса такие данные трактуются как зафиксированная практика на момент материала. Перед покупкой или настройкой проверяйте текущее состояние.')}`
 };return c[id]||'<p>Этот урок является частью общей системы и будет дополнен по мере обновления практики.</p>'}
 

@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#0a0c12" />
+  <title>Ferixdi AI — Охваты на AI</title>
+  <meta name="description" content="Практическая система Ferixdi AI: охваты, AI-видео, персонажи, аналитика и монетизация." />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand-wrap">
+        <div class="brand-mark">F</div>
+        <div><div class="brand">Ferixdi AI</div><div class="brand-sub">Охваты на AI</div></div>
+      </div>
+      <div class="sidebar-progress">
+        <div class="muted small">Прогресс курса</div>
+        <div class="progress-line"><span id="progressBar"></span></div>
+        <div class="progress-label"><strong id="progressPct">0%</strong><span id="progressText">0 / 0 уроков</span></div>
+      </div>
+      <nav id="nav" class="nav"></nav>
+      <div class="sidebar-bottom">
+        <a class="ghost-btn" href="https://t.me/ferixdiii" target="_blank" rel="noreferrer">Написать @ferixdiii</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <button class="icon-btn mobile-only" id="menuBtn" aria-label="Открыть меню">☰</button>
+        <div class="search-wrap">
+          <span>⌕</span><input id="searchInput" placeholder="Поиск по обучению, промптам и урокам…" />
+        </div>
+        <button class="icon-btn" id="themeBtn" title="Переключить тему">◐</button>
+      </header>
+
+      <section id="view"></section>
+      <footer class="footer">Ferixdi AI · Практическая база обучения · Материалы курса и наблюдения автора</footer>
+    </main>
+  </div>
+
+  <div class="modal" id="modal" aria-hidden="true">
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal-card">
+      <button class="modal-close" data-close>×</button>
+      <div id="modalBody"></div>
+    </div>
+  </div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>

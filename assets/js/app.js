@@ -1,221 +1,303 @@
-const $ = s => document.querySelector(s);
-const $$ = s => [...document.querySelectorAll(s)];
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 
-const modules = [
-  {id:'start',icon:'◉',title:'Старт и карта',desc:'Куда идём, почему сначала охваты и как устроена система.',lessons:[
-    ['map','Карта обучения','AI-контент → охваты → аудитория → монетизация → недвижимость'],
-    ['tenk','Практическая веха 10 000','Ориентир курса, а не магическая граница алгоритма'],
-    ['mindset','Мышление креатора','Скука автора ≠ усталость аудитории']
-  ]},
-  {id:'workspace',icon:'⚙',title:'Рабочая область',desc:'Аккаунты, Qwen, Google, генераторы и доступы.',lessons:[
-    ['setup','Задание №1: подготовка','Qwen, видео- и фотогенерация'],
-    ['qwen','Qwen как рабочий ассистент','Новый диалог = новый контекст'],
-    ['google','Google / язык / доступ','Техническая настройка и troubleshooting']
-  ]},
-  {id:'viral',icon:'⚡',title:'Вирусная механика',desc:'Хук, юмор, порог невидимости и удержание.',lessons:[
-    ['anatomy','Анатомия охватов','Почему шутка помогает пробивать первичный тест'],
-    ['hook','Хук и Frame 0','Первый кадр уже должен вызывать вопрос'],
-    ['scripts','Сильный сценарий','Хук → сетап → ожидание → панч → конец']
-  ]},
-  {id:'factory',icon:'▣',title:'AI-конвейер',desc:'От шутки или референса до готового ролика.',lessons:[
-    ['conveyor','Полуавтоматический конвейер','Текст → Frame 0 → Video → публикация'],
-    ['v40','Ferixdi Video Factory v40','Главная актуальная производственная система'],
-    ['recreate','Копирование вирусной механики','Видео → Gemini → промпты → новая генерация']
-  ]},
-  {id:'ideas',icon:'✦',title:'Идеи и поиск',desc:'Где брать шутки, референсы и быстрорастущие креативы.',lessons:[
-    ['sources','Источники сценариев','Telegram, Threads, Instagram transcript'],
-    ['apify','Apify: поиск растущих роликов','TikTok + Reels + Shorts'],
-    ['ownstats','Анализ собственных работ','Apify → CSV → AI Studio']
-  ]},
-  {id:'realism',icon:'◌',title:'Реализм',desc:'Фото, голос, смартфонная физика и отсутствие стерильности.',lessons:[
-    ['photo','Photorealism Engine','Физика обычного случайного смартфонного кадра'],
-    ['voice','Voice Performance','Живая речь вместо дикторской озвучки'],
-    ['frame0','Frame 0 как физическое состояние','Реализм закладывается до видео']
-  ]},
-  {id:'characters',icon:'☺',title:'Постоянные персонажи',desc:'От теста типажей к собственному AI-вселенному.',lessons:[
-    ['characters','Задание №6: персонажи','2 главных героя + наблюдатель'],
-    ['refs','Порядок референсов','Image 1 / Image 2 / Image 3'],
-    ['series','Сериализация','Знакомый герой + новый бытовой конфликт']
-  ]},
-  {id:'video',icon:'▶',title:'Видео и звук',desc:'Omni, Veo, липсинк и ролики длиннее 10 секунд.',lessons:[
-    ['models','Omni / Veo','Разные режимы под разные задачи'],
-    ['speech','Русская речь','Пунктуация, ударения, speaker lock'],
-    ['long','Видео 10+ секунд','Конец предыдущего = начало следующего']
-  ]},
-  {id:'publish',icon:'↗',title:'Публикация и регулярность',desc:'Ритм, монтаж, профиль и масштабирование.',lessons:[
-    ['regularity','Регулярность','3+ качественных публикации и много попыток'],
-    ['capcut','Финальная подготовка','Обрезать пустое начало, 1.08 при необходимости'],
-    ['profile','Профиль и закрепы','Лучшие три Reels и чистка старых слабых работ']
-  ]},
-  {id:'analytics',icon:'▥',title:'Аналитика',desc:'Смотреть не только на просмотры, а на повторяемость.',lessons:[
-    ['metrics','Что смотреть','Удержание, реакции, профиль, клики, лиды'],
-    ['scale','Повторять то, что выстрелило','Меняем одну переменную, несущую механику сохраняем'],
-    ['platforms','Instagram ≠ YouTube','Один формат может вести себя по-разному']
-  ]},
-  {id:'monetize',icon:'₽',title:'Монетизация',desc:'Двухэтапная лестница: Syntx → Wellside.',lessons:[
-    ['ladder','Две стадии','До 10К: Syntx · после: недвижимость'],
-    ['syntx','Задание №8: Syntx','AI-креатив + понятная видеоинструкция'],
-    ['wellside','Wellside / недвижимость','Меняем тему и точку монетизации, а не механику охватов']
-  ]},
-  {id:'community',icon:'◎',title:'Комьюнити и задания',desc:'Взаимный буст, дисциплина, отчёты и геймификация.',lessons:[
-    ['boost','Взаимный буст','Создали → опубликовали → поддержали других'],
-    ['tasks','Все задания','Путь от настройки до монетизации'],
-    ['members','Участники','Актуальный список без дублей']
-  ]},
-  {id:'library',icon:'⌘',title:'Библиотека промптов',desc:'Актуальные системы, модули и архив версий.',lessons:[
-    ['prompts','Все промпты','Копирование, скачивание и назначение'],
-    ['versions','История версий','v15 → v23.1 → v32 → v40'],
-    ['clean','ULTRA VIDEO CLEAN','Техническая нормализация MP4 без подделки происхождения']
-  ]}
+const modules=[
+{id:'start',icon:'◉',title:'01 · Старт',desc:'Сначала понять систему, затем пройти её руками.',lessons:[
+['welcome','Знакомство и как проходить обучение','Начать можно с нуля. Теория нужна только для следующего действия.'],
+['coursemap','Карта всей системы','Идея → производство → публикация → данные → масштабирование → монетизация.'],
+['attention','Экономика внимания','Главный актив — не сама генерация, а способность системно получать и направлять внимание.'],
+['practicefirst','Практика как единица прогресса','Сгенерировать → опубликовать → измерить → скорректировать → повторить.'],
+['focus','Фокус и дисциплина','Сложность не в одной кнопке, а в регулярности и достаточном числе итераций.'],
+['support','Куда писать по заданиям и вопросам','Все задания и вопросы отправляются @ferixdiii.'] ]},
+{id:'workspace',icon:'⚙',title:'02 · Рабочая область',desc:'Инструменты и базовая техническая настройка.',lessons:[
+['setup','Задание №1 · подготовить рабочую область','Qwen, генерация фото, генерация видео, Google-аккаунт.'],
+['qwen','Qwen как текстовый ассистент','Новое действие — новый чистый диалог.'],
+['image-tools','GPT Image / Nano Banana','Стартовые кадры, персонажи и реалистичный Frame 0.'],
+['video-tools','Omni / Veo / другие видеомодели','Инструмент выбирается под задачу, а не ради названия модели.'],
+['google-account','Google-аккаунт и язык интерфейса','Как поменять язык после получения аккаунта.'],
+['flow-access','Если Google Flow не открывается','Проверить актуальный способ доступа и не считать старые интерфейсы вечными.'],
+['costs','Кредиты и себестоимость','Считать не цену подписки, а стоимость одной полезной итерации.'] ]},
+{id:'viral',icon:'⚡',title:'03 · Вирусная механика',desc:'Почему один ролик останавливается, а другой получает расширение выдачи.',lessons:[
+['anatomy','Анатомия охватов','Авторская модель порога невидимости и первичного теста.'],
+['norm','Норма не цепляет. Она усыпляет','Знакомое + небольшое нарушение ожидания.'],
+['hook','Хук первых 1–2 секунд','Первый кадр должен породить вопрос «что здесь происходит?».'],
+['frame0-hook','Frame 0 до первой секунды','Загрузка кадра уже участвует в удержании.'],
+['onejoke','Один ролик = одна главная шутка','Одна ситуация, один визуальный крючок, один панч.'],
+['scriptformula','Формула короткого сценария','Хук → сетап → ожидание → панч → мгновенный конец.'],
+['share','Почему ролик пересылают','Узнаваемая жизненная правда + причина отправить знакомому.'] ]},
+{id:'ideas',icon:'✦',title:'04 · Идеи и сценарии',desc:'Человеческий юмор, тренды и источники механик.',lessons:[
+['human-humor','Человеческий юмор как база','ИИ визуализирует, но основу шутки лучше брать из живого юмора.'],
+['scenario-engine','Промпт сценариста с сильным хуком','Готовая инструкция для генерации идей под любых персонажей.'],
+['instagram-stt','Готовые диалоги из Instagram','Ссылка → расшифровка → адаптация механики.'],
+['telegram-sources','Telegram-библиотека шуток','Собирать источники, а не зависеть от одной ленты.'],
+['threads-ideas','Threads как поиск конфликтов','Бытовые наблюдения, неловкие ситуации, семейный юмор.'],
+['apify-trends','Apify · что начинает залетать','Собрать свежие ролики и ранжировать не по абсолютным просмотрам, а по скорости.'],
+['double-scrape','Два замера одной выборки','Реальный прирост между замерами точнее грубого views/hour.'],
+['ownstats','Анализ собственных Reels','Apify → CSV → Google AI Studio → повторяемые закономерности.'] ]},
+{id:'factory',icon:'▣',title:'05 · Ferixdi Video Factory',desc:'Главная производственная система и её режимы.',lessons:[
+['conveyor','Полуавтоматический конвейер','Шутка → мастер-промпт → Frame 0 → видео → публикация.'],
+['v40','Video Factory v40 · обзор','Единый управляющий слой для текста, видео, гибрида и персонажей.'],
+['v40-text','TEXT MODE','Из точного текста строится новая сцена и полный производственный пакет.'],
+['v40-video','VIDEO MODE','Исходный ролик разбирается как механика для пересоздания.'],
+['v40-hybrid','HYBRID MODE','Сохраняем визуальную механику, но меняем текст или контекст.'],
+['scene-contract','Scene Contract','До генерации фиксируются говорящие, реквизит, камера, речь и финал.'],
+['outputs','Что должно быть на выходе','Frame 0, video prompt, аудио, QC и публикация — без незаполненных полей.'],
+['versions','Как менялся мастер-промпт','v15 → v23.1 → v32 → v40. Старые версии — архив, а не конкуренты текущей.'] ]},
+{id:'realism',icon:'◌',title:'06 · Frame 0 и реализм',desc:'Реализм начинается в фото, а не лечится в конце.',lessons:[
+['character-photos','Как создать стартовые фото персонажей','Сначала делаем чистые референсы героев, потом используем их для каждого нового Frame 0.'],
+['photo','Universal Smartphone Photorealism Engine','Не максимум красоты, а физическая достоверность случайного кадра.'],
+['distance','Дистанция вместо лишнего крупняка','Средний / средне-общий план снижает генеративную нагрузку.'],
+['motion-budget','Меньше лишнего движения','Низкоамплитудная биология стабильнее сложной хореографии.'],
+['environment','Живое окружение','Свет, контакт, давление, ткань, глубина и фон должны подчиняться одной физике.'],
+['phone-look','Случайное фото на телефон','Автоэкспозиция, бытовая композиция, неидеальная, но причинно объяснимая картинка.'],
+['g7x','G7X + flash как отдельный приём','Точечный визуальный вариант, а не обязательный стандарт.'],
+['realism-iterate','1–2 итерации после первого фото','Уточнить кожу, свет и естественность, но не загонять кадр в пластик.'] ]},
+{id:'voice',icon:'◍',title:'07 · Речь, липсинк и звук',desc:'Русская речь должна звучать как живой разговор, а не озвучка.',lessons:[
+['voice-performance','VOICE PERFORMANCE','Дыхание, просодия, мысль, физическое присутствие и акустика.'],
+['punctuation','Пунктуация и липсинк','Для внешнего липсинка убираем лишнюю пунктуацию, не меняя слова.'],
+['stress','Ударения и произношение','Сложные слова можно фиксировать ударением и фонетической подсказкой.'],
+['speaker-lock','Кто говорит — тот и двигает губами','Silent characters слушают с закрытым ртом, дыханием и микрореакциями.'],
+['punchline','Защита последнего слова','Панч должен закончиться полностью до смеха, шума или крупной реакции.'],
+['no-announcer','Никакого диктора','Голос принадлежит конкретному человеку внутри конкретной ситуации.'] ]},
+{id:'characters',icon:'☺',title:'08 · Постоянные персонажи',desc:'Сначала тестируем, потом закрепляем то, что уже работает.',lessons:[
+['character-test','Не фиксировать героя слишком рано','На старте важнее скорость тестирования гипотез.'],
+['characters','Задание №6 · создать постоянный каст','Главные герои, характеры, голос, роли и референсы.'],
+['refs','Image 1 / Image 2 / Image 3','Порядок референсов нельзя постоянно менять.'],
+['identity','Identity lock без копирования позы','Референс задаёт личность, Frame 0 — сцену, свет и положение.'],
+['series','Собственная AI-вселенная','Знакомый герой + новый бытовой конфликт + узнаваемая реакция.'] ]},
+{id:'video',icon:'▶',title:'09 · Генерация видео',desc:'10 секунд, продолжения, референсы и video-to-video.',lessons:[
+['omni','Omni 1.1 · базовый цикл','Стартовый кадр + видеопромпт → один непрерывный короткий ролик.'],
+['credits','15 кредитов за 10 секунд','Практическая цифра из материалов курса; перед покупкой проверять актуальность.'],
+['recreate15','Повторить механику за 15 кредитов','Видео → Gemini/AI Studio → prompt → Frame 0 → Omni.'],
+['long','Видео длиннее 10 секунд','Конец предыдущего видео = начало следующего.'],
+['meme-v2v','Мемы → Realistic Video-to-Video','Перенос исходной игры персонажа в новый визуальный контекст.'],
+['forensic','Forensic / TWIN TEST','Посекундный анализ: камера, действие, мимика, взгляд, речь, звук, свет.'],
+['repair','Если генерация ломается','Исправлять одну категорию за итерацию, а не переписывать всё сразу.'] ]},
+{id:'publish',icon:'↗',title:'10 · Монтаж и публикация',desc:'Не потерять удержание в последнем метре.',lessons:[
+['trim','Обрезать пустую паузу','Первый кадр — уже хук. Первый звук — уже начало сцены.'],
+['speed','1.08 как практический тест','Небольшое ускорение иногда делает AI-речь живее; применять только если реально лучше.'],
+['clean','ULTRA VIDEO CLEAN / EFIX','Чистый контейнер и совместимость без подделки происхождения.'],
+['metadata','Метаданные не важнее идеи','Техническая гигиена — не замена удержанию, панчу и регулярности.'],
+['caption','Описание и хештеги','Подпись поддерживает тему; хештеги не заменяют сильный креатив.'],
+['profile','Профиль, закрепы и витрина','Закрепить сильные работы и не превращать профиль в склад слабых тестов.'],
+['top5','Компиляция TOP-5','Собрать лучшие клипы в один ролик, когда уже есть материал.'] ]},
+{id:'regularity',icon:'↻',title:'11 · Регулярность и разгон',desc:'Алгоритму нужны данные, автору — дисциплина.',lessons:[
+['newaccount','Новый аккаунт с нуля','Не ждать идеала: публикация создаёт первые данные о формате и аудитории.'],
+['regularity','Регулярность в AI-контенте','Скорость генерации ценна только когда превращается в регулярную публикацию.'],
+['30posts','20–30 сопоставимых публикаций','Практический ориентир для оценки повторяемости механики, а не официальный порог платформы.'],
+['repeat','Повторять то, что уже выстрелило','Рабочая механика должна получать несколько итераций.'],
+['boredom','Скука креатора ≠ усталость аудитории','Менять на 10 градусов внутри рабочей конструкции, а не на 180.'],
+['platforms','Instagram ≠ YouTube','Разные площадки могут по-разному реагировать на одинаковый ролик.'] ]},
+{id:'analytics',icon:'▥',title:'12 · Аналитика',desc:'Не влюбляться в ролик — смотреть на данные.',lessons:[
+['metrics','Какие сигналы смотреть','Просмотры, удержание, реакции, переходы в профиль, клики и лиды.'],
+['likes2','Около 2% лайков на старте','Авторский практический ориентир; малые выборки нестабильны.'],
+['outliers','Искать выбросы','Свежие ролики, которые сильно обгоняют свой возраст, важнее старых абсолютных лидеров.'],
+['scale','Контролируемые изменения','Сохранять несущую механику и менять по одной переменной.'],
+['plateau','Плато = локальный максимум','Если рост остановился, тестируем следующий слой, а не уничтожаем работающую базу.'] ]},
+{id:'monetize',icon:'₽',title:'13 · Монетизация внимания',desc:'Сначала актив в виде охвата, затем точка монетизации.',lessons:[
+['economics','Монетизация начинается с экономики рынка','Важен не «ценник AI-ролика», а ценность клиента для бизнеса.'],
+['ladder','Двухэтапная лестница','На раннем этапе — AI-инструменты; после устойчивого охвата — более дорогие ниши.'],
+['tools-affiliate','Вести можно на разные AI-инструменты','Не просто ссылка: показать, чем сам пользуешься и какой результат получает человек.'],
+['syntx','Syntx · креатив + инструкция','Показать путь «нажми → сделай → получи результат».'],
+['syntx-task','Задание №8 · Syntx','Экран + живой голос 15–25 сек после сильного AI-креатива.'],
+['realestate','Почему недвижимость','Высокая ценность обращения делает внимание экономически интереснее.'],
+['wellside','Wellside · партнёрская воронка','Охват → профиль → подборка → заявка → профильная обработка.'],
+['re-shift','Переход в недвижимость без уничтожения охватов','Меняем смысловой контекст, а не рабочую механику ролика.'],
+['re-psych','Психология покупателя недвижимости','Контроль, взрослый статус, самооправдание и ощущение «нас понимают».'] ]},
+{id:'community',icon:'◎',title:'14 · Практика и комьюнити',desc:'Каждый этап заканчивается действием и отправкой результата.',lessons:[
+['boost','Взаимный буст','Создали → опубликовали → поддержали других.'],
+['task1','Задание №1 · рабочая область','Подготовить инструменты и прислать «Готово».'],
+['task2','Задание №2 · 5 роликов','Источники → шутки → Frame 0 → видео.'],
+['task3','Задание №3 · начать публиковать','Reels + Shorts без ожидания «идеального момента».'],
+['task4','Задание №4 · отчёт по регулярности','Зафиксировать реальный ритм производства и публикации.'],
+['task5','Задание №5 · пересоздать 3 формата','Три референса через Video Recreation / AI Studio.'],
+['task6','Задание №6 · постоянные персонажи','Собрать референсы и один законченный ролик.'],
+['task7','Задание №7 · закрепить TOP-3','Сделать витрину профиля из сильнейших работ.'],
+['task8','Задание №8 · монетизационный креатив','Креатив + понятная инструкция на выбранный AI-инструмент.'],
+['weekly','Еженедельная практика · 10 итераций','Выбрать одну механику и сделать серию без смены основы.'],
+['audit','Практика · аудит аккаунта','Найти 3 сильные и 3 слабые механики по своим данным.'],
+['questions','Проверка и вопросы','Все результаты, ссылки и вопросы отправлять @ferixdiii.'] ]},
+{id:'library',icon:'⌘',title:'15 · Библиотека',desc:'Оригиналы промптов, статьи, PDF и медиа.',lessons:[
+['prompts','Все промпты','Открыть, скопировать или скачать оригинал.'],
+['media','Видео и скриншоты','Практические демонстрации прямо внутри базы.'],
+['docs','Статьи и PDF','Анатомия охватов, регулярность, Wellside, Apify и версия промптов.'],
+['current','Что считать актуальным','Текущая система — v40; исторические версии остаются для понимания эволюции.'],
+['freshness','Проверка актуальности','Модели, лимиты, тарифы и интерфейсы меняются быстро — проверять перед использованием.'] ]}
 ];
 
-const promptLibrary = [
-  {name:'FERIXDI VIDEO FACTORY v40.0',file:'assets/prompts/video-factory-v40.txt',status:'АКТУАЛЬНЫЙ',tag:'Главная система',desc:'Единый роутер TEXT / VIDEO / HYBRID / SETUP / IMAGE. Постоянные персонажи, Frame 0, Omni, аудио и публикация.',interactive:true},
-  {name:'Photorealism Engine',file:'assets/prompts/photorealism-engine.txt',status:'МОДУЛЬ',tag:'Фото',desc:'Большая система смартфонного фотореализма: глаза, кожа, свет, физика, окружение.'},
-  {name:'VOICE PERFORMANCE',file:'assets/prompts/voice-performance.txt',status:'МОДУЛЬ',tag:'Голос',desc:'Живая человеческая речь, дыхание, просодия, акустика и связь голоса с телом.'},
-  {name:'Video Recreation Pipeline v32',file:'assets/prompts/video-recreation-v32.txt',status:'СПЕЦРЕЖИМ',tag:'Копирование видео',desc:'Разбор исходного ролика и реконструкция механики для Google Flow / Omni.'},
-  {name:'ULTIMATE MASTER PROMPT v32.0',file:'assets/prompts/master-v32.txt',status:'АРХИВ',tag:'15.07.2026',desc:'Переход к адаптивной Comedy OS: Joke DNA, Creative Thesis, QC и защита панчлайна.'},
-  {name:'REAL HUMAN COMEDY ENGINE v23.1',file:'assets/prompts/master-v23.1.txt',status:'АРХИВ',tag:'14.07.2026',desc:'Шутка → реальная ситуация → Frame 0 → 10 секунд → финальный смех.'},
-  {name:'ALL-IN-ONE VIRAL VIDEO EXECUTOR v15.0',file:'assets/prompts/master-v15.txt',status:'АРХИВ',tag:'Ранняя версия',desc:'Простой автоматический исполнитель: Frame 0, видео, липсинк и пост.'},
-  {name:'ULTRA VIDEO CLEAN / EFIX',file:'assets/prompts/ultra-video-clean.txt',status:'ТЕХНИЧЕСКИЙ',tag:'MP4',desc:'Очистка необязательных метаданных и нормализация файла без фальсификации происхождения.'}
+const promptLibrary=[
+{name:'FERIXDI VIDEO FACTORY v40.0',file:'assets/prompts/video-factory-v40.txt',status:'АКТУАЛЬНЫЙ',tag:'Главная система',desc:'Единый роутер TEXT / VIDEO / HYBRID / SETUP. Frame 0, персонажи, Omni, аудио, QC и публикация.',interactive:true},
+{name:'Universal Smartphone Photorealism Engine',file:'assets/prompts/photorealism-engine.txt',status:'МОДУЛЬ',tag:'Фото',desc:'Большой фотореализм-модуль: лицо, глаза, кожа, свет, физика и окружение.'},
+{name:'VOICE PERFORMANCE',file:'assets/prompts/voice-performance.txt',status:'МОДУЛЬ',tag:'Голос',desc:'Живая человеческая речь, дыхание, просодия и связь голоса с телом.'},
+{name:'Google Flow Video Recreation v32',file:'assets/prompts/video-recreation-v32.txt',status:'СПЕЦРЕЖИМ',tag:'Видео → видео',desc:'Разбор исходного ролика и пересоздание его механики.'},
+{name:'ULTIMATE MASTER PROMPT v32.0',file:'assets/prompts/master-v32.txt',status:'АРХИВ',tag:'15.07.2026',desc:'Joke DNA, Creative Thesis, Frame 0 QC, защита панчлайна и repair.'},
+{name:'REAL HUMAN COMEDY ENGINE v23.1',file:'assets/prompts/master-v23.1.txt',status:'АРХИВ',tag:'14.07.2026',desc:'Шутка → реальная ситуация → Frame 0 → 10 секунд → смех.'},
+{name:'ALL-IN-ONE VIRAL VIDEO EXECUTOR v15.0',file:'assets/prompts/master-v15.txt',status:'АРХИВ',tag:'Ранняя версия',desc:'Ранний автоматический исполнитель Frame 0 → видео → липсинк → пост.'},
+{name:'ULTRA VIDEO CLEAN / EFIX',file:'assets/prompts/ultra-video-clean.txt',status:'ТЕХНИЧЕСКИЙ',tag:'MP4',desc:'Нормализация контейнера и удаление необязательных metadata без фальсификации происхождения.'}
 ];
 
-const media = [
-  ['syntx-demo.mp4','Syntx AI: бот и партнёрский кабинет','Демонстрация мини-приложения, партнёрки, баланса и реферальной механики.'],
-  ['conveyor-masterclass.mp4','Полуавтоматический конвейер AI-видео','Шутка → мастер-промпт → Frame 0 → Omni → публикация.'],
-  ['viral-reference-ai-studio.mp4','Google AI Studio: работа по вирусному референсу','Разбор готового ролика и пересоздание механики.'],
-  ['google-language.mp4','Как изменить язык Google-аккаунта','Короткая техническая настройка после получения аккаунта.'],
-  ['video-factory-characters.mp4','Video Factory: закрепление персонажей','Как один раз закрепить героев и дальше сохранять внешность.'],
-  ['prompt-forge.mp4','Кузница промптов','Практическая демонстрация работы с промптами.']
+const media=[
+['syntx-demo.mp4','Syntx AI · интерфейс и партнёрский кабинет','Экранная демонстрация продукта и партнёрской механики.'],
+['conveyor-masterclass-small.mp4','Полуавтоматический конвейер AI-видео','Текст → Master Prompt → Frame 0 → Omni → публикация.'],
+['viral-reference-ai-studio.mp4','Google AI Studio · вирусный референс','Анализ исходного ролика и построение новой генерации.'],
+['google-language.mp4','Как изменить язык Google-аккаунта','Техническая настройка после получения аккаунта.'],
+['video-factory-characters.mp4','Video Factory · постоянные персонажи','Как закреплять референсы и переносить их в Frame 0 и видео.'],
+['prompt-forge.mp4','Кузница промптов','Практическая демонстрация промптового процесса.']
 ];
 
-const members = [
-  ['Ferixdi','https://www.instagram.com/feriiixdi/',''],
-  ['Olga','https://www.instagram.com/o.la.doll/',''],
-  ['max_comedy_humor','https://www.instagram.com/max_comedy_humor',''],
-  ['dreams_come_true_777','https://www.instagram.com/dreams_come_true_777',''],
-  ['funny.life.house','https://www.instagram.com/funny.life.house',''],
-  ['sukaflex_','https://www.instagram.com/sukaflex_/',''],
-  ['alex_smart71','https://www.instagram.com/alex_smart71/',''],
-  ['gushina_photo_','https://www.instagram.com/gushina_photo_',''],
-  ['good.zee_','https://www.instagram.com/good.zee_',''],
-  ['sergei_promo','https://www.instagram.com/sergei_promo',''],
-  ['scoof_man','https://www.instagram.com/scoof_man',''],
-  ['Evgenius Creates','https://www.instagram.com/evgenius.creates/','https://www.youtube.com/@evgenius.creates']
+const members=[
+['Ferixdi','https://www.instagram.com/feriiixdi/',''],['Olga','https://www.instagram.com/o.la.doll/',''],['max_comedy_humor','https://www.instagram.com/max_comedy_humor',''],['dreams_come_true_777','https://www.instagram.com/dreams_come_true_777',''],['funny.life.house','https://www.instagram.com/funny.life.house',''],['sukaflex_','https://www.instagram.com/sukaflex_/',''],['alex_smart71','https://www.instagram.com/alex_smart71/',''],['gushina_photo_','https://www.instagram.com/gushina_photo_/',''],['good.zee_','https://www.instagram.com/good.zee_/',''],['sergei_promo','https://www.instagram.com/sergei_promo',''],['scoof_man','https://www.instagram.com/scoof_man',''],['Evgenius Creates','https://www.instagram.com/evgenius.creates/','https://www.youtube.com/@evgenius.creates']
 ];
 
-function allLessons(){return modules.flatMap(m=>m.lessons.map(l=>({module:m,...{id:l[0],title:l[1],subtitle:l[2]}})))}
-const lessonMap = Object.fromEntries(allLessons().map(x=>[x.id,x]));
-const done = new Set(JSON.parse(localStorage.getItem('ferixdiDone')||'[]'));
+const serviceLinks={
+qwen:'https://chat.qwen.ai/',aistudio:'https://aistudio.google.com/',flow:'https://labs.google/fx/tools/flow',images:'https://chatgpt.com/images',apify:'https://apify.com/',stt:'https://stt.ai/transcribe/instagram/?lang=ru',syntx:'https://t.me/syntxaibot?start=aff_6913446846',wellside:'https://t.me/wellside_partners_bot?start=bobjnvpbkb',googleHelp:'https://www.youtube.com/watch?v=KNTmIkMYOHU',supplier:'https://plati.market/itm/gemini-ai-ultra-pro-7-30-183-private-account/5050049'
+};
 
+function allLessons(){return modules.flatMap(m=>m.lessons.map(l=>({module:m,id:l[0],title:l[1],subtitle:l[2]})))}
+const lessonMap=Object.fromEntries(allLessons().map(x=>[x.id,x]));
+const done=new Set(JSON.parse(localStorage.getItem('ferixdiDone')||'[]'));
 function saveProgress(){localStorage.setItem('ferixdiDone',JSON.stringify([...done]));renderProgress()}
 function renderProgress(){const total=allLessons().length,p=total?Math.round(done.size/total*100):0;$('#progressBar').style.width=p+'%';$('#progressPct').textContent=p+'%';$('#progressText').textContent=`${done.size} / ${total} уроков`}
-function buildNav(){
-  $('#nav').innerHTML = `<a class="nav-item" data-route="home"><span class="nav-icon">⌂</span><span>Главная</span></a>` + modules.map(m=>`<a class="nav-item" data-route="module/${m.id}"><span class="nav-icon">${m.icon}</span><span>${m.title}</span></a>`).join('');
-  $$('.nav-item').forEach(x=>x.onclick=()=>go(x.dataset.route));
-}
+function buildNav(){ $('#nav').innerHTML=`<a class="nav-item" data-route="home"><span class="nav-icon">⌂</span><span>Главная</span></a>`+modules.map(m=>`<a class="nav-item" data-route="module/${m.id}"><span class="nav-icon">${m.icon}</span><span>${m.title}</span></a>`).join(''); $$('.nav-item').forEach(x=>x.onclick=()=>go(x.dataset.route)); }
 function go(route){location.hash='#/'+route}
 function route(){return location.hash.replace(/^#\//,'')||'home'}
-function render(){
-  const r=route();$$('.nav-item').forEach(x=>x.classList.toggle('active',x.dataset.route===r||r.startsWith('lesson/')&&lessonMap[r.split('/')[1]]?.module.id===x.dataset.route?.split('/')[1]));
-  if(r==='home') return renderHome();
-  if(r==='prompts') return renderPromptLibrary();
-  if(r==='media') return renderMedia();
-  if(r==='community') return renderCommunity();
-  if(r.startsWith('module/')) return renderModule(r.split('/')[1]);
-  if(r.startsWith('lesson/')) return renderLesson(r.split('/')[1]);
-  renderHome();
-}
+function render(){const r=route();$$('.nav-item').forEach(x=>x.classList.toggle('active',x.dataset.route===r||r.startsWith('lesson/')&&lessonMap[r.split('/')[1]]?.module.id===x.dataset.route?.split('/')[1])); if(r==='home')return renderHome(); if(r==='prompts')return renderPromptLibrary(); if(r==='media')return renderMedia(); if(r==='community')return renderCommunity(); if(r.startsWith('module/'))return renderModule(r.split('/')[1]); if(r.startsWith('lesson/'))return renderLesson(r.split('/')[1]); renderHome();}
 
 function renderHome(){
-  $('#view').innerHTML=`
-  <div class="hero"><div class="eyebrow">FERIXDI AI ECOSYSTEM · PRACTICAL COURSE</div><h1>Охваты на AI.<br>От первого ролика до системы.</h1><p>Практическая база по созданию коротких AI-видео, разгонам аккаунтов, аналитике, постоянным персонажам и двухэтапной монетизации.</p><div class="hero-actions"><button class="btn" onclick="go('module/start')">Начать обучение</button><button class="btn secondary" onclick="go('prompts')">Библиотека промптов</button><button class="btn secondary" onclick="go('media')">Видео и скриншоты</button></div></div>
-  <div class="kpis"><div class="kpi"><strong>${modules.length}</strong><span>разделов системы</span></div><div class="kpi"><strong>${allLessons().length}</strong><span>уроков и практических блоков</span></div><div class="kpi"><strong>10K</strong><span>практический переход к следующей стадии</span></div><div class="kpi"><strong>v40</strong><span>текущая главная Video Factory</span></div></div>
-  <div class="section-head"><div><h2>Карта обучения</h2><p>Идём от внимания и производства к аналитике и монетизации.</p></div></div>
-  <div class="grid">${modules.map((m,i)=>`<div class="card" onclick="go('module/${m.id}')" style="cursor:pointer"><div class="card-meta"><span class="badge accent">${String(i+1).padStart(2,'0')}</span><span class="badge">${m.lessons.length} урока</span></div><h3>${m.icon} ${m.title}</h3><p>${m.desc}</p></div>`).join('')}</div>
-  <div class="section-head"><div><h2>Главная траектория</h2><p>Не смешиваем этапы: сначала внимание, потом конверсия.</p></div></div>
-  <div class="timeline"><div class="timeline-item"><div class="timeline-left">Этап 1</div><div class="timeline-body"><h3>Разгон формата</h3><p class="muted">Регулярность, сильный юмор, тест типажей, поиск повторяемой механики.</p></div></div><div class="timeline-item"><div class="timeline-left">До ~10К</div><div class="timeline-body"><h3>Syntx</h3><p class="muted">Монетизация интереса к AI-инструментам через понятные видеоинструкции и партнёрную ссылку.</p></div></div><div class="timeline-item"><div class="timeline-left">После ~10К</div><div class="timeline-body"><h3>Wellside / недвижимость</h3><p class="muted">Постепенная смена тематики без уничтожения рабочей механики охватов.</p></div></div></div>`;
+ const total=allLessons().length;
+ $('#view').innerHTML=`<section class="hero"><div><div class="eyebrow">FERIXDI AI · ОХВАТЫ НА AI</div><h1>Система производства внимания через AI-контент</h1><p>Большая практическая база: от первого диалога в Qwen до регулярных охватов, аналитики, постоянных персонажей и монетизации трафика.</p><div class="hero-actions"><button class="btn" onclick="go('lesson/welcome')">Начать с первого урока</button><button class="btn secondary" onclick="go('prompts')">Библиотека промптов</button></div></div><div class="kpis"><div class="kpi"><strong>${total}</strong><span>коротких уроков</span></div><div class="kpi"><strong>15</strong><span>модулей</span></div><div class="kpi"><strong>8+</strong><span>обязательных заданий</span></div></div></section>
+ <div class="callout"><strong>Как проходить:</strong> не пытайтесь прочитать всё за вечер. Открыли урок → сделали действие → опубликовали / проверили → только потом следующий. По заданиям и вопросам пишите <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>.</div>
+ <div class="callout"><strong>Актуальность:</strong> AI-модели, тарифы, лимиты и интерфейсы меняются быстро. Цифры и названия режимов в материалах фиксируют практику на момент записи — перед покупкой или настройкой проверяйте, что актуально сейчас.</div>
+ <div class="section-head"><div><h2>Программа</h2><p>Много коротких уроков вместо нескольких длинных простыней.</p></div></div><div class="grid">${modules.map(m=>`<article class="card" onclick="go('module/${m.id}')"><div class="card-meta"><span class="badge">${m.icon}</span><span class="badge purple">${m.lessons.length} уроков</span></div><h3>${m.title}</h3><p class="desc">${m.desc}</p></article>`).join('')}</div>`;
 }
-function renderModule(id){const m=modules.find(x=>x.id===id);if(!m)return renderHome();$('#view').innerHTML=`<div class="article"><div class="eyebrow">РАЗДЕЛ</div><h1>${m.icon} ${m.title}</h1><p>${m.desc}</p></div><div class="section-head"><div><h2>Уроки</h2><p>Отмечай пройденное — прогресс сохраняется на этом устройстве.</p></div></div><div class="lesson-list">${m.lessons.map((l,i)=>lessonRow(m,l,i)).join('')}</div>`;bindLessonChecks()}
-function lessonRow(m,l,i){const d=done.has(l[0]);return `<div class="lesson-row"><button class="lesson-check ${d?'done':''}" data-check="${l[0]}">✓</button><div><h4>${String(i+1).padStart(2,'0')}. ${l[1]}</h4><small>${l[2]}</small></div><div class="lesson-actions"><button class="btn secondary small" onclick="go('lesson/${l[0]}')">Открыть</button></div></div>`}
-function bindLessonChecks(){$$('[data-check]').forEach(b=>b.onclick=()=>{done.has(b.dataset.check)?done.delete(b.dataset.check):done.add(b.dataset.check);saveProgress();render()})}
+function renderModule(id){const m=modules.find(x=>x.id===id);if(!m)return renderHome();$('#view').innerHTML=`<div class="article"><div class="eyebrow">МОДУЛЬ</div><h1>${m.title}</h1><p>${m.desc}</p></div><div class="lesson-list">${m.lessons.map((l,i)=>`<div class="lesson-row ${done.has(l[0])?'done':''}" onclick="go('lesson/${l[0]}')"><div><span class="badge">${String(i+1).padStart(2,'0')}</span></div><div><strong>${l[1]}</strong><div class="muted small">${l[2]}</div></div><div>→</div></div>`).join('')}</div>`}
+function renderLesson(id){const l=lessonMap[id];if(!l)return renderHome();const checked=done.has(id);$('#view').innerHTML=`<div class="article"><div class="eyebrow">${l.module.title}</div><h1>${l.title}</h1><p>${l.subtitle}</p>${lessonContent(id)}<div class="lesson-actions"><button class="btn ${checked?'secondary':''}" id="doneBtn">${checked?'Пройдено ✓':'Отметить урок пройденным'}</button><a class="btn secondary" href="https://t.me/ferixdiii" target="_blank">Задать вопрос @ferixdiii</a></div></div>`;$('#doneBtn').onclick=()=>{done.has(id)?done.delete(id):done.add(id);saveProgress();renderLesson(id)}}
 
-function renderLesson(id){const x=lessonMap[id];if(!x)return renderHome(); const body=lessonContent(id); $('#view').innerHTML=`<div class="article"><div class="eyebrow">${x.module.title}</div><h1>${x.title}</h1><p>${x.subtitle}</p>${body}<div class="hero-actions"><button class="btn ${done.has(id)?'secondary':''}" id="completeBtn">${done.has(id)?'✓ Пройдено':'Отметить как пройденное'}</button><button class="btn secondary" onclick="go('module/${x.module.id}')">Назад к разделу</button></div></div>`;$('#completeBtn').onclick=()=>{done.has(id)?done.delete(id):done.add(id);saveProgress();render()}}
-function lessonContent(id){
- const c={
- map:`<div class="callout"><div class="quote">AI-контент → охваты → аудитория → монетизация → недвижимость</div></div><p>Главная бизнес-цель системы — недвижимость как дополнительный источник дохода. Но обучение не начинает с продажи. Сначала строится фундамент: охваты, аудитория, доверие, узнаваемость и регулярный производственный процесс.</p><h2>Почему именно так</h2><p>Холодный аккаунт сначала должен доказать, что умеет удерживать внимание. Поэтому первые этапы посвящены не продаже квартир, а созданию понятного массового контента, тесту механик и накоплению данных.</p>`,
- tenk:`<div class="callout"><strong>10 000 подписчиков — практический ориентир Ferixdi, а не официальный «магический порог» платформ.</strong></div><p>До этой отметки курс делает упор на разгон формата и монетизацию интереса к AI через Syntx. После формирования стартовой аудитории начинается постепенное перепозиционирование в недвижимость через Wellside.</p>`,
- mindset:`<div class="quote">Скука автора ≠ усталость аудитории.</div><p>Одна из главных ловушек креатора — менять рабочий формат только потому, что самому надоело его повторять. Аудитория могла только начать узнавать механику, а алгоритм — только накопить устойчивый сигнал.</p><h2>Правило эксперимента</h2><p>Эксперимент — это сдвиг внутри работающей конструкции: другая интонация, объект, локация, визуальный акцент или ритм. Несущая механика меняется только тогда, когда данные показывают, что она перестала работать.</p>`,
- setup:`<h2>Задание №1 — подготовить рабочую область</h2><div class="steps"><div class="step"><div><strong>Qwen</strong><p>Открой <a href="https://chat.qwen.ai/" target="_blank">chat.qwen.ai</a>. Он используется как доступный текстовый ассистент для идей и промптов.</p></div></div><div class="step"><div><strong>Видео</strong><p>Подготовь доступ к Google AI Pro или Ultra. Для покупки в материалах курса используется один поставщик: <a href="https://plati.market/itm/gemini-ai-ultra-pro-7-30-183-private-account/5050049" target="_blank">Plati.market</a>.</p></div></div><div class="step"><div><strong>Фото</strong><p>Проверь генерацию стартовых кадров через GPT Image или другой доступный генератор.</p></div></div></div><div class="callout">Когда всё готово, результат задания отправляется в личные сообщения <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>.</div>`,
- qwen:`<p>В вводном уроке Qwen используется как основной доступный текстовый помощник.</p><div class="callout"><strong>Железное правило из урока:</strong> новая задача → новый диалог. Старый контекст может тянуть за собой ненужные детали и ухудшать предсказуемость результата.</div><button class="btn secondary" onclick="go('media')">Смотреть видеоурок</button>`,
- google:`<p>После получения Google-аккаунта может понадобиться сменить язык интерфейса. В медиа-библиотеке есть отдельная демонстрация.</p><h2>Если Flow / AI Studio не открывается</h2><p>В материалах сообщества использовались VPN и приватные браузеры. Конкретный сервис может работать нестабильно, поэтому этот блок нужно воспринимать как troubleshooting, а не вечную гарантию доступности.</p><div class="mini-links"><a href="https://labs.google/fx/tools/flow" target="_blank">Google Flow</a><a href="https://aistudio.google.com" target="_blank">AI Studio</a></div>`,
- anatomy:`<p>В статье Ferixdi вводится понятие «порог невидимости»: первая небольшая выдача, на которой ролик должен показать достаточно сильную реакцию, чтобы получить расширение охвата.</p><div class="callout"><strong>Важно:</strong> цифры и формулировки статьи — авторская модель объяснения, а не официальная спецификация Instagram или YouTube.</div><h2>Главный практический вывод</h2><p>Качественный свет и дорогая картинка сами по себе не создают пересылаемость. Для массового короткого формата ключом часто становится узнаваемый бытовой конфликт, быстрый юмор и желание отправить ролик знакомому.</p><a class="btn secondary" href="assets/docs/anatomy-reach.html" target="_blank">Открыть полную статью</a>`,
- hook:`<div class="quote">Первый кадр — уже хук. Первый звук — уже начало сцены.</div><p>Frame 0 должен работать ещё до движения. Локация, персонажи, действие и визуальный конфликт должны вызывать вопрос: «Что здесь происходит?»</p><p>Если статичный первый кадр без звука не вызывает желания увидеть продолжение — его стоит переделать до генерации видео.</p>`,
- scripts:`<div class="callout"><strong>Формула:</strong> ХУК → СЕТАП → ОЖИДАНИЕ → ПАНЧ → КОНЕЦ.</div><p>Основу юмора лучше брать из реальных человеческих шуток, бытовых наблюдений и уже понятных механик. AI сильнее в визуализации, сцене, локации, контрасте и масштабировании.</p><h2>Один ролик = одна главная шутка</h2><p>Одна ситуация, один визуальный крючок, один панч. После сильной финальной реплики разговор не продолжается.</p>`,
- conveyor:`<p>Базовая производственная цепочка курса:</p><div class="callout"><div class="quote">Идея / шутка → мастер-промпт → Frame 0 → видео → финальная обработка → публикация</div></div><h2>Сначала процесс, потом ниша</h2><p>На раннем этапе разрешено работать со случайными персонажами и простыми шутками. Цель — научиться быстро проходить весь конвейер, а уже потом закреплять героев и переносить механику в недвижимость.</p><button class="btn secondary" onclick="go('media')">Открыть видео «Полуавтоматический конвейер»</button>`,
- v40:`<div class="callout"><strong>Текущая центральная система:</strong> FERIXDI VIDEO FACTORY v40.0.</div><p>Она объединяет ранее разрозненные ветки и сама маршрутизирует вход: текст, исходное видео, видео + новый текст, закрепление персонажей или готовый Frame 0.</p><h2>Режимы</h2><ul><li>SETUP — закрепить постоянных персонажей.</li><li>TEXT — создать новую сцену из текста.</li><li>VIDEO — разобрать и пересоздать механику исходного видео.</li><li>HYBRID — сохранить визуальную механику и заменить текст.</li><li>IMAGE — продолжить уже готовый Frame 0.</li></ul><button class="btn" onclick="openPrompt('assets/prompts/video-factory-v40.txt',true)">Открыть v40</button>`,
- recreate:`<p>Второй способ производства — идти не от текстовой шутки, а от уже работающего видеореференса.</p><div class="steps"><div class="step"><div>Скачать исходный ролик.</div></div><div class="step"><div>Загрузить его в Gemini / AI Studio вместе с мастер-промптом.</div></div><div class="step"><div>Получить анализ механики и промпты.</div></div><div class="step"><div>Собрать новый Frame 0 и оживить его в видео-модели.</div></div></div><p>Для максимально подробного случая используется forensic-подход / TWIN TEST: keyframe grid, identity cards, micro-timeline и reconstruction prompt.</p>`,
- sources:`<h2>Где брать основу</h2><ul><li>Telegram-каналы с короткими шутками и диалогами.</li><li>Threads: «семейный юмор», «неловкая ситуация», «история с работы» и т. п.</li><li>Instagram: готовую речь можно извлечь через <a href="https://stt.ai/transcribe/instagram/?lang=ru" target="_blank">STT.ai</a>.</li><li>Вирусные видео: скачать и анализировать механику в AI Studio.</li></ul><div class="callout">Не выдавай придуманную AI-шутку за «реальный опубликованный анекдот». Если заявляется реальный источник — нужна ссылка.</div>`,
- apify:`<p>Apify позволяет без кода собирать свежие ролики из TikTok, Instagram и YouTube через готовые scrapers.</p><div class="steps"><div class="step"><div>Запросы <code>#ai</code> и <code>#ии</code>, 500–1000 свежих роликов.</div></div><div class="step"><div>Экспортировать URL, Date, Views, Likes, Comments, Shares, Duration, Author в CSV/XLSX.</div></div><div class="step"><div>Рассчитать возраст и views/hour, вывести ТОП быстрорастущих.</div></div></div><div class="callout"><strong>Самый точный приём:</strong> два парсинга одной и той же выборки через несколько часов. Тогда видно реальный прирост, а не только среднюю скорость с момента публикации.</div><a class="btn secondary" href="https://apify.com" target="_blank">Открыть Apify</a>`,
- ownstats:`<p>Отдельная аналитика — не внешние тренды, а собственный аккаунт.</p><div class="callout">Apify → CSV → Google AI Studio → темы, хуки, форматы, выбросы, слабые ролики и 10 новых идей на основе своих успешных работ.</div><p>Лучше загружать CSV в ту же ветку AI Studio, где уже ведётся работа с контентом.</p><a class="btn secondary" href="assets/docs/apify-own-analysis.pdf" target="_blank">Открыть PDF-инструкцию</a>`,
- photo:`<p>Большой Photorealism Engine рассматривает реализм не как «максимум деталей», а как физическую согласованность камеры, кожи, глаз, света, материалов и окружения.</p><div class="quote">Цель не maximum beauty. Цель — natural photographic credibility.</div><p>Этот блок можно использовать как отдельную надстройку к фотопромпту.</p><button class="btn" onclick="openPrompt('assets/prompts/photorealism-engine.txt')">Открыть промпт</button>`,
- voice:`<p>VOICE PERFORMANCE нужен на стадии видеогенерации. Он задаёт не красивый голос, а ощущение реального человека, который говорит конкретному собеседнику, думает, дышит и реагирует в момент речи.</p><h2>Приоритет</h2><p>Если идеальная дикция конфликтует с естественностью — сохраняется естественность без потери понятности.</p><button class="btn" onclick="openPrompt('assets/prompts/voice-performance.txt')">Открыть Voice Performance</button>`,
- frame0:`<p>Реализм изображения закладывается до анимации. В стартовом кадре уже должны быть лицо, кожа, свет, оптика, композиция и физическое положение объектов.</p><p>В видеопромпте лучше концентрироваться на движении, мимике, камере, речи, паузах и липсинке, а не повторять огромный блок про кожу.</p>`,
- characters:`<p>После начального теста разных типажей наступает этап закрепления постоянных персонажей.</p><div class="callout"><strong>Основной состав:</strong> главный персонаж №1 · главный персонаж №2 · наблюдатель №3.</div><p>Главные герои несут диалог или конфликт. Наблюдатель располагается дальше и усиливает сцену естественной реакцией.</p>`,
- refs:`<div class="quote">Image 1 = герой №1 · Image 2 = герой №2 · Image 3 = наблюдатель</div><p>Этот порядок не меняется между сценами. В мастер-промпт референсы загружаются один раз для фиксации ролей. При фактической генерации нового изображения референсы прикладываются заново.</p>`,
- series:`<p>Постоянный персонаж — это не обязанность повторять один и тот же сюжет. Стабильны лицо, характер и узнаваемая динамика, а ситуации и конфликты меняются.</p><div class="callout"><strong>Формула:</strong> знакомый герой + бытовой конфликт + контраст характеров + неожиданный панчлайн + причина отправить другу.</div>`,
- models:`<p>В материалах курса Omni используется как основной удобный генератор коротких роликов с русской речью, а Veo Fast — как альтернативный режим для экспериментов. Наблюдения по «свободе» конкретных моделей относятся к практике автора и могут меняться с обновлениями платформ.</p>`,
- speech:`<h2>Практические правила русской речи</h2><ul><li>Убирать тире и лишние знаки из lip-sync версии.</li><li>Если один человек произносит длинную реплику, точки иногда могут провоцировать смену голоса.</li><li>Ударение можно подсказать заглавной буквой: кАтер, договОр.</li><li>При необходимости растянуть гласную: оочень.</li><li>Если слово продолжает ломаться — заменить на более простое.</li></ul>`,
- long:`<div class="quote">Конец предыдущего видео = начало следующего.</div><p>Для роликов длиннее 10 секунд речь делится на отдельные части, а визуальная непрерывность строится через последний кадр предыдущего фрагмента.</p><div class="steps"><div class="step"><div>В CapCut встать на самый последний кадр.</div></div><div class="step"><div>Меню над предпросмотром → «Экспортировать стоп-кадр».</div></div><div class="step"><div>Загрузить стоп-кадр в Omni как стартовый кадр следующей части.</div></div></div><div class="media-grid"><div class="media-card"><img src="assets/media/omni-10plus-capcut.jpg"><div class="media-body"><h4>Шаг 1 — экспорт стоп-кадра</h4></div></div><div class="media-card"><img src="assets/media/omni-10plus-flow.jpg"><div class="media-body"><h4>Шаг 2 — старт следующего фрагмента</h4></div></div></div>`,
- regularity:`<p>Регулярность в этой системе нужна не как «магическая награда алгоритма», а как способ быстрее собрать данные, увеличить число качественных попыток и найти повторяемую механику.</p><div class="callout"><strong>Практический минимум курса:</strong> от 3 роликов в день, если качество и процесс это позволяют. Больше — не самоцель.</div><p>Не делать вывод по одному или двум роликам. Стабильность видна на серии.</p><a class="btn secondary" href="assets/docs/regularity.html" target="_blank">Полная статья о регулярности</a>`,
- capcut:`<div class="quote">Первый кадр — уже хук. Первый звук — уже начало сцены.</div><p>AI-генерация часто добавляет небольшую пустую паузу до первой реплики. Перед публикацией её нужно убрать.</p><img src="assets/media/capcut-start-trim.jpg" style="width:100%;border-radius:16px;border:1px solid var(--line)"><h2>Дополнительно</h2><p>По опыту автора, скорость около 1.08 иногда делает AI-речь живее. Это не обязательное правило: применять только если ролик действительно ощущается затянутым.</p>`,
- profile:`<p>Закрепи во вкладке Reels три ролика с лучшими показателями просмотров и вовлечённости — это витрина аккаунта.</p><h2>Чистка профиля</h2><p>Практика курса: старые ролики, которые давно перестали расти, можно пересмотреть на предмет удаления, если они остаются ниже 2 000 просмотров или не набрали хотя бы 30 лайков. Свежие ролики не трогать.</p>`,
- metrics:`<p>Просмотры — не единственная метрика. Для роста формата полезно смотреть удержание, досмотры, пересмотры, отправки, комментарии, переходы в профиль, клики, лиды.</p><p>Для недвижимости цепочка длиннее: охват → визит в профиль → переход на персональную страницу → заявка → квалификация → сделка.</p>`,
- scale:`<div class="quote">Выстрелило → повтори механику, а не копию файла.</div><p>Стабильный формат меняется контролируемо. Меняй одну переменную за раз: локацию, объект, характер конфликта, тип героя или визуальный акцент. Так проще понять, что именно влияет на результат.</p>`,
- platforms:`<p>Внутри курса зафиксировано практическое наблюдение: ролик, который хорошо работает в Instagram, может слабее вести себя на YouTube и наоборот.</p><p>Не считать это универсальным законом. Смысл — анализировать площадки отдельно и не делать вывод только по одной.</p>`,
- ladder:`<div class="timeline"><div class="timeline-item"><div class="timeline-left">Фаза 1</div><div class="timeline-body"><h3>До ~10K — Syntx</h3><p>Монетизируем интерес аудитории к AI-инструментам.</p></div></div><div class="timeline-item"><div class="timeline-left">Фаза 2</div><div class="timeline-body"><h3>После ~10K — Wellside</h3><p>Постепенно переводим рабочую механику охватов в тематику недвижимости.</p></div></div></div>`,
- syntx:`<p>Главная задача — не просто дать ссылку, а провести человека по понятному пути.</p><div class="callout"><strong>Схема:</strong> AI-креатив → запись экрана + голос → 3 понятных действия → переход в бот.</div><p>Каждый 3–5 креатив можно дополнять такой связкой. Инструкция 15–25 секунд, минимум воды.</p><div class="mini-links"><a href="https://t.me/syntxaibot?start=aff_6913446846" target="_blank">Syntx bot</a><a href="https://t.me/annasyntx" target="_blank">Промокод / доступ @annasyntx</a><a href="https://online-video-cutter.com/ru/screen-recorder" target="_blank">Запись экрана</a><a href="https://www.minimax.io/audio" target="_blank">MiniMax Audio</a></div><button class="btn secondary" onclick="go('media')">Смотреть демонстрацию</button>`,
- wellside:`<div class="callout"><strong>Главное:</strong> меняем тему и точку монетизации, а не то, что уже даёт охваты.</div><p>Переход делается постепенно. Первые 20–30 роликов — перепозиционирование: сохраняются темп, юмор и механика, но бытовые конфликты смещаются в сторону квартир, ремонта, аренды, ипотеки, соседей и покупок.</p><h2>Воронка</h2><p>Ролик → профиль → персональная страница Wellside → заявка → CRM → работа брокера.</p><div class="mini-links"><a href="https://t.me/wellside_partners_bot?start=bobjnvpbkb" target="_blank">Регистрация Wellside</a><a href="assets/docs/wellside-monetization.pdf" target="_blank">Мануал PDF</a><a href="assets/docs/hashtags-wellside.pdf" target="_blank">Хэштеги PDF</a></div>`,
- boost:`<p>Каждый участник один раз присылает @ferixdiii ссылки на Instagram и YouTube. Затем работает цикл взаимной поддержки.</p><div class="quote">Создали → опубликовали → поддержали других.</div><p>Поддержка должна быть содержательной реакцией на конкретный ролик, а не формальным набором эмодзи.</p><div class="mini-links"><a href="https://t.me/c/4379032875/67" target="_blank">Ветка взаимного буста</a><a href="https://t.me/ferixdiii" target="_blank">Отправить аккаунты</a></div>`,
- tasks:`${taskHtml()}`,
- members:`<p>Актуальный список без дублей. Для добавления или обновления ссылки — <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>.</p>${memberHtml()}`,
- prompts:`${promptGridHtml()}`,
- versions:`<div class="timeline"><div class="timeline-item"><div class="timeline-left">v15</div><div class="timeline-body"><h3>Простой исполнитель</h3><p>Frame 0 → видео → липсинк → пост.</p></div></div><div class="timeline-item"><div class="timeline-left">v23.1</div><div class="timeline-body"><h3>Real Human Comedy Engine</h3><p>Тайминг, Frame 0, движение, финальный смех.</p></div></div><div class="timeline-item"><div class="timeline-left">v32</div><div class="timeline-body"><h3>Adaptive Comedy OS</h3><p>Joke DNA, Creative Thesis, Frame 0 QC, защита панчлайна и ремонт.</p></div></div><div class="timeline-item"><div class="timeline-left">v40</div><div class="timeline-body"><h3>Unified Video Factory</h3><p>Управляющий слой, который объединяет TEXT, VIDEO, HYBRID и постоянных персонажей.</p></div></div></div><a class="btn secondary" href="assets/docs/v23-to-v32.pdf" target="_blank">Разбор 66 изменений v23.1 → v32</a>`,
- clean:`<p>ULTRA VIDEO CLEAN — технический регламент подготовки обычного совместимого MP4.</p><div class="callout"><strong>Базовый приоритет:</strong> Stream Copy → минимальное перекодирование → полное перекодирование только при необходимости.</div><p>Удаляются только необязательные контейнерные metadata. Не нужно подделывать iPhone, GPS, модель камеры, ISO или дату съёмки.</p><p>Корректная формулировка результата: «файл технически очищен от необязательных метаданных и приведён к обычному совместимому MP4» — без обещаний об обходе детекторов.</p><button class="btn" onclick="openPrompt('assets/prompts/ultra-video-clean.txt')">Открыть EFIX</button>`
- };return c[id]||'<p>Материал будет отображён в составе этого раздела.</p>'}
+const note=(t)=>`<div class="callout">${t}</div>`;
+const steps=(arr)=>`<div class="steps">${arr.map((x,i)=>`<div class="step"><strong>${i+1}</strong><span>${x}</span></div>`).join('')}</div>`;
+const links=(arr)=>`<div class="mini-links">${arr.map(([t,u])=>`<a href="${u}" target="_blank" rel="noreferrer">${t} ↗</a>`).join('')}</div>`;
+const img=(src,cap)=>`<div class="media-card"><img src="${src}" alt="${cap}"><div class="media-body"><h4>${cap}</h4></div></div>`;
+const vid=(src,title,desc='')=>`<div class="media-card"><video controls preload="metadata" src="${src}"></video><div class="media-body"><h4>${title}</h4>${desc?`<p class="muted">${desc}</p>`:''}</div></div>`;
 
-function taskHtml(){return [
-['1','Подготовка рабочей области','Qwen, доступ к видео/фото генерации. Отправить «Готово» @ferixdiii.'],
-['2','Создать полуавтоматический конвейер','Минимум 10 источников, 5 шуток, 5 Frame 0, 5 роликов.'],
-['3','Начать разгон формата','Публиковать в Reels + Shorts. Сделали → опубликовали → посмотрели реакцию → следующий.'],
-['4','Выработать регулярность','Отчёт @ferixdiii: как часто создаёте, когда публикуете, готовы ли поддерживать участников.'],
-['5','Копирование залетевших форматов','Создать по AI Studio Master Prompt 3 ролика, опубликовать и отправить ссылки.'],
-['6','Постоянные персонажи','Референсы героев + один ролик с ними по Video Factory.'],
-['7','Закрепить ТОП-3 Reels','Три лучшие работы по просмотрам и вовлечённости.'],
-['8','Syntx-креатив + инструкция','Запись экрана и голоса 15–25 сек, встроенная после сильного AI-креатива.']
-].map(x=>`<div class="task"><div class="task-num">ЗАДАНИЕ №${x[0]}</div><h3>${x[1]}</h3><p class="muted">${x[2]}</p></div>`).join('')}
+function lessonContent(id){const c={
+welcome:`<p>Обучение рассчитано на человека без режиссёрского, монтажного или программного бэкграунда. Базовая логика курса — не «изучить нейросети», а собрать рабочую систему, которая регулярно превращает идеи в опубликованные креативы и данные.</p>${note('<strong>Правило:</strong> все задания отправляйте на проверку в Telegram <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>. По любым вопросам — туда же.')}<p>Начинайте с первого урока и идите последовательно. Не нужно заранее понимать весь стек.</p>`,
+coursemap:`<div class="quote">Идея / референс → Master Prompt → Frame 0 → видео → CapCut → публикация → метрики → следующая итерация.</div><p>Вторая часть системы начинается после появления устойчивого внимания: <strong>охваты → профиль → точка монетизации → лиды / продажи</strong>.</p><p>Главная цель — не единичный красивый ролик, а воспроизводимая машина производства внимания.</p>`,
+attention:`<p>В материалах курса внимание рассматривается как ограниченный ресурс. Моделей и AI-сервисов становится больше, а объём внимания аудитории растёт гораздо медленнее.</p><p>Поэтому конкурентное преимущество строится не только вокруг качества генерации, а вокруг способности <strong>регулярно получать охват, удерживать внимание и направлять трафик в нужную точку</strong>.</p>${note('Контент здесь рассматривается не только как искусство. Он может быть инструментом дистрибуции, лидогенерации и продаж.')}`,
+practicefirst:`<div class="quote">Сгенерировать → опубликовать → получить данные → проанализировать → скорректировать → повторить.</div><p>Критерий прогресса — не количество прочитанных терминов, а количество законченных итераций и измеримый результат.</p>`,
+focus:`<p>Сама механика отдельных действий относительно простая. Сложность — достаточно долго работать в одном направлении, не менять основу после пары слабых публикаций и не путать собственную скуку с усталостью аудитории.</p>`,
+support:`${note('<strong>Единый контакт:</strong> <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>. Сюда отправляются готовые задания, ссылки на публикации и вопросы по генерации, аккаунту, монетизации и инструментам.')}<p>Если что-то сломалось, присылайте не пересказ, а скрин / видео / ссылку и коротко: что делали, что ожидали, что получили.</p>`,
+setup:`${steps(['Открыть Qwen и проверить новый чистый чат.','Проверить доступ к генерации изображений: GPT Image / Nano Banana.','Проверить видеогенерацию Google Flow / используемый видеосервис.','Сделать по одной тестовой генерации фото и видео.','Отправить «Готово» в @ferixdiii.'])}${links([['Qwen',serviceLinks.qwen],['Google AI Studio',serviceLinks.aistudio],['Google Flow',serviceLinks.flow],['ChatGPT Images',serviceLinks.images],['Поставщик Gemini Pro / Ultra',serviceLinks.supplier]])}`,
+qwen:`<p>Qwen используется как текстовый ассистент для идей, сценариев и работы с мастер-промптом.</p><div class="quote">Новый диалог = новый контекст.</div><p>Если новая задача не относится к текущей ветке, начните чистый чат. Это уменьшает влияние старых инструкций и контекстного мусора.</p>`,
+'image-tools':`<p>Frame 0 можно собирать в GPT Image или Nano Banana. В текущей практике курса GPT Image чаще используется для реалистичной кожи, света и смартфонной фактуры, но конкретный инструмент не является догмой.</p>${note('Нейросети быстро меняются. Сравнивайте результат на одной и той же сцене, а не выбирайте инструмент по старому названию модели.')}`,
+'video-tools':`<p>Для видео используются Omni, Veo и другие доступные модели. Главный принцип: <strong>модель выбирается под задачу</strong> — короткий диалог, image-to-video, массовое оживление, продолжение кадра и т.д.</p><p>Можно вести аудиторию и на другие AI-инструменты: GPT Image, Nano Banana, Veo, Flux, Omni, Seedance и т.д. Но в обучении важно показывать то, чем вы сами реально пользуетесь.</p>`,
+'google-account':`${vid('assets/media/google-language.mp4','Как изменить язык Google-аккаунта')}<p>Логика: Google → управление аккаунтом → личная информация → язык → Русский. Интерфейс может меняться.</p>`,
+'flow-access':`<p>Если Google Flow не работает из вашего региона, сначала проверяйте актуальное состояние сервиса и текущий способ доступа.</p>${links([['Разбор решения для России',serviceLinks.googleHelp],['Google Flow',serviceLinks.flow]])}${note('Старые советы по конкретным браузерам, странам и режимам VPN могут устаревать. Проверяйте актуальность на момент работы.')}`,
+costs:`<p>В материалах зафиксирован практический ориентир: Omni 1.1, 10 секунд — 15 кредитов. Эта цифра может измениться.</p><p>Считать полезнее так: <strong>стоимость аккаунта / число реально получаемых рабочих генераций</strong>. Затем сравнивать с ценностью трафика и скоростью производства.</p>`,
+anatomy:`<p>«Порог невидимости» — авторская модель, описывающая момент, когда ролик проходит небольшой первичный тест или останавливается на нём. Это не официальное название механизма Instagram.</p><p>Практический смысл: дорогая картинка сама по себе не спасает, если зритель не останавливается, не досматривает и не реагирует.</p><a class="btn secondary" href="assets/docs/anatomy-reach.html" target="_blank">Открыть полную статью</a>`,
+norm:`<p>Нормальная, полностью предсказуемая сцена быстро считывается и не создаёт информационного напряжения. Рабочая конструкция курса:</p><div class="quote">знакомая правда, показанная чуть смелее, честнее или абсурднее, чем принято.</div><p>Важно не делать хаос. Сначала зритель узнаёт бытовую норму, затем замечает небольшое нарушение ожидания.</p>`,
+hook:`<p>Хук — это не обязательно текст. В первые 1–2 секунды зритель должен увидеть причину задержаться: странный предмет, действие, контраст, персонажа или ситуацию.</p><div class="quote">«Что здесь происходит?»</div><p>Если ответа на этот вопрос нет, хук чаще превращается в декорацию.</p>`,
+'frame0-hook':`<p>Первый статический кадр виден ещё до того, как зритель успел понять движение. Поэтому Frame 0 должен работать отдельно: кто, где, что уже происходит, какой визуальный конфликт.</p><p>Тест: остановите ролик на первом кадре без звука. Возникает ли вопрос?</p>`,
+onejoke:`<p>Не складывайте в 10 секунд три шутки, четыре движения камеры и пять странных предметов. Сильнее работает:</p><div class="quote">одна ситуация + один визуальный крючок + один панч.</div>`,
+scriptformula:`<div class="quote">ХУК → СЕТАП → ОЖИДАНИЕ → ПАНЧ → КОНЕЦ</div><p>Панч должен быть последними значимыми словами. После сильного финала не объясняйте шутку.</p><button class="btn" onclick="go('lesson/scenario-engine')">Открыть промпт сценариста</button>`,
+share:`<p>Самый удобный материал для пересылки — то, в чём зритель узнаёт себя, партнёра, родителей, ребёнка, начальника, соседа или типичный бытовой конфликт.</p><p>Вопрос перед публикацией: <strong>кому конкретно человек захочет это отправить?</strong></p>`,
+'human-humor':`<p>В курсе используется принцип: ИИ хорошо расширяет визуальную ситуацию, но не обязан заменять человеческий юмор.</p><p>Источники: реальные анекдоты, короткие шутки, бытовые наблюдения, мемные механики, комментарии, истории и уже проверенные диалоги.</p>`,
+'scenario-engine':`<p>Инструкция сценариста строит ролик вокруг сильного визуального хука и человеческой основы юмора.</p><div class="quote">реальный человеческий юмор + сильная AI-визуализация + короткий сетап + неожиданный панч.</div><p>При запросе «новые» нельзя просто переписать старый панч другими словами. При «смешнее» усиливаем механику, а не количество мата.</p>`,
+'instagram-stt':`${steps(['Найти готовую работу в Instagram.','Вставить ссылку в сервис транскрибации.','Получить диалог.','Передать диалог в Master Prompt.','Создать свою версию: другие персонажи, локация и визуальная отыгровка.'])}${links([['Instagram transcription',serviceLinks.stt]])}`,
+'utillu':``,
+'telegram-sources':`<p>Соберите отдельную папку источников и регулярно пополняйте её. Цель — не копировать один канал, а иметь постоянный поток человеческих шуток и механик.</p><p>Для задания №2 используется минимум несколько разных источников, затем отбираются самые короткие и самодостаточные шутки.</p>`,
+'threads-ideas':`<p>Рабочие запросы из материалов: чёрный юмор, смешной диалог, жизненная история, неловкая ситуация, семейный юмор, токсичный родственник, переписка с клиентом, история с работы, неожиданный финал.</p><p>Берите конфликт и механизм окончания, а затем адаптируйте под свой каст.</p>`,
+'apify-trends':`${links([['Apify',serviceLinks.apify]])}<p>Собирайте свежие ролики по TikTok, Reels и Shorts. Полезные поля: URL, Video ID, Date, Views, Likes, Comments, Shares, Duration, Author.</p><p>Затем в GPT / AI Studio считайте возраст ролика и скорость набора просмотров, ищите свежие выбросы и при необходимости фильтруйте ролики до 10 секунд.</p>`,
+'double-scrape':`<p>Лучший способ понять, что растёт <em>сейчас</em>, — дважды собрать одну и ту же выборку.</p><div class="quote">12:00 → 80 000 · 16:00 → 200 000 = +120 000 за 4 часа ≈ 30 000 просмотров/час.</div><p>Так вы измеряете реальный текущий прирост, а не среднюю скорость с момента публикации.</p>`,
+ownstats:`<p>Отдельный процесс — анализ собственных публикаций. Не смешивайте его с внешним тренд-сканером.</p>${steps(['Apify Instagram Scraper → свои Reels.','Экспорт CSV.','Прикрепить CSV в Google AI Studio.','Найти темы, форматы, хуки, выбросы и слабые ролики.','Сформировать список механик для следующей серии.'])}<a class="btn secondary" href="assets/docs/apify-own-analysis.pdf" target="_blank">Открыть PDF-инструкцию</a>`,
+conveyor:`${vid('assets/media/conveyor-masterclass-small.mp4','Полуавтоматический конвейер AI-видео')}<div class="quote">шутка → мастер-промпт → режиссёрское решение → Frame 0 → video prompt → генерация → публикация.</div><p>На первом этапе не усложняйте себе жизнь постоянными героями и нишей. Сначала научитесь стабильно проходить весь цикл.</p>`,
+v40:`<p>v40 — основной текущий вход. Он объединяет прежние системы и сам маршрутизирует тип входа.</p><p>Режимы: SETUP, TEXT, VIDEO, HYBRID и работа с готовым Frame 0. Внутри используются модули Real Human Comedy, Video Recreation, Persistent Characters и глобальный Realism Block.</p><button class="btn" onclick="openPrompt('assets/prompts/video-factory-v40.txt',true)">Открыть v40 построчно</button>`,
+'v40-text':`<p>TEXT MODE включается, когда на входе шутка, диалог или идея. Система должна не переписывать юмор «для красоты», а понять механику и собрать исполнимую сцену.</p><p>На выходе: Scene Contract, Frame 0 prompt, video prompt, аудиопакет и публикация.</p>`,
+'v40-video':`${vid('assets/media/viral-reference-ai-studio.mp4','Работа по вирусному видео-референсу')}<p>VIDEO MODE сохраняет механику источника: сцену, темп, камеру, расположение, действия, речь и реакцию — настолько, насколько это возможно и уместно для новой генерации.</p>`,
+'v40-hybrid':`<p>HYBRID = исходное видео + новый текст. Визуальная механика остаётся ориентиром, но диалог или смысл можно заменить.</p><p>Это удобно, когда формат уже доказал жизнеспособность, а вам нужно встроить собственную тему.</p>`,
+'scene-contract':`<p>Scene Contract нужен до промпта. Он фиксирует то, что нельзя «переизобрести» по ходу генерации:</p><ul><li>кто говорит каждую реплику;</li><li>что делает молчащий персонаж;</li><li>положение камеры;</li><li>реквизит и его состояние;</li><li>порядок действий;</li><li>где заканчивается панч;</li><li>что происходит после него.</li></ul>`,
+outputs:`<p>TEXT MODE: 4 крупных блока. VIDEO/HYBRID: 6 блоков. Даже если пользователь просит один элемент, система внутренне должна пройти весь Scene Contract и QC.</p><p>Ключевой критерий: никаких квадратных скобок и «додумайте сами» в финальном рабочем пакете.</p>`,
+versions:`<div class="timeline"><div class="timeline-item"><div class="timeline-left">v15</div><div class="timeline-body"><h3>Исполнитель</h3><p>Frame 0 → video → lip-sync → post.</p></div></div><div class="timeline-item"><div class="timeline-left">v23.1</div><div class="timeline-body"><h3>Real Human Comedy</h3><p>Scene Contract, тайминг и финальный смех.</p></div></div><div class="timeline-item"><div class="timeline-left">v32</div><div class="timeline-body"><h3>Adaptive OS</h3><p>Joke DNA, Creative Thesis, QC и repair.</p></div></div><div class="timeline-item"><div class="timeline-left">v40</div><div class="timeline-body"><h3>Unified Factory</h3><p>Один управляющий слой над режимами.</p></div></div></div><a class="btn secondary" href="assets/docs/v23-to-v32.pdf" target="_blank">66 изменений v23.1 → v32</a>`,
+'character-photos':`<p>Перед серийной работой создайте <strong>базовые фото-референсы своих персонажей</strong>. Это не готовая сцена и не обложка, а визуальный паспорт героя, который потом прикладывается при создании новых стартовых кадров.</p>${steps(['Определите героя: возраст, внешность, причёску, одежду, характер и роль в контенте.','Сгенерируйте отдельное реалистичное вертикальное фото персонажа в GPT Image / Nano Banana / другом удобном генераторе.','Добейтесь естественной кожи, живых глаз, нормальной анатомии и бытовой смартфонной фактуры. Не делайте героя чрезмерно глянцевым.','Сохраните удачный референс и больше не меняйте его без причины. Для нескольких постоянных героев держите стабильный порядок Image 1 / Image 2 / Image 3.','Когда создаёте новый ролик, прикладывайте эти фото как identity references, а сам [СТАРТОВЫЙ ФОТО-ПРОМПТ] используйте для новой локации, позы, действия, света и композиции.','Полученный новый кадр 9:16 становится Frame 0 и уже его загружайте в видеогенератор вместе с video prompt.'])}<div class="quote">Референс персонажа = кто это. Frame 0 = что происходит именно в этом ролике.</div><p>У каждого ученика свои герои, идеи и визуальная подача. Не нужно копировать персонажей автора курса. Важно один раз получить сильные исходные референсы и дальше сохранять узнаваемость от ролика к ролику.</p>${note('Если лицо в Frame 0 заметно ушло от референса, лучше перегенерировать фото до запуска видео. Исправлять личность уже внутри анимации обычно сложнее.')}`,
+photo:`<p>Цель Photorealism Engine — не максимальная детализация и не максимальная красота. Цель — <strong>естественная фотографическая достоверность</strong>.</p><p>Лицо, глаза, кожа, волосы, ткань, свет, давление, перспектива и камера должны вести себя согласованно.</p><button class="btn" onclick="openPrompt('assets/prompts/photorealism-engine.txt')">Открыть Photorealism Engine</button>`,
+distance:`<p>Слишком крупный план увеличивает требования к глазам, коже, губам, зубам, волосам и микромимике одновременно. В бытовом AI-видео средний / средне-общий план часто выглядит убедительнее.</p>`,
+'motion-budget':`<p>Чем больше степеней свободы, тем больше шансов на морфинг. Для короткого ролика достаточно продолжения действия из Frame 0, одного простого жеста, небольшой реакции слушателя и движения на панче.</p>`,
+environment:`<p>Реализм не равен «добавить шум». Каждая неровность должна иметь причину: оптика, свет, материал, анатомия, движение или обработка телефона.</p>`,
+'phone-look':`<p>Случайный смартфонный кадр не обязан быть плохим. Он должен быть <em>непостановочным</em>: обычная перспектива, естественный свет, автоэкспозиция, бытовая композиция, живой фон и отсутствие рекламной стерильности.</p>`,
+g7x:`<p>Дополнительный визуальный приём из практики: после базовой генерации попробовать фразу <code>make this photo look like it was taken on a g7x with flash</code>.</p><p>Это отдельный эстетический режим, а не универсальный стандарт реализма.</p>`,
+'realism-iterate':`<p>После удачного изображения допустимы 1–2 точечные итерации: сделать естественнее, улучшить реальную кожу, свет и ощущение случайного фото.</p><p>Не бесконечно «улучшать» лицо — после нескольких итераций модель часто начинает сглаживать и переидеализировать.</p>`,
+'voice-performance':`<p>Говорящий обращается к одному конкретному человеку рядом, а не к аудитории. Он думает во время речи, дышит и реагирует на собеседника.</p><button class="btn" onclick="openPrompt('assets/prompts/voice-performance.txt')">Открыть VOICE PERFORMANCE</button>`,
+punctuation:`<p>Для исходного диалога сохраняйте обычный текст. Для отдельной lip-sync версии можно убрать лишнюю пунктуацию, сохранив слова и порядок.</p><p>Цель — уменьшить искусственные паузы и неожиданные переключения голоса.</p>`,
+stress:`<p>Если слово постоянно произносится неверно, задайте ударение заглавной буквой или фонетически перепишите его так, как оно должно звучать.</p>`,
+'speaker-lock':`<p>Во время реплики двигает губами только назначенный speaker. Остальные продолжают быть живыми: моргают, дышат, меняют взгляд, но не «подговаривают».</p>`,
+punchline:`<p>Последняя фонема панчлайна должна быть слышна полностью. Смех, шум реквизита, поворот головы и вокализация слушателя начинаются только после окончания слова.</p>`,
+'no-announcer':`<p>Запретите дикторскую и рекламную подаччу. Нужен первый живой дубль реального разговора — не идеальный voice-over.</p>`,
+'character-test':`<p>На раннем этапе не фиксируйте одного героя только потому, что он красивый. Сначала протестируйте несколько типажей и механик, затем закрепляйте тех, кто даёт результат и с кем вам не надоедает работать.</p>`,
+characters:`${vid('assets/media/video-factory-characters.mp4','Как закреплять постоянных персонажей')}<p>Опишите внешность, одежду, голос, характер, типичные роли и отношения. Подготовьте качественные референсы и один законченный ролик.</p>`,
+refs:`<p>Порядок закрепляется:</p><div class="quote">Image 1 — главный герой №1 · Image 2 — главный герой №2 · Image 3 — наблюдатель.</div><p>При генерации исходного изображения фотореференсы подаются снова.</p>`,
+identity:`<p>Референс личности не должен автоматически тащить позу, фон, свет или направление взгляда. Эти параметры определяет новая сцена / Frame 0.</p>`,
+series:`<div class="quote">знакомый герой + бытовой конфликт + контраст характеров + неожиданный панч + причина отправить другу.</div><p>Узнаваемость строится повторением героя, но конфликт и визуальная ситуация продолжают меняться.</p>`,
+omni:`<p>Базовая схема image-to-video: подготовленный Frame 0 + готовый video prompt → 10-секундный ролик. Не заставляйте видеомодель одновременно изобретать персонажей, сцену, камеру и речь с нуля, если это уже можно зафиксировать в Frame 0.</p>`,
+credits:`<p>В материалах курса зафиксировано: Omni 1.1, 10 секунд = 15 credits.</p>${note('<strong>Проверяйте перед покупкой:</strong> стоимость, лимиты и названия режимов могут меняться без привязки к версии курса.')}`,
+recreate15:`${steps(['Скачать исходное видео.','Загрузить видео + Master Prompt в Gemini / AI Studio.','Попросить выдать готовый video prompt.','Создать стартовое фото в GPT Image / Nano Banana.','Загрузить Frame 0 + video prompt в Omni.'])}${links([['Gemini', 'https://gemini.google.com/'],['Google AI Studio',serviceLinks.aistudio],['ChatGPT Images',serviceLinks.images]])}`,
+long:`<p>Актуальная практическая схема продолжения:</p>${steps(['Открыть первую часть в CapCut.','Поставить ползунок на самый последний кадр.','Экспортировать стоп-кадр.','Загрузить его как стартовый кадр следующего видео.','Сгенерировать продолжение и склеить.'])}<div class="quote">Конец предыдущего видео = начало следующего.</div><div class="media-grid">${img('assets/media/omni-10plus-capcut.jpg','Экспорт последнего кадра в CapCut')}${img('assets/media/omni-10plus-flow.jpg','Использование кадра для следующей генерации')}</div>`,
+'meme-v2v':`<p>Отдельный режим для народных мемных видео: исходный performance остаётся главным референсом, а окружающая ситуация меняется.</p><p>Формат из инструкции: 10 секунд, 9:16, один непрерывный смартфонный дубль, единая физическая локация, без текстовых надписей в кадре. Оригинальная дорожка и артикуляция берутся из source video, а не переписываются вручную.</p>`,
+forensic:`<p>TWIN TEST — специализированный forensic-анализ. Он отдельно от v40 и нужен, когда требуется разложить исходник максимально подробно.</p><p>Pass 0: keyframe grid каждые 0.5 сек. Затем identity/location/audio cards, micro-timeline по 9 каналам, continuity audit и мысленный diff-loop.</p><p>Цель — не обещание математической идентичности, а максимальная полнота реконструкционного описания.</p>`,
+repair:`<p>Если ролик почти хороший, не переписывайте всё. Исправляйте одну категорию: lipsync, voice, listener, hands, prop, face, background, timing или camera.</p><p>Так меньше риск сломать уже удачные элементы.</p>`,
+trim:`${img('assets/media/capcut-start-trim.jpg','CapCut · удалить пустую паузу на старте')}<div class="quote">Первый кадр — уже хук. Первый звук — уже начало сцены.</div><p>Если персонажи уже в кадре, но молчат и ничего не происходит, начало нужно обрезать.</p>`,
+speed:`<p>Из практики курса: скорость около 1.08 в CapCut иногда делает AI-речь бодрее и ближе к живому темпу.</p><p>Это не обязательный фильтр. Сравните до / после и оставьте только если реально стало естественнее.</p>`,
+clean:`<p>EFIX сначала анализирует файл, затем по возможности оставляет исходные video/audio streams без повторного кодирования и чистит только необязательные контейнерные metadata.</p><div class="quote">Stream Copy → минимальное перекодирование → полное перекодирование только при необходимости.</div><p>Нельзя подделывать iPhone, GPS, lens, ISO или дату съёмки.</p><button class="btn" onclick="openPrompt('assets/prompts/ultra-video-clean.txt')">Открыть ULTRA VIDEO CLEAN</button>`,
+metadata:`<p>Метаданные — техническая гигиена, не главный источник охватов. В материалах отдельно отмечено, что ранние успешные ролики могли набирать просмотры и без такой очистки.</p><p>Приоритет: идея → первая секунда → удержание → эмоция → регулярность → затем технические детали.</p>`,
+caption:`<p>Подпись не должна заранее раскрывать панч. Хештеги используются как классификация темы, а не как магическая кнопка охвата.</p><a class="btn secondary" href="assets/docs/hashtags-wellside.pdf" target="_blank">Открыть мануал по хештегам</a>`,
+profile:`<p>Закрепите три сильные работы как витрину. Старые очевидно слабые ролики можно чистить по авторской практике, но не удаляйте свежий контент до появления данных.</p>`,
+top5:`<p>Когда накопилось несколько сильных роликов, соберите компиляцию TOP-5 с понятными результатами / названиями. Это повторное использование уже проверенного материала.</p>`,
+newaccount:`<p>Новый аккаунт сначала не знает, кому показывать контент. Ему нужны повторяющиеся наблюдения: похожие ролики → похожие зрители → предсказуемая реакция.</p><p>На старте не усложняйте профиль продажей. Сначала создайте сам актив внимания.</p>`,
+regularity:`<p>Нейросети дают скорость, но скорость без режима публикации превращается в папку с черновиками.</p><a class="btn secondary" href="assets/docs/regularity.html" target="_blank">Открыть статью о регулярности</a>`,
+'30posts':`<p>В материалах используется 20–30 сопоставимых публикаций как практический горизонт для оценки формата. Это не официальное правило Instagram.</p><p>Сопоставимость важнее числа: одна и та же несущая механика, контролируемые изменения.</p>`,
+repeat:`<p>Если конструкция дала результат, её не нужно немедленно «перерастать». Сделайте серию и проверьте повторяемость.</p><div class="quote">Сделали → опубликовали → посмотрели реакцию → создали следующий.</div>`,
+boredom:`<div class="quote">Ваша скука и усталость аудитории — совершенно разные вещи.</div><p>Эксперимент — это изменение примерно на 10 градусов внутри рабочей конструкции: интонация, предмет, локация, роль, но не полный разворот.</p>`,
+platforms:`<p>Из практики курса: то, что хорошо работает в Instagram, может слабее работать на YouTube и наоборот. Поэтому сравнивайте платформы отдельно и не переносите выводы автоматически.</p>`,
+metrics:`<p>Минимальный стек метрик: просмотры, досмотры / удержание (если доступны), лайки, комментарии, пересылки, переходы в профиль, клики и лиды.</p><p>Метрика имеет смысл только в контексте цели этапа.</p>`,
+likes2:`<p>Около 2% likes/views на раннем органическом тесте используется в материалах как здоровый ориентир, но маленькие выборки шумные.</p><p>Нельзя оценивать ролик только по лайкам — нужны удержание, повторы и пересылки.</p>`,
+outliers:`<p>Ищите ролики, которые слишком быстро растут для своего возраста. Именно такие выбросы дают свежие механики для адаптации.</p>`,
+scale:`<p>Сильнее эксперимент, когда меняется одна переменная. Если одновременно заменить персонажа, юмор, длину, камеру, локацию и тему — непонятно, что сработало.</p>`,
+plateau:`<p>Плато не означает, что формат «умер». Возможно, вы нашли локальный максимум. Тестируйте следующий слой: хук, каст, панч, контраст, темп или тему — сохраняя остальную систему.</p>`,
+economics:`<p>Главный вопрос: не «сколько стоит мой AI-ролик?», а <strong>какую экономическую ценность внимание создаёт для бизнеса</strong>.</p><p>Чем выше ценность клиента в нише, тем больше вариантов монетизации одинакового объёма трафика.</p>`,
+ladder:`<p>Логика обучения двухэтапная:</p><div class="quote">сначала охватный аккаунт и дешёвая понятная монетизация → затем более дорогая модель, когда внимание уже стало устойчивым.</div><p>10 000 подписчиков в материалах — практическая веха автора, а не универсальная граница алгоритма.</p>`,
+'utillu-affiliate':``,
+'tools-affiliate':`<p>Можно вести человека на любой AI-инструмент, который реально решает его задачу: генерация изображений, видео, озвучка, автоматизация.</p><p>Главное — не просто кинуть ссылку, а показать: <strong>что вы сами делаете → куда нажать → какой результат получить</strong>.</p>`,
+syntx:`${vid('assets/media/syntx-demo.mp4','Syntx AI · демонстрация')}<p>Ссылка без инструкции конвертирует хуже. Человек должен понимать путь из точки А в точку Б.</p>${links([['Syntx AI',serviceLinks.syntx]])}`,
+'syntx-task':`${steps(['Взять свой сильный AI-креатив.','Записать экран и живой голос с инструкцией 15–25 секунд.','Показать полный путь в инструменте.','Склеить креатив + инструкцию.','Опубликовать и отправить ссылку @ferixdiii.'])}`,
+realestate:`<p>Недвижимость рассматривается как пример ниши, где одно качественное обращение может стоить значительно больше, чем продажа низкочекового креатива.</p><p>Это не означает, что каждый аккаунт обязан идти в недвижимость. Принцип — выбирать рынок с понятной экономикой клиента.</p>`,
+wellside:`<p>В материалах курса Wellside используется как партнёрская инфраструктура для недвижимости: персональные страницы → форма → CRM → дальнейшая работа с обращением.</p>${links([['Wellside Partners',serviceLinks.wellside]])}<a class="btn secondary" href="assets/docs/wellside-monetization.pdf" target="_blank">Открыть полный мануал</a>`,
+'re-shift':`<p>Не обнуляйте прогретый охватный аккаунт. Сохраняйте формат, темп и узнаваемые механики, но постепенно переводите бытовые сюжеты в контекст покупки, аренды, ипотеки, ремонта, районов и риелторов.</p>`,
+'re-psych':`<p>Покупка жилья часто связана с ощущением контроля, взрослого статуса, тревогой и самооправданием. Сильный контент не высмеивает человека, а даёт узнавание.</p><div class="quote">Вы продаёте не квадратные метры. Вы продаёте чувство: «Нас понимают».</div>`,
+boost:`<p>Каждый один раз отправляет свои Instagram / YouTube в <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>, затем поддерживает свежие публикации других.</p><div class="quote">Создали → опубликовали → поддержали других.</div><p>Комментарий должен быть содержательным, а не набором одинаковых эмодзи.</p>`,
+task1:`<p>Подготовить Qwen, фото- и видеогенерацию. Проверить, что всё открывается. Отправить «Готово» @ferixdiii.</p>`,
+task2:`<p>Собрать минимум 10 источников. Найти 5 коротких шуток. Для каждой: Frame 0 → video prompt → готовый 10-секундный ролик. Отправить 5 работ.</p>`,
+task3:`<p>Опубликовать готовые ролики в Instagram Reels и YouTube Shorts. Не ждать идеального бренда и персонажей.</p>`,
+task4:`<p>Честно зафиксировать реальный ритм: сколько роликов можете делать, когда публикуете, готовы ли регулярно поддерживать других.</p>`,
+task5:`<p>Найти 3 уже успешных видеоформата, разобрать через Google AI Studio / Video Recreation и создать 3 свои версии. Опубликовать и отправить ссылки.</p>`,
+task6:`<p>Выбрать постоянных героев после первых тестов. Зафиксировать внешность, голос, характер, роли и порядок референсов. Сделать один законченный ролик.</p>`,
+task7:`<p>Выбрать три сильнейших Reels по фактическим данным и закрепить их как витрину профиля.</p>`,
+task8:`<p>Взять выбранный AI-инструмент, которым реально пользуетесь. Сделать креатив + короткую понятную инструкцию, ведущую пользователя от интереса к результату.</p>`,
+weekly:`<p>Выберите одну механику, которая уже дала хороший сигнал. Сделайте 10 новых роликов, меняя только тему / предмет / роль / локацию. В конце сравните результаты.</p>`,
+audit:`<p>Экспортируйте свои данные. Выберите 3 сильные и 3 слабые работы. Для каждой ответьте: хук, тема, персонажи, длина, панч, реакция, охват. Сформулируйте одну гипотезу на следующую неделю.</p>`,
+questions:`${note('Задания не остаются «для себя». Готовый результат или ссылку отправляйте <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>. Если возник вопрос — прикладывайте исходник / скрин / ссылку, чтобы разбирать по факту.')}`,
+prompts:`${promptGridHtml()}`,
+media:`${renderMediaGrid()}`,
+docs:`<div class="prompt-grid"><a class="prompt-card" href="assets/docs/anatomy-reach.html" target="_blank"><h3>Анатомия охватов</h3><p class="desc">Полная статья.</p></a><a class="prompt-card" href="assets/docs/regularity.html" target="_blank"><h3>Регулярность</h3><p class="desc">Почему скорость AI без режима публикации не работает.</p></a><a class="prompt-card" href="assets/docs/v23-to-v32.pdf" target="_blank"><h3>v23.1 → v32</h3><p class="desc">66 инженерных изменений.</p></a><a class="prompt-card" href="assets/docs/apify-own-analysis.pdf" target="_blank"><h3>Apify · свои работы</h3><p class="desc">CSV → AI Studio.</p></a><a class="prompt-card" href="assets/docs/wellside-monetization.pdf" target="_blank"><h3>Wellside</h3><p class="desc">Охват → недвижимость → лиды.</p></a></div>`,
+current:`<p>Основной вход сейчас — <strong>FERIXDI VIDEO FACTORY v40.0</strong>. v15, v23.1 и v32 сохраняются в библиотеке как история и для понимания отдельных решений.</p>`,
+freshness:`<p>Модельные названия, тарифы, бесплатные лимиты, доступность по странам, кредитная стоимость, семейные режимы и интерфейсы могут устареть быстрее самого курса.</p>${note('Поэтому на страницах курса такие данные трактуются как зафиксированная практика на момент материала. Перед покупкой или настройкой проверяйте текущее состояние.')}`
+};return c[id]||'<p>Этот урок является частью общей системы и будет дополнен по мере обновления практики.</p>'}
+
+function promptGridHtml(){return `<div class="prompt-grid">${promptLibrary.map((p,i)=>`<div class="prompt-card"><div class="card-meta"><span class="badge ${i===0?'accent':'purple'}">${p.status}</span><span class="badge">${p.tag}</span></div><h3>${p.name}</h3><p class="desc">${p.desc}</p><div class="hero-actions"><button class="btn small" onclick="openPrompt('${p.file}',${!!p.interactive})">Открыть</button><a class="btn secondary small" href="${p.file}" download>Скачать TXT</a></div></div>`).join('')}</div>`}
+function renderMediaGrid(){return `<div class="media-grid">${media.map(m=>`<div class="media-card"><video controls preload="metadata" src="assets/media/${m[0]}"></video><div class="media-body"><h4>${m[1]}</h4><p class="muted">${m[2]}</p></div></div>`).join('')}${img('assets/media/capcut-start-trim.jpg','CapCut · убрать пустой старт')}${img('assets/media/omni-10plus-capcut.jpg','CapCut · экспорт последнего кадра')}${img('assets/media/omni-10plus-flow.jpg','Omni · продолжение из кадра')}</div>`}
 function memberHtml(){return `<div class="community-grid">${members.map(m=>`<div class="person"><strong>${m[0]}</strong><a href="${m[1]}" target="_blank">Instagram ↗</a>${m[2]?` · <a href="${m[2]}" target="_blank">YouTube ↗</a>`:''}</div>`).join('')}</div>`}
-function promptGridHtml(){return `<div class="prompt-grid">${promptLibrary.map((p,i)=>`<div class="prompt-card"><div class="card-meta"><span class="badge ${i===0?'accent':'purple'}">${p.status}</span><span class="badge">${p.tag}</span></div><h3>${p.name}</h3><p class="desc">${p.desc}</p><div class="hero-actions"><button class="btn small" onclick="openPrompt('${p.file}',${p.interactive||false})">Открыть</button><a class="btn secondary small" href="${p.file}" download>Скачать TXT</a></div></div>`).join('')}</div>`}
-function renderPromptLibrary(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">БИБЛИОТЕКА</div><h1>Промпты и системы</h1><p>Актуальный вход — Video Factory v40. Старые версии сохранены как история и отдельные инструменты.</p></div><div class="section-head"><div><h2>Все системы</h2><p>Оригиналы сохранены отдельными файлами.</p></div></div>${promptGridHtml()}`}
-function renderMedia(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">МЕДИА</div><h1>Видео и скриншоты</h1><p>Практические демонстрации встроены прямо в обучение.</p></div><div class="media-grid">${media.map(m=>`<div class="media-card"><video controls preload="metadata" src="assets/media/${m[0]}"></video><div class="media-body"><h4>${m[1]}</h4><p class="muted">${m[2]}</p></div></div>`).join('')}<div class="media-card"><img src="assets/media/capcut-start-trim.jpg"><div class="media-body"><h4>Обрезка пустого начала</h4><p class="muted">Первый звук должен начинать сцену сразу.</p></div></div></div>`}
-function renderCommunity(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">COMMUNITY</div><h1>Взаимный буст</h1><p>Поддержка работает только когда каждый не ждёт реакций, а сам регулярно помогает другим.</p></div>${memberHtml()}<div class="callout">Хотите добавить себя или обновить ссылку? Напишите <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>.</div>`}
+function renderPromptLibrary(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">БИБЛИОТЕКА</div><h1>Промпты и системы</h1><p>v40 — текущий основной вход. Старые версии сохранены отдельно и не слиты в один текст.</p></div>${promptGridHtml()}`}
+function renderMedia(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">МЕДИА</div><h1>Видео и скриншоты</h1><p>Практические демонстрации встроены в соответствующие уроки и собраны здесь повторно.</p></div>${renderMediaGrid()}`}
+function renderCommunity(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">COMMUNITY</div><h1>Взаимный буст</h1><p>Поддержка — часть дисциплины, а не одноразовый обмен комментариями.</p></div>${memberHtml()}${note('Хотите добавить себя или обновить ссылку? Напишите <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>.')}`}
 
-async function openPrompt(file,interactive=false){
- const txt=await fetch(file).then(r=>r.text());
- const safe=txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
- $('#modalBody').innerHTML=`<div class="eyebrow">PROMPT VIEWER</div><h2>${file.split('/').pop()}</h2><div class="toolbar"><button class="btn small" id="copyPrompt">Скопировать целиком</button><a class="btn secondary small" href="${file}" download>Скачать TXT</a>${interactive?'<span class="badge accent">Наведи на строку — увидишь её роль</span>':''}</div><div class="prompt-viewer">${safe.split('\n').map((l,i)=>`<div class="prompt-line" data-raw="${encodeURIComponent(l)}"><span class="ln">${i+1}</span><code>${l||' '}</code></div>`).join('')}</div><div class="line-tip" id="lineTip"></div>`;
- $('#modal').classList.add('open');$('#modal').setAttribute('aria-hidden','false');
- $('#copyPrompt').onclick=()=>navigator.clipboard.writeText(txt).then(()=>{$('#copyPrompt').textContent='Скопировано ✓';setTimeout(()=>$('#copyPrompt').textContent='Скопировать целиком',1200)});
- if(interactive){const tip=$('#lineTip');$$('.prompt-line').forEach(el=>{el.onmousemove=e=>{const raw=decodeURIComponent(el.dataset.raw);tip.textContent=explainLine(raw);tip.style.display='block';tip.style.left=Math.min(e.clientX+14,innerWidth-380)+'px';tip.style.top=Math.min(e.clientY+14,innerHeight-120)+'px'};el.onmouseleave=()=>tip.style.display='none'})}
-}
-function explainLine(l){const s=l.toLowerCase();if(!l.trim())return'Разделитель: визуально отделяет логические блоки системы.';if(s.includes('mode')||s.includes('режим'))return'Маршрутизация: помогает системе понять, какой сценарий работы включить.';if(s.includes('character')||s.includes('персонаж')||s.includes('identity'))return'Консистентность персонажей: фиксирует роль, внешность или правила сохранения личности.';if(s.includes('frame 0')||s.includes('frame0'))return'Frame 0: задаёт физическое начальное состояние будущего видео.';if(s.includes('dialog')||s.includes('реплик')||s.includes('speech')||s.includes('says in russian'))return'Речь: защищает точный текст, говорящего и синхронизацию губ.';if(s.includes('camera')||s.includes('камера'))return'Камера: ограничивает лишнее движение и удерживает выбранную визуальную механику.';if(s.includes('realism')||s.includes('реалист'))return'Реализм: снижает постановочность и противоречия между человеком, камерой и окружением.';if(s.includes('audio')||s.includes('звук')||s.includes('voice'))return'Аудио: управляет голосом, акустикой и синхронностью звуковых событий.';if(s.includes('laughter')||s.includes('смех'))return'Финальная реакция: определяет характер, момент и длительность смеха после панчлайна.';if(s.includes('negative')||s.includes('запрещ')||s.includes('do not')||s.includes('no '))return'Ограничение: защищает генерацию от типичной ошибки или нежелательного поведения модели.';if(s.includes('priority')||s.includes('приоритет'))return'Иерархия: решает конфликт между несколькими инструкциями.';if(s.startsWith('#'))return'Заголовок блока: группирует инструкции по одной производственной функции.';return'Рабочая строка: уточняет поведение системы и уменьшает пространство для случайной интерпретации.'}
+async function openPrompt(file,interactive=false){const txt=await fetch(file).then(r=>r.text());const safe=txt.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');$('#modalBody').innerHTML=`<div class="eyebrow">PROMPT VIEWER</div><h2>${file.split('/').pop()}</h2><div class="toolbar"><button class="btn small" id="copyPrompt">Скопировать целиком</button><a class="btn secondary small" href="${file}" download>Скачать TXT</a>${interactive?'<span class="badge accent">Наведи на строку — увидишь её роль</span>':''}</div><div class="prompt-viewer">${safe.split('\n').map((l,i)=>`<div class="prompt-line" data-raw="${encodeURIComponent(l)}"><span class="ln">${i+1}</span><code>${l||' '}</code></div>`).join('')}</div><div class="line-tip" id="lineTip"></div>`;$('#modal').classList.add('open');$('#modal').setAttribute('aria-hidden','false');$('#copyPrompt').onclick=()=>navigator.clipboard.writeText(txt).then(()=>{$('#copyPrompt').textContent='Скопировано ✓';setTimeout(()=>$('#copyPrompt').textContent='Скопировать целиком',1200)});if(interactive){const tip=$('#lineTip');$$('.prompt-line').forEach(el=>{el.onmousemove=e=>{const raw=decodeURIComponent(el.dataset.raw);tip.textContent=explainLine(raw);tip.style.display='block';tip.style.left=Math.min(e.clientX+14,innerWidth-380)+'px';tip.style.top=Math.min(e.clientY+14,innerHeight-120)+'px'};el.onmouseleave=()=>tip.style.display='none'})}}
+function explainLine(l){const s=l.toLowerCase();if(!l.trim())return'Разделитель логических блоков.';if(s.includes('mode')||s.includes('режим'))return'Маршрутизация входа и выбор сценария работы.';if(s.includes('character')||s.includes('персонаж')||s.includes('identity'))return'Консистентность личности и роли персонажа.';if(s.includes('frame 0')||s.includes('frame0'))return'Начальное физическое состояние будущего видео.';if(s.includes('dialog')||s.includes('реплик')||s.includes('speech')||s.includes('says in russian'))return'Контроль текста, speaker и lip-sync.';if(s.includes('camera')||s.includes('камера'))return'Поведение камеры и защита композиции.';if(s.includes('realism')||s.includes('реалист'))return'Физическая достоверность вместо AI-стерильности.';if(s.includes('audio')||s.includes('звук')||s.includes('voice'))return'Голос, акустика и синхронизация.';if(s.includes('laughter')||s.includes('смех'))return'Финальная реакция после панчлайна.';if(s.includes('negative')||s.includes('запрещ')||s.includes('do not')||s.includes('no '))return'Ограничение против типичной ошибки модели.';if(s.includes('priority')||s.includes('приоритет'))return'Иерархия при конфликте правил.';if(s.startsWith('#'))return'Заголовок функционального блока.';return'Рабочая строка, уменьшающая случайную интерпретацию.'}
+function search(q){q=q.trim().toLowerCase();if(!q)return render();const hits=allLessons().filter(x=>(x.title+' '+x.subtitle+' '+x.module.title).toLowerCase().includes(q));const ph=promptLibrary.filter(p=>(p.name+' '+p.desc+' '+p.tag).toLowerCase().includes(q));$('#view').innerHTML=`<div class="article"><div class="eyebrow">ПОИСК</div><h1>Результаты: «${q.replace(/[<>]/g,'')}»</h1></div><div class="search-results">${hits.map(h=>`<div class="search-hit" onclick="go('lesson/${h.id}')"><strong>${h.title}</strong><div class="muted small">${h.module.title} · ${h.subtitle}</div></div>`).join('')}${ph.map(p=>`<div class="search-hit" onclick="openPrompt('${p.file}',${!!p.interactive})"><strong>${p.name}</strong><div class="muted small">${p.desc}</div></div>`).join('')}${!hits.length&&!ph.length?'<div class="card">Ничего не найдено.</div>':''}</div>`}
 
-function search(q){q=q.trim().toLowerCase();if(!q)return render();const hits=allLessons().filter(x=>(x.title+' '+x.subtitle+' '+x.module.title).toLowerCase().includes(q));const ph=promptLibrary.filter(p=>(p.name+' '+p.desc+' '+p.tag).toLowerCase().includes(q));$('#view').innerHTML=`<div class="article"><div class="eyebrow">ПОИСК</div><h1>Результаты: «${q.replace(/[<>]/g,'')}»</h1></div><div class="search-results">${hits.map(h=>`<div class="search-hit" onclick="go('lesson/${h.id}')"><strong>${h.title}</strong><div class="muted small">${h.module.title} · ${h.subtitle}</div></div>`).join('')}${ph.map(p=>`<div class="search-hit" onclick="openPrompt('${p.file}',${p.interactive||false})"><strong>${p.name}</strong><div class="muted small">${p.desc}</div></div>`).join('')}${!hits.length&&!ph.length?'<div class="card">Ничего не найдено.</div>':''}</div>`}
-
-window.go=go;window.openPrompt=openPrompt;
-window.addEventListener('hashchange',render);
-$('#searchInput').addEventListener('input',e=>search(e.target.value));
-$('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open');
-$('#themeBtn').onclick=()=>document.documentElement.classList.toggle('light');
-$$('[data-close]').forEach(x=>x.onclick=()=>{$('#modal').classList.remove('open');$('#modal').setAttribute('aria-hidden','true')});
-buildNav();renderProgress();render();
+window.go=go;window.openPrompt=openPrompt;window.addEventListener('hashchange',render);$('#searchInput').addEventListener('input',e=>search(e.target.value));$('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open');$('#themeBtn').onclick=()=>document.documentElement.classList.toggle('light');$$('[data-close]').forEach(x=>x.onclick=()=>{$('#modal').classList.remove('open');$('#modal').setAttribute('aria-hidden','true')});buildNav();renderProgress();render();

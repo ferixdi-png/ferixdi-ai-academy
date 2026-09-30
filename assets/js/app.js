@@ -388,6 +388,100 @@ const friendlyPromptInfo={
 'assets/prompts/master-v33-archive-note.txt':{name:'v33 — архивная заметка',what:'Короткая карточка переходной версии. Полного оригинального файла среди материалов нет.',when:'Можно пропустить. Нужна только для истории.',level:'АРХИВ'}
 };
 
+
+const promptUseGuide={
+'assets/prompts/video-factory-v40.txt':{
+  purpose:'Берёт твою идею, шутку или референс и собирает готовый пакет для производства ролика.',
+  where:'Вставь целиком в Qwen, Gemini или Google AI Studio как основную инструкцию для нового чистого диалога.',
+  how:'После промпта отправь свою шутку, диалог или видео-референс. Получи Frame 0 prompt и video prompt. Frame 0 сделай в GPT Image / Nano Banana, затем Frame 0 + video prompt загрузи в Omni 1.1.'
+},
+'assets/prompts/viral-scenario-hook.txt':{
+  purpose:'Помогает придумать сам сценарий: сильный первый кадр, короткий диалог и панч в конце.',
+  where:'Вставь целиком в Qwen, ChatGPT или Gemini в новый отдельный чат.',
+  how:'После промпта опиши своих персонажей и тему. Получи идеи, выбери одну, а уже выбранный диалог передай в FERIXDI VIDEO FACTORY v40.'
+},
+'assets/prompts/photorealism-engine.txt':{
+  purpose:'Делает стартовое изображение менее пластиковым и более похожим на реальное случайное фото.',
+  where:'Используй в ChatGPT Images / GPT Image или другом генераторе изображений вместе с описанием нужного кадра и референсами персонажей.',
+  how:'Сначала сделай обычный Frame 0 prompt через v40. Затем добавь этот realism-блок к описанию изображения и сгенерируй фото. Готовое фото пойдёт в Omni 1.1.'
+},
+'assets/prompts/voice-performance.txt':{
+  purpose:'Делает речь более живой: нормальные паузы, дыхание, интонация и ощущение настоящего разговора.',
+  where:'Добавь этот блок в video prompt перед генерацией в Omni 1.1.',
+  how:'Не вставляй его вместо основного video prompt. Сначала получи сцену через v40, затем добавь VOICE PERFORMANCE как дополнительную инструкцию к голосу.'
+},
+'assets/prompts/permanent-characters.txt':{
+  purpose:'Помогает сохранять одного и того же героя от ролика к ролику.',
+  where:'Используй вместе с v40 в Qwen / Gemini / AI Studio, а фото персонажей прикладывай как референсы при создании каждого нового Frame 0.',
+  how:'Один раз зафиксируй персонажей и порядок Image 1 / Image 2 / Image 3. В новых сценах меняй ситуацию, но не путай порядок референсов.'
+},
+'assets/prompts/omni-10plus.txt':{
+  purpose:'Нужен, когда ролик должен быть длиннее одного 10-секундного поколения.',
+  where:'Это не системный промпт. Используй инструкцию при работе CapCut + Omni 1.1.',
+  how:'Сгенерируй первую часть. В CapCut экспортируй самый последний кадр. Загрузи его в Omni 1.1 как стартовый кадр второй части и продолжи сцену.'
+},
+'assets/prompts/recreate-video-15-credits.txt':{
+  purpose:'Быстрый маршрут, если нашёл удачный ролик и хочешь сделать свою версию его механики.',
+  where:'Исходное видео загрузи в Gemini или Google AI Studio, туда же вставь инструкцию. Полученный video prompt потом используй в Omni 1.1.',
+  how:'Видео → Gemini / AI Studio → анализ → Frame 0 в GPT Image / Nano Banana → Frame 0 + video prompt в Omni 1.1.'
+},
+'assets/prompts/video-recreation-v32.txt':{
+  purpose:'Более подробный разбор уже существующего ролика для последующего пересоздания.',
+  where:'Вставь в Google AI Studio / Gemini вместе с исходным видео.',
+  how:'Дай модели видео и попроси выполнить инструкцию. На выходе возьми Frame 0 prompt и video prompt, затем генерируй через обычный пайплайн Omni 1.1.'
+},
+'assets/prompts/forensic-twin-test.txt':{
+  purpose:'Максимально детально разбирает видео: кадры, движения, мимику, камеру, речь, свет и звук.',
+  where:'Вставь в Gemini / Google AI Studio или другую модель, которая умеет анализировать видео, вместе с исходным роликом.',
+  how:'Используй только для сложного референса. Полученный reconstruction prompt дальше адаптируй под свою задачу и уже потом собирай Frame 0 и видео.'
+},
+'assets/prompts/memes-realistic-video-to-video.txt':{
+  purpose:'Переносит механику и игру персонажа из мемного видео в новую реалистичную ситуацию.',
+  where:'Вставь в модель, которая умеет работать с видео-референсом / video-to-video, вместе с исходным видео.',
+  how:'Загрузи референс, выбери новую ситуацию и попроси выдать готовый video-to-video prompt. Не используй этот файл для обычного TEXT-сценария.'
+},
+'assets/prompts/ultra-video-clean.txt':{
+  purpose:'Технически проверяет готовый MP4 и описывает, как привести файл к обычному совместимому контейнеру без лишней обработки.',
+  where:'Это инструкция для технической обработки файла через FFmpeg / проверку контейнера, а не промпт для Omni 1.1.',
+  how:'Используй только когда видео уже полностью готово. Сначала проверь параметры, затем делай stream copy или минимальную обработку и снова проверяй итоговый файл.'
+},
+'assets/prompts/apify-trend-scan.txt':{
+  purpose:'Помогает найти свежие ролики, которые быстрее всего набирают просмотры.',
+  where:'Сначала выгрузи CSV/XLSX из Apify, затем прикрепи таблицу в ChatGPT / Gemini / Google AI Studio и вставь этот аналитический промпт.',
+  how:'Собери выборку → выгрузи таблицу → прикрепи файл → вставь промпт → получи TOP роликов по скорости роста. Для точности сделай второй замер через несколько часов.'
+},
+'assets/prompts/master-v15.txt':{
+  purpose:'Старая версия мастер-промпта. Хранится для истории развития системы.',
+  where:'Новичку никуда вставлять не нужно.',
+  how:'Используй только если хочешь сравнить старую архитектуру с текущей v40.'
+},
+'assets/prompts/master-v23.1.txt':{
+  purpose:'Старая версия Real Human Comedy Engine с Frame 0, таймингом и финальным смехом.',
+  where:'Для текущей работы не нужна. Основной вариант сейчас v40.',
+  how:'Открывай только для изучения эволюции системы или отдельных старых правил.'
+},
+'assets/prompts/master-v32.txt':{
+  purpose:'Предыдущая большая версия до v40 с Joke DNA, Creative Thesis и более глубоким QC.',
+  where:'Для обычной работы не вставляй. Используй v40.',
+  how:'Нужна только если хочешь посмотреть, откуда в v40 пришли отдельные механики.'
+},
+'assets/prompts/master-v33-archive-note.txt':{
+  purpose:'Архивная карточка переходной версии. Это не полный рабочий оригинал.',
+  where:'Никуда вставлять не нужно.',
+  how:'Просто справка по истории изменений между v32 и v40.'
+}
+};
+
+function promptUseHtml(file){
+  const g=promptUseGuide[file];
+  if(!g)return '';
+  return `<div class="prompt-howto">
+    <div class="prompt-how-step"><span>1</span><div><strong>Для чего</strong><p>${g.purpose}</p></div></div>
+    <div class="prompt-how-step"><span>2</span><div><strong>Куда вставить</strong><p>${g.where}</p></div></div>
+    <div class="prompt-how-step"><span>3</span><div><strong>Как использовать</strong><p>${g.how}</p></div></div>
+  </div>`;
+}
+
 function displayModuleTitle(m){return friendlyModuleTitle[m.id]||m.title}
 function displayLessonTitle(l){return simpleLessonTitle[l[0]||l.id]||l[1]||l.title}
 
@@ -621,7 +715,7 @@ const promptByLesson={
 function relatedPromptsHtml(id){
   const list=promptByLesson[id];
   if(!list||!list.length)return '';
-  return `<section class="lesson-block"><div class="lesson-section-head"><span class="section-kicker">ПРОМПТ</span><h2>Что открыть для этого урока</h2><p class="section-intro">Не нужно разбираться во всей библиотеке. Ниже только то, что относится именно к этой теме.</p></div><div class="prompt-grid">${list.map(p=>{const f=friendlyPromptInfo[p[1]]||{};return `<div class="prompt-card friendly-prompt"><div class="prompt-level">${f.level||'ИНСТРУМЕНТ'}</div><h3>${f.name||p[0]}</h3><p><strong>Что делает:</strong> ${f.what||p[2]}</p><p><strong>Когда тебе нужен:</strong> ${f.when||p[3]}</p><div class="hero-actions"><button class="btn small" onclick="openPrompt('${p[1]}',${p[1].includes('video-factory-v40')})">Открыть</button><a class="btn secondary small" href="${p[1]}" download>Скачать</a></div></div>`}).join('')}</div></section>`;
+  return `<section class="lesson-block"><div class="lesson-section-head"><span class="section-kicker">ПРОМПТ</span><h2>Что открыть для этого урока</h2><p class="section-intro">Не нужно разбираться во всей библиотеке. Ниже только то, что относится именно к этой теме.</p></div><div class="prompt-grid">${list.map(p=>{const f=friendlyPromptInfo[p[1]]||{};return `<div class="prompt-card friendly-prompt"><div class="prompt-level">${f.level||'ИНСТРУМЕНТ'}</div><h3>${f.name||p[0]}</h3>${promptUseHtml(p[1])}<div class="hero-actions"><button class="btn small" onclick="openPrompt('${p[1]}',${p[1].includes('video-factory-v40')})">Открыть промпт</button><a class="btn secondary small" href="${p[1]}" download>Скачать TXT</a></div></div>`}).join('')}</div></section>`;
 }
 
 const moduleDeepNotes={
@@ -894,9 +988,8 @@ function promptCardSimple(p){
    <div class="prompt-level">${f.level}</div>
    <h3>${f.name}</h3>
    <p class="prompt-original">${p.name}</p>
-   <p><strong>Что делает:</strong> ${f.what}</p>
-   <p><strong>Когда открыть:</strong> ${f.when}</p>
-   <div class="hero-actions"><button class="btn small" onclick="openPrompt('${p.file}',${!!p.interactive})">Открыть</button><a class="btn secondary small" href="${p.file}" download>Скачать</a></div>
+   ${promptUseHtml(p.file)}
+   <div class="hero-actions"><button class="btn small" onclick="openPrompt('${p.file}',${!!p.interactive})">Открыть промпт</button><a class="btn secondary small" href="${p.file}" download>Скачать TXT</a></div>
  </div>`;
 }
 function promptGridHtml(){

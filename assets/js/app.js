@@ -226,11 +226,13 @@ library:{why:'Чтобы все оригинальные промпты, ста�
 function lessonGuideHtml(l){
  const mg=moduleGuide[l.module.id]||{why:l.module.desc,result:l.subtitle};
  const isTask=/задание|практика/i.test(l.title);
- const action=isTask?'Выполните шаги на своём материале и отправьте результат @ferixdiii.':'Прочитайте урок, примените принцип на своём материале и переходите дальше.';
- return `<section class="lesson-guide">
- <div class="guide-card guide-main"><span>ЗАЧЕМ ЭТО НУЖНО</span><strong>${mg.why}</strong></div>
- <div class="guide-card"><span>ЧТО ВЫ ПОЛУЧИТЕ</span><strong>${l.subtitle}</strong></div>
- <div class="guide-card"><span>ЧТО СДЕЛАТЬ</span><strong>${action}</strong></div>
+ const action=isTask?'Сделай задание на своём материале. Если хочешь проверку — отправь результат @ferixdiii.':'Сначала пойми идею урока. Потом повтори её один раз на своём примере.';
+ return `<section class="friend-box">
+   <div class="friend-label">ПО-ПРОСТОМУ</div>
+   <h2>Зачем тебе этот урок</h2>
+   <p>${mg.why}</p>
+   <div class="friend-result"><strong>После урока:</strong> ${l.subtitle}</div>
+   <div class="friend-action"><strong>Твоё действие:</strong> ${action}</div>
  </section>`;
 }
 function moduleGuideHtml(m){
@@ -246,9 +248,69 @@ function lessonNavHtml(id){
  return `<div class="lesson-nav">${prev?`<button class="btn secondary" onclick="go('lesson/${prev.id}')">← ${prev.title}</button>`:'<span></span>'}${next?`<button class="btn" onclick="go('lesson/${next.id}')">${next.title} →</button>`:''}</div>`;
 }
 
+
+const friendlyModuleTitle={
+start:'Старт: что будем делать',
+workspace:'Подготовь инструменты',
+viral:'Как делать ролики, которые досматривают',
+ideas:'Где брать идеи',
+factory:'Собираем ролик',
+realism:'Делаем картинку живой',
+voice:'Делаем речь живой',
+characters:'Постоянные герои',
+video:'Генерируем в Omni 1.1',
+publish:'Монтаж и публикация',
+regularity:'Как разогнать формат',
+analytics:'Что смотреть в цифрах',
+monetize:'Как зарабатывать с охватов',
+community:'Задания и поддержка',
+faq:'Если что-то не получается',
+library:'Промпты и материалы'
+};
+
+const simpleLessonTitle={
+'v40':'Главный мастер-промпт: что он вообще делает',
+'v40-text':'У тебя уже есть шутка: что делать дальше',
+'v40-video':'У тебя есть чужой ролик-референс: как его разобрать',
+'v40-hybrid':'Хочешь оставить механику, но поменять содержание',
+'scene-contract':'Как заранее зафиксировать сцену, чтобы AI не путался',
+'outputs':'Что должен выдать мастер-промпт',
+'photo':'Как сделать Frame 0 похожим на настоящее фото',
+'voice-performance':'Как сделать голос живым',
+'speaker-lock':'Как сделать, чтобы говорил правильный персонаж',
+'omni':'Как генерировать видео в Omni 1.1',
+'recreate15':'Как повторить механику ролика через AI',
+'forensic':'Как очень подробно разобрать референс',
+'clean':'Как подготовить готовый MP4 перед публикацией',
+'apify-trends':'Как находить ролики, которые начинают расти',
+'versions':'Какие старые версии промптов можно не изучать'
+};
+
+const friendlyPromptInfo={
+'assets/prompts/video-factory-v40.txt':{name:'Главный мастер-промпт',what:'Ты даёшь ему шутку, идею или видео. Он собирает тебе весь план ролика: сцену, Frame 0, промпт для Omni 1.1, речь и проверку.',when:'Открывай почти всегда, когда уже решил, какой ролик хочешь сделать.',level:'ОСНОВА'},
+'assets/prompts/viral-scenario-hook.txt':{name:'Промпт для идей и сценариев',what:'Помогает придумать саму идею ролика: что происходит в первом кадре, кто что говорит и где панч.',when:'Открывай, когда не знаешь, что снимать или какая шутка подойдёт.',level:'ОСНОВА'},
+'assets/prompts/photorealism-engine.txt':{name:'Промпт для реалистичного Frame 0',what:'Помогает сделать стартовую картинку менее пластиковой и более похожей на случайное настоящее фото.',when:'Открывай, когда фото выглядит слишком AI-шным.',level:'ОСНОВА'},
+'assets/prompts/voice-performance.txt':{name:'Промпт для живого голоса',what:'Объясняет модели, как говорить по-человечески: с дыханием, паузами и нормальной интонацией.',when:'Открывай, когда речь звучит как диктор или робот.',level:'ОСНОВА'},
+'assets/prompts/permanent-characters.txt':{name:'Промпт для постоянных героев',what:'Помогает сохранять одного и того же персонажа от ролика к ролику.',when:'Открывай после первых тестов, когда решил оставить героя надолго.',level:'ОСНОВА'},
+'assets/prompts/omni-10plus.txt':{name:'Как сделать видео длиннее 10 секунд',what:'Берём последний кадр первой части и делаем его первым кадром следующей части.',when:'Открывай, когда одного 10-секундного ролика Omni 1.1 не хватает.',level:'ОСНОВА'},
+'assets/prompts/recreate-video-15-credits.txt':{name:'Как быстро повторить механику ролика',what:'Показывает короткий путь: референс → Gemini / AI Studio → Frame 0 → Omni 1.1.',when:'Открывай, когда нашёл удачный ролик и хочешь сделать свою версию.',level:'ПО СИТУАЦИИ'},
+'assets/prompts/video-recreation-v32.txt':{name:'Подробный разбор видео-референса',what:'Более подробная версия работы с готовым видео. Разбирает сцену, персонажей и механику.',when:'Нужен, если простого быстрого разбора референса мало.',level:'ПО СИТУАЦИИ'},
+'assets/prompts/forensic-twin-test.txt':{name:'Максимально подробный разбор видео',what:'Разбирает ролик почти покадрово: камера, движения, речь, свет, звук и мелочи.',when:'Открывай только для сложных случаев. Для обычного ежедневного ролика он не нужен.',level:'ПРОДВИНУТЫЙ'},
+'assets/prompts/memes-realistic-video-to-video.txt':{name:'Мемный персонаж в новой ситуации',what:'Нужен, когда берёшь игру персонажа из видео и переносишь её в новый визуальный контекст.',when:'Открывай только для video-to-video задач с мемными героями.',level:'ПО СИТУАЦИИ'},
+'assets/prompts/ultra-video-clean.txt':{name:'Техническая проверка готового MP4',what:'Проверяет контейнер, звук и лишние технические поля. Сам ролик он не придумывает и не генерирует.',when:'Открывай в самом конце, когда видео уже готово.',level:'ПО СИТУАЦИИ'},
+'assets/prompts/apify-trend-scan.txt':{name:'Поиск быстрорастущих роликов',what:'Помогает собрать свежие ролики и понять, какие из них реально набирают скорость.',when:'Открывай, когда ищешь внешние тренды и новые механики.',level:'АНАЛИТИКА'},
+'assets/prompts/master-v15.txt':{name:'v15 — старая версия',what:'Одна из ранних версий системы.',when:'Новичку сейчас не нужна. Оставлена для истории.',level:'АРХИВ'},
+'assets/prompts/master-v23.1.txt':{name:'v23.1 — старая версия',what:'Более развитая старая версия с Frame 0, таймингом и смехом.',when:'Новичку можно не изучать. Основной рабочий вариант сейчас v40.',level:'АРХИВ'},
+'assets/prompts/master-v32.txt':{name:'v32 — старая версия',what:'Предыдущий большой этап до v40.',when:'Изучай только если интересно, как система развивалась.',level:'АРХИВ'},
+'assets/prompts/master-v33-archive-note.txt':{name:'v33 — архивная заметка',what:'Короткая карточка переходной версии. Полного оригинального файла среди материалов нет.',when:'Можно пропустить. Нужна только для истории.',level:'АРХИВ'}
+};
+
+function displayModuleTitle(m){return friendlyModuleTitle[m.id]||m.title}
+function displayLessonTitle(l){return simpleLessonTitle[l[0]||l.id]||l[1]||l.title}
+
 function allLessons(){return modules.flatMap(m=>m.lessons.map(l=>({module:m,id:l[0],title:l[1],subtitle:l[2]})))}
 const lessonMap=Object.fromEntries(allLessons().map(x=>[x.id,x]));
-function buildNav(){ $('#nav').innerHTML=`<a class="nav-item" data-route="home"><span class="nav-icon">⌂</span><span>Главная</span></a>`+modules.map(m=>`<a class="nav-item" data-route="module/${m.id}"><span class="nav-icon">${m.icon}</span><span>${m.title}</span></a>`).join(''); $$('.nav-item').forEach(x=>x.onclick=()=>go(x.dataset.route)); }
+function buildNav(){ $('#nav').innerHTML=`<a class="nav-item" data-route="home"><span class="nav-icon">⌂</span><span>Главная</span></a>`+modules.map(m=>`<a class="nav-item" data-route="module/${m.id}"><span class="nav-icon">${m.icon}</span><span>${displayModuleTitle(m)}</span></a>`).join(''); $$('.nav-item').forEach(x=>x.onclick=()=>go(x.dataset.route)); }
 function go(route){location.hash='#/'+route}
 function route(){return location.hash.replace(/^#\//,'')||'home'}
 function render(){const r=route();$$('.nav-item').forEach(x=>x.classList.toggle('active',x.dataset.route===r||r.startsWith('lesson/')&&lessonMap[r.split('/')[1]]?.module.id===x.dataset.route?.split('/')[1])); if(r==='home')return renderHome(); if(r==='prompts')return renderPromptLibrary(); if(r==='media')return renderMedia(); if(r==='community')return renderCommunity(); if(r.startsWith('module/'))return renderModule(r.split('/')[1]); if(r.startsWith('lesson/'))return renderLesson(r.split('/')[1]); renderHome();}
@@ -265,16 +327,16 @@ function renderHome(){
  <div class="callout"><strong>Как проходить:</strong> идите по модулям сверху вниз. В каждом уроке сразу видно: зачем он нужен, что вы получите и что нужно сделать.</div>
  <div class="callout"><strong>Стандарт видео:</strong> идея / референс → мастер-промпт → Frame 0 → <strong>Omni 1.1</strong> → CapCut → публикация.</div>
  <div class="section-head"><div><h2>Программа</h2><p>${modules.length} модулей · ${total} уроков. Начинайте с первого.</p></div></div>
- <div class="grid">${modules.map(m=>`<article class="card" onclick="go('module/${m.id}')"><div class="card-meta"><span class="badge">${m.icon}</span><span class="badge purple">${m.lessons.length} уроков</span></div><h3>${m.title}</h3><p class="desc">${m.desc}</p><div class="card-purpose">Зачем: ${moduleGuide[m.id]?.why||m.desc}</div></article>`).join('')}</div>`;
+ <div class="grid">${modules.map(m=>`<article class="card" onclick="go('module/${m.id}')"><div class="card-meta"><span class="badge">${m.icon}</span><span class="badge purple">${m.lessons.length} уроков</span></div><h3>${displayModuleTitle(m)}</h3><p class="desc">${m.desc}</p><div class="card-purpose">Зачем: ${moduleGuide[m.id]?.why||m.desc}</div></article>`).join('')}</div>`;
 }
 function renderModule(id){
  const m=modules.find(x=>x.id===id); if(!m)return renderHome();
- $('#view').innerHTML=`<div class="article module-intro"><div class="eyebrow">МОДУЛЬ</div><h1>${m.title}</h1><p>${m.desc}</p>${moduleGuideHtml(m)}<h2>Уроки модуля</h2><p class="muted">Идите сверху вниз. Каждый следующий урок опирается на предыдущий.</p></div>
- <div class="lesson-list">${m.lessons.map((l,i)=>`<div class="lesson-row" onclick="go('lesson/${l[0]}')"><div><span class="badge">${String(i+1).padStart(2,'0')}</span></div><div><strong>${l[1]}</strong><div class="muted small">${l[2]}</div></div><div>→</div></div>`).join('')}</div>`;
+ $('#view').innerHTML=`<div class="article module-intro"><div class="eyebrow">МОДУЛЬ</div><h1>${displayModuleTitle(m)}</h1><div class="original-title">${m.title}</div><p>${m.desc}</p>${moduleGuideHtml(m)}<h2>Уроки модуля</h2><p class="muted">Идите сверху вниз. Каждый следующий урок опирается на предыдущий.</p></div>
+ <div class="lesson-list">${m.lessons.map((l,i)=>`<div class="lesson-row" onclick="go('lesson/${l[0]}')"><div><span class="badge">${String(i+1).padStart(2,'0')}</span></div><div><strong>${displayLessonTitle(l)}</strong><div class="muted small">${l[2]}</div></div><div>→</div></div>`).join('')}</div>`;
 }
 function renderLesson(id){
  const l=lessonMap[id]; if(!l)return renderHome();
- $('#view').innerHTML=`<div class="article"><div class="eyebrow">${l.module.title}</div><h1>${l.title}</h1>
+ $('#view').innerHTML=`<div class="article"><div class="eyebrow">${l.module.title}</div><h1>${displayLessonTitle(l)}</h1>${displayLessonTitle(l)!==l.title?`<div class="original-title">В материалах: ${l.title}</div>`:''}
  ${lessonGuideHtml(l)}
  <div class="lesson-core"><h2>Суть урока</h2>${lessonContent(id)}</div>
  ${relatedPromptsHtml(id)}
@@ -411,7 +473,7 @@ const promptByLesson={
 function relatedPromptsHtml(id){
   const list=promptByLesson[id];
   if(!list||!list.length)return '';
-  return `<section class="lesson-block"><h2>Связанные промпты</h2><p>Здесь показано, какой именно промпт относится к уроку и чем он отличается от соседних инструментов.</p><div class="prompt-grid">${list.map(p=>`<div class="prompt-card"><h3>${p[0]}</h3><p><strong>Чем отличается:</strong> ${p[2]}</p><p><strong>Когда использовать:</strong> ${p[3]}</p><div class="hero-actions"><button class="btn small" onclick="openPrompt('${p[1]}',${p[1].includes('video-factory-v40')})">Открыть промпт</button><a class="btn secondary small" href="${p[1]}" download>Скачать TXT</a></div></div>`).join('')}</div></section>`;
+  return `<section class="lesson-block"><div class="lesson-section-head"><span class="section-kicker">ПРОМПТ</span><h2>Что открыть для этого урока</h2><p class="section-intro">Не нужно разбираться во всей библиотеке. Ниже только то, что относится именно к этой теме.</p></div><div class="prompt-grid">${list.map(p=>{const f=friendlyPromptInfo[p[1]]||{};return `<div class="prompt-card friendly-prompt"><div class="prompt-level">${f.level||'ИНСТРУМЕНТ'}</div><h3>${f.name||p[0]}</h3><p><strong>Что делает:</strong> ${f.what||p[2]}</p><p><strong>Когда тебе нужен:</strong> ${f.when||p[3]}</p><div class="hero-actions"><button class="btn small" onclick="openPrompt('${p[1]}',${p[1].includes('video-factory-v40')})">Открыть</button><a class="btn secondary small" href="${p[1]}" download>Скачать</a></div></div>`}).join('')}</div></section>`;
 }
 
 const moduleDeepNotes={
@@ -572,7 +634,7 @@ function lessonDeepDive(l){
     ['Как не сломать результат',sentences.slice(18,27)],
     ['Что сделать после урока',sentences.slice(27)]
   ];
-  return `<section class="lesson-block deep-dive">
+  return `<details class="lesson-block deep-dive"><summary><strong>Хочу разобраться глубже</strong><span>Дополнительное объяснение. Можно открыть позже.</span></summary><section class="deep-inner">
     <div class="lesson-section-head">
       <span class="section-kicker">ПОДРОБНО</span>
       <h2>Подробный разбор</h2>
@@ -738,10 +800,38 @@ current:`<p>Основной вход сейчас — <strong>FERIXDI VIDEO FAC
 freshness:`<p>Модельные названия, тарифы, бесплатные лимиты, доступность по странам, кредитная стоимость, семейные режимы и интерфейсы могут устареть быстрее самого курса.</p>${note('Поэтому на страницах курса такие данные трактуются как зафиксированная практика на момент материала. Перед покупкой или настройкой проверяйте текущее состояние.')}`
 };return c[id]||'<p>Этот урок является частью общей системы и будет дополнен по мере обновления практики.</p>'}
 
-function promptGridHtml(){return `<div class="prompt-grid">${promptLibrary.map((p,i)=>`<div class="prompt-card"><div class="card-meta"><span class="badge ${i===0?'accent':'purple'}">${p.status}</span><span class="badge">${p.tag}</span></div><h3>${p.name}</h3><p class="desc">${p.desc}</p><p><strong>Чем отличается:</strong> ${promptDifference[p.file]||'Решает отдельную задачу внутри общего производственного конвейера.'}</p><div class="hero-actions"><button class="btn small" onclick="openPrompt('${p.file}',${!!p.interactive})">Открыть</button><a class="btn secondary small" href="${p.file}" download>Скачать TXT</a></div></div>`).join('')}</div>`}
+function promptCardSimple(p){
+ const f=friendlyPromptInfo[p.file]||{name:p.name,what:p.desc,when:promptDifference[p.file]||'',level:p.status};
+ return `<div class="prompt-card friendly-prompt">
+   <div class="prompt-level">${f.level}</div>
+   <h3>${f.name}</h3>
+   <p class="prompt-original">${p.name}</p>
+   <p><strong>Что делает:</strong> ${f.what}</p>
+   <p><strong>Когда открыть:</strong> ${f.when}</p>
+   <div class="hero-actions"><button class="btn small" onclick="openPrompt('${p.file}',${!!p.interactive})">Открыть</button><a class="btn secondary small" href="${p.file}" download>Скачать</a></div>
+ </div>`;
+}
+function promptGridHtml(){
+ const mainFiles=['assets/prompts/video-factory-v40.txt','assets/prompts/viral-scenario-hook.txt','assets/prompts/photorealism-engine.txt','assets/prompts/voice-performance.txt','assets/prompts/permanent-characters.txt','assets/prompts/omni-10plus.txt'];
+ const archiveFiles=['assets/prompts/master-v15.txt','assets/prompts/master-v23.1.txt','assets/prompts/master-v32.txt','assets/prompts/master-v33-archive-note.txt'];
+ const main=promptLibrary.filter(p=>mainFiles.includes(p.file));
+ const archive=promptLibrary.filter(p=>archiveFiles.includes(p.file));
+ const situational=promptLibrary.filter(p=>!mainFiles.includes(p.file)&&!archiveFiles.includes(p.file));
+ return `<div class="prompt-library-simple">
+   <section class="prompt-group">
+     <div class="lesson-section-head"><span class="section-kicker">НАЧНИ ОТСЮДА</span><h2>Промпты, которые реально нужны в работе</h2><p class="section-intro">Если ты новичок — пока смотри только эти. Остальное можно вообще не трогать.</p></div>
+     <div class="prompt-grid">${main.map(promptCardSimple).join('')}</div>
+   </section>
+   <section class="prompt-group">
+     <div class="lesson-section-head"><span class="section-kicker">ПО СИТУАЦИИ</span><h2>Открывай только когда появится конкретная задача</h2><p class="section-intro">Не надо учить это заранее.</p></div>
+     <div class="prompt-grid">${situational.map(promptCardSimple).join('')}</div>
+   </section>
+   <details class="archive-box"><summary><strong>Старые версии промптов</strong><span>Новичку можно не открывать.</span></summary><div class="prompt-grid">${archive.map(promptCardSimple).join('')}</div></details>
+ </div>`;
+}
 function renderMediaGrid(){return `<div class="media-grid">${media.map(m=>`<div class="media-card"><video controls preload="metadata" src="assets/media/${m[0]}"></video><div class="media-body"><h4>${m[1]}</h4><p class="muted">${m[2]}</p></div></div>`).join('')}${img('assets/media/capcut-start-trim.jpg','CapCut · убрать пустой старт')}${img('assets/media/omni-10plus-capcut.jpg','CapCut · экспорт последнего кадра')}${img('assets/media/omni-10plus-flow.jpg','Omni · продолжение из кадра')}</div>`}
 function memberHtml(){return `<div class="community-grid">${members.map(m=>`<div class="person"><strong>${m[0]}</strong><a href="${m[1]}" target="_blank">Instagram ↗</a>${m[2]?` · <a href="${m[2]}" target="_blank">YouTube ↗</a>`:''}</div>`).join('')}</div>`}
-function renderPromptLibrary(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">БИБЛИОТЕКА</div><h1>Промпты и системы</h1><p>v40 — текущий основной вход. Старые версии сохранены отдельно и не слиты в один текст.</p></div>${promptGridHtml()}`}
+function renderPromptLibrary(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">ПРОМПТЫ</div><h1>Какой промпт тебе нужен?</h1><p>Не пугайся количества файлов. Для обычной работы тебе нужны несколько основных промптов. Всё сложное и старое я убрал ниже, чтобы не мешало.</p><div class="callout"><strong>Если сомневаешься — открывай FERIXDI VIDEO FACTORY v40.0.</strong> Это главный рабочий промпт курса.</div></div>${promptGridHtml()}`}
 function renderMedia(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">МЕДИА</div><h1>Видео и скриншоты</h1><p>Практические демонстрации встроены в соответствующие уроки и собраны здесь повторно.</p></div>${renderMediaGrid()}`}
 function renderCommunity(){$('#view').innerHTML=`<div class="article"><div class="eyebrow">COMMUNITY</div><h1>Взаимный буст</h1><p>Поддержка — часть дисциплины, а не одноразовый обмен комментариями.</p></div>${memberHtml()}${note('Хотите добавить себя или обновить ссылку? Напишите <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>.')}`}
 

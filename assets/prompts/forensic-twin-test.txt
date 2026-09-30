@@ -1,0 +1,7 @@
+FORENSIC RECONSTRUCTION / TWIN TEST
+
+Оригинальная система разобрана внутри урока «Forensic / TWIN TEST» на сайте.
+
+Структура: keyframe grid → identity/location/audio cards → micro-segmented timeline по 9 каналам → continuity & life audit → reconstruction simulation / diff loop → final reconstruction prompt.
+
+Цель: максимально подробное описание наблюдаемых свойств исходного ролика без обещания математически идентичного результата.

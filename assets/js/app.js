@@ -256,6 +256,44 @@ function lessonWhyText(l){
 function stageForModule(id){return courseStages.find(s=>s.modules.includes(id))}
 function isCoreLesson(id){return coreLessonIds.has(id)}
 
+
+const contentKinds={
+  lesson:new Set([
+    'welcome','about-author','coursemap','anatomy','qwen','conveyor','newaccount','regularity',
+    'photo','voice-performance','characters','omni','wellside','re-psych'
+  ]),
+  video:new Set([
+    'qwen','google-account','conveyor','v40-video','recreate15','characters','syntx'
+  ]),
+  guide:new Set([
+    'setup','image-tools','video-tools','flow-access','costs','scenario-engine','instagram-stt','telegram-sources',
+    'apify-trends','ownstats','v40','v40-text','v40-video','v40-hybrid','scene-contract','outputs','author-pipeline-20s',
+    'character-photos','refs','series','long','meme-v2v','forensic','repair','trim','clean','caption','profile',
+    'tools-affiliate','syntx','realestate','wellside','re-shift','prompts','media','docs','current','freshness',
+    'faq-zero','faq-ideas','faq-model','faq-flow','faq-errors','faq-10s','faq-post','faq-monetize','faq-platform','faq-ai-label','faq-current','faq-help'
+  ]),
+  practice:new Set([
+    'practicefirst','boost','task1','task2','task3','task4','task5','task6','task7','task8','weekly','audit',
+    'task9','task10','task11','task12','task13','task14','task15','questions','syntx-task'
+  ])
+};
+function contentKind(l){
+  const id=l.id||l[0], title=l.title||l[1]||'';
+  if(contentKinds.practice.has(id)||/задание|практика/i.test(title)) return 'practice';
+  if(contentKinds.video.has(id)) return 'video';
+  if(contentKinds.lesson.has(id)) return 'lesson';
+  if(contentKinds.guide.has(id)) return 'guide';
+  return 'insight';
+}
+const kindMeta={
+  lesson:{label:'УРОК',icon:'▶',hint:'Подробно изучить'},
+  video:{label:'ВИДЕОУРОК',icon:'◉',hint:'Посмотреть и повторить'},
+  guide:{label:'ИНСТРУКЦИЯ',icon:'→',hint:'Открыть, когда понадобится'},
+  insight:{label:'ИНСАЙТ',icon:'✦',hint:'Короткая мысль'},
+  practice:{label:'ПРАКТИКА',icon:'✓',hint:'Сделать руками'}
+};
+function kindMetaFor(l){return kindMeta[contentKind(l)]}
+
 const moduleGuide={
 start:{why:'Чтобы сначала понять общую систему и не прыгать хаотично между нейросетями.',result:'Поймёте, как устроено обучение и в каком порядке идти дальше.'},
 workspace:{why:'Чтобы один раз собрать рабочую среду и потом не терять время на техническую путаницу.',result:'Будет готов базовый набор: текстовая модель, Frame 0 и Omni 1.1 для видео.'},
@@ -402,33 +440,61 @@ function renderHome(){
 function renderModule(id){
  const m=modules.find(x=>x.id===id); if(!m)return renderHome();
  const stage=stageForModule(id);
- const core=m.lessons.filter(l=>isCoreLesson(l[0]));
- const extra=m.lessons.filter(l=>!isCoreLesson(l[0]));
- const row=(l,i)=>`<div class="lesson-row" onclick="go('lesson/${l[0]}')"><div><span class="badge">${String(i+1).padStart(2,'0')}</span></div><div><strong>${displayLessonTitle(l)}</strong><div class="muted small">${lessonWhyText({id:l[0],title:l[1],module:m})}</div></div><div>→</div></div>`;
+ const buckets={lesson:[],video:[],guide:[],insight:[],practice:[]};
+ m.lessons.forEach(l=>buckets[contentKind({id:l[0],title:l[1]})].push(l));
+ const row=(l,i)=>{
+   const km=kindMetaFor({id:l[0],title:l[1]});
+   return `<div class="lesson-row kind-${contentKind({id:l[0],title:l[1]})}" onclick="go('lesson/${l[0]}')">
+     <div class="kind-chip">${km.icon}</div>
+     <div class="lesson-row-main">
+       <div class="row-top"><span class="content-type">${km.label}</span><span class="row-num">${String(i+1).padStart(2,'0')}</span></div>
+       <strong>${displayLessonTitle(l)}</strong>
+       <div class="muted small">${lessonWhyText({id:l[0],title:l[1],module:m})}</div>
+     </div>
+     <div class="row-arrow">→</div>
+   </div>`;
+ };
+ const section=(key,title,desc)=>{
+   const arr=buckets[key]; if(!arr.length)return '';
+   return `<section class="module-content-group group-${key}">
+     <div class="group-head"><div><span class="group-kicker">${kindMeta[key].label}</span><h2>${title}</h2><p>${desc}</p></div><span class="group-count">${arr.length}</span></div>
+     <div class="lesson-list">${arr.map(row).join('')}</div>
+   </section>`;
+ };
  $('#view').innerHTML=`<div class="article module-intro">
    <div class="eyebrow">${stage?stage.num+' · '+stage.title:'МОДУЛЬ'}</div>
    <h1>${displayModuleTitle(m)}</h1>
    <div class="original-title">${m.title}</div>
    <p>${m.desc}</p>
    ${moduleGuideHtml(m)}
-   <div class="module-start-note"><strong>Если ты новичок:</strong> сначала пройди только основные уроки. Дополнительные открой потом, когда появится конкретный вопрос.</div>
-   <h2>Основной маршрут</h2>
+   <div class="module-start-note"><strong>Как здесь ориентироваться:</strong> видеоуроки и уроки изучай полностью. Инструкции открывай по задаче. Инсайты читай быстро. Практику обязательно делай руками.</div>
  </div>
- <div class="lesson-list">${core.map(row).join('')}</div>
- ${extra.length?`<details class="extra-lessons"><summary><strong>Дополнительные уроки</strong><span>${extra.length} шт. · можно оставить на потом</span></summary><div class="lesson-list">${extra.map((l,i)=>row(l,core.length+i)).join('')}</div></details>`:''}`;
+ ${section('video','Видеоуроки','Здесь лучше посмотреть материал целиком и повторить показанные действия.')}
+ ${section('lesson','Полноценные уроки','Это большие темы, которые стоит пройти внимательно от начала до конца.')}
+ ${section('guide','Инструкции и инструменты','Не нужно учить наизусть. Открывай, когда дошёл до этой конкретной задачи.')}
+ ${section('insight','Короткие инсайты','Это не отдельные уроки. Короткие мысли, которые помогают лучше понимать механику.')}
+ ${section('practice','Практика','Здесь не читаем ради чтения — делаем и получаем результат.')}
+ `;
 }
 function renderLesson(id){
  const l=lessonMap[id]; if(!l)return renderHome();
- $('#view').innerHTML=`<div class="article"><div class="eyebrow">${l.module.title}</div><h1>${displayLessonTitle(l)}</h1>${displayLessonTitle(l)!==l.title?`<div class="original-title">В материалах: ${l.title}</div>`:''}
- ${lessonGuideHtml(l)}
- <div class="lesson-core"><h2>Суть урока</h2>${lessonContent(id)}</div>
- ${relatedPromptsHtml(id)}
- ${omniStandardHtml(l)}
- ${lessonDeepDive(l)}
- <div class="lesson-contact"><div><strong>Нужна проверка или что-то не получилось?</strong><span>Пришлите исходник, скрин или ссылку.</span></div><a class="btn secondary" href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a></div>
- ${lessonNavHtml(id)}</div>`;
+ const km=kindMetaFor(l), kind=contentKind(l);
+ const introTitle=kind==='insight'?'Коротко и по делу':kind==='practice'?'Что нужно сделать':kind==='guide'?'Как это использовать':'Суть материала';
+ $('#view').innerHTML=`<div class="article content-page kind-page-${kind}">
+   <div class="content-eyebrow"><span>${km.icon}</span>${km.label} · ${displayModuleTitle(l.module)}</div>
+   <h1>${displayLessonTitle(l)}</h1>
+   ${displayLessonTitle(l)!==l.title?`<div class="original-title">В материалах: ${l.title}</div>`:''}
+   ${kind==='insight'?
+     `<section class="insight-hero"><span>ГЛАВНАЯ МЫСЛЬ</span><p>${lessonWhyText(l)}</p></section>`
+     :lessonGuideHtml(l)}
+   <div class="lesson-core kind-core-${kind}"><h2>${introTitle}</h2>${lessonContent(id)}</div>
+   ${relatedPromptsHtml(id)}
+   ${omniStandardHtml(l)}
+   ${kind==='insight'?'':lessonDeepDive(l)}
+   <div class="lesson-contact"><div><strong>Нужна проверка или что-то не получилось?</strong><span>Пришли исходник, скрин или ссылку — разберём по фактам.</span></div><a class="btn secondary" href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a></div>
+   ${lessonNavHtml(id)}
+ </div>`;
 }
-
 const note=(t)=>`<div class="callout">${t}</div>`;
 const steps=(arr)=>`<div class="steps">${arr.map(x=>`<div class="step"><span>${x}</span></div>`).join('')}</div>`;
 const links=(arr)=>`<div class="mini-links">${arr.map(([t,u])=>`<a href="${u}" target="_blank" rel="noreferrer">${t} ↗</a>`).join('')}</div>`;

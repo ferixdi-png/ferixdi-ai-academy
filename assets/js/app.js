@@ -276,23 +276,16 @@ library:{why:'Чтобы все оригинальные промпты, ста�
 };
 
 function lessonGuideHtml(l){
- const mg=moduleGuide[l.module.id]||{why:l.module.desc,result:l.subtitle};
  const isTask=/задание|практика/i.test(l.title);
- const action=isTask?'Сделай задание на своём материале. Если хочешь проверку — отправь результат @ferixdiii.':'Сначала пойми идею урока. Потом повтори её один раз на своём примере.';
- return `<section class="friend-box">
-   <div class="friend-label">ПО-ПРОСТОМУ</div>
-   <h2>Зачем тебе этот урок</h2>
-   <p>${mg.why}</p>
-   <div class="friend-result"><strong>После урока:</strong> ${l.subtitle}</div>
-   <div class="friend-action"><strong>Твоё действие:</strong> ${action}</div>
- </section>`;
+ const action=isTask?'Сделай задание на своём материале. Если хочешь проверку — отправь результат @ferixdiii.':'Прочитай суть, потом один раз примени её на своём ролике или аккаунте.';
+ return `<section class="friend-box"><div class="friend-label">ПО-ПРОСТОМУ</div><h2>Зачем тебе этот урок</h2><p>${lessonWhyText(l)}</p><div class="friend-result"><strong>После урока:</strong> ${l.subtitle}</div><div class="friend-action"><strong>Что сделать:</strong> ${action}</div></section>`;
 }
 function moduleGuideHtml(m){
  const g=moduleGuide[m.id]||{why:m.desc,result:'Поймёте ключевые действия этого этапа.'};
  return `<section class="module-guide">
- <div><span>Зачем модуль</span><strong>${g.why}</strong></div>
- <div><span>Результат</span><strong>${g.result}</strong></div>
- <div><span>Как проходить</span><strong>Идите сверху вниз. Один урок = одна понятная задача.</strong></div>
+ <div><span>Зачем мы здесь</span><strong>${g.why}</strong></div>
+ <div><span>Что должно получиться</span><strong>${g.result}</strong></div>
+ <div><span>Что делать</span><strong>Сначала основные уроки. Дополнительные открывай только если они реально понадобились.</strong></div>
  </section>`;
 }
 function lessonNavHtml(id){
@@ -408,8 +401,21 @@ function renderHome(){
 }
 function renderModule(id){
  const m=modules.find(x=>x.id===id); if(!m)return renderHome();
- $('#view').innerHTML=`<div class="article module-intro"><div class="eyebrow">МОДУЛЬ</div><h1>${displayModuleTitle(m)}</h1><div class="original-title">${m.title}</div><p>${m.desc}</p>${moduleGuideHtml(m)}<h2>Уроки модуля</h2><p class="muted">Идите сверху вниз. Каждый следующий урок опирается на предыдущий.</p></div>
- <div class="lesson-list">${m.lessons.map((l,i)=>`<div class="lesson-row" onclick="go('lesson/${l[0]}')"><div><span class="badge">${String(i+1).padStart(2,'0')}</span></div><div><strong>${displayLessonTitle(l)}</strong><div class="muted small">${l[2]}</div></div><div>→</div></div>`).join('')}</div>`;
+ const stage=stageForModule(id);
+ const core=m.lessons.filter(l=>isCoreLesson(l[0]));
+ const extra=m.lessons.filter(l=>!isCoreLesson(l[0]));
+ const row=(l,i)=>`<div class="lesson-row" onclick="go('lesson/${l[0]}')"><div><span class="badge">${String(i+1).padStart(2,'0')}</span></div><div><strong>${displayLessonTitle(l)}</strong><div class="muted small">${lessonWhyText({id:l[0],title:l[1],module:m})}</div></div><div>→</div></div>`;
+ $('#view').innerHTML=`<div class="article module-intro">
+   <div class="eyebrow">${stage?stage.num+' · '+stage.title:'МОДУЛЬ'}</div>
+   <h1>${displayModuleTitle(m)}</h1>
+   <div class="original-title">${m.title}</div>
+   <p>${m.desc}</p>
+   ${moduleGuideHtml(m)}
+   <div class="module-start-note"><strong>Если ты новичок:</strong> сначала пройди только основные уроки. Дополнительные открой потом, когда появится конкретный вопрос.</div>
+   <h2>Основной маршрут</h2>
+ </div>
+ <div class="lesson-list">${core.map(row).join('')}</div>
+ ${extra.length?`<details class="extra-lessons"><summary><strong>Дополнительные уроки</strong><span>${extra.length} шт. · можно оставить на потом</span></summary><div class="lesson-list">${extra.map((l,i)=>row(l,core.length+i)).join('')}</div></details>`:''}`;
 }
 function renderLesson(id){
  const l=lessonMap[id]; if(!l)return renderHome();

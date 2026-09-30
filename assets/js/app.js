@@ -203,6 +203,49 @@ const serviceLinks={
 qwen:'https://chat.qwen.ai/',aistudio:'https://aistudio.google.com/',flow:'https://labs.google/fx/tools/flow',images:'https://chatgpt.com/images',apify:'https://apify.com/',stt:'https://stt.ai/transcribe/instagram/?lang=ru',syntx:'https://t.me/syntxaibot?start=aff_6913446846',wellside:'https://t.me/wellside_partners_bot?start=bobjnvpbkb',googleHelp:'https://www.youtube.com/watch?v=KNTmIkMYOHU',supplier:'https://plati.market/itm/gemini-ai-ultra-pro-7-30-183-private-account/5050049',syntxOfficial:'https://syntx.ai/ru',syntxAffiliate:'https://docs.syntx.ai/Инструкции-(Остальные)/🤝-Партнерская-программа',wellsideOfficial:'https://wellside.ru/',wellsideBloggers:'https://wellside.ru/bloggers'
 };
 
+
+const moduleGuide={
+start:{why:'Чтобы сначала понять общую систему и не прыгать хаотично между нейросетями.',result:'Поймёте, как устроено обучение и в каком порядке идти дальше.'},
+workspace:{why:'Чтобы один раз собрать рабочую среду и потом не терять время на техническую путаницу.',result:'Будет готов базовый набор: текстовая модель, Frame 0 и Omni 1.1 для видео.'},
+viral:{why:'Чтобы понимать, почему зритель останавливается, досматривает и пересылает ролик.',result:'Сможете отличать просто красивый ролик от ролика с рабочей механикой удержания.'},
+ideas:{why:'Чтобы не придумывать контент с нуля каждый день.',result:'Появится система поиска шуток, конфликтов, трендов и сценарных механик.'},
+factory:{why:'Чтобы превращать идею или референс в готовый производственный пакет без ручной сборки десятка промптов.',result:'Научитесь пользоваться FERIXDI VIDEO FACTORY v40.0 и понимать нужный режим.'},
+realism:{why:'Чтобы ролик не выглядел как пластиковая AI-генерация ещё до запуска видео.',result:'Сможете собирать реалистичный Frame 0, который Omni 1.1 легче продолжает без артефактов.'},
+voice:{why:'Чтобы русская речь звучала как живой разговор, а не как дикторская AI-озвучка.',result:'Поймёте speaker lock, ударения, паузы, панчлайн и VOICE PERFORMANCE.'},
+characters:{why:'Чтобы после первых тестов превратить удачных героев в узнаваемую серию.',result:'Сможете закреплять личности персонажей и переносить их между сценами.'},
+video:{why:'Чтобы стабильно превращать Frame 0 и видеопромпт в готовый ролик.',result:'Освоите Omni 1.1 как основной стандарт курса, 10+ секунд и repair-подход.'},
+publish:{why:'Чтобы не потерять сильный ролик из-за пустого старта, плохой склейки или лишней обработки.',result:'Получите понятный финальный чек-лист CapCut → проверка → публикация.'},
+regularity:{why:'Чтобы перестать оценивать формат по двум роликам и начать собирать реальные данные.',result:'Поймёте, как повторять рабочую механику и накапливать наблюдения.'},
+analytics:{why:'Чтобы решения принимались по данным, а не по ощущению.',result:'Сможете находить выбросы, оценивать свежие ролики и выбирать следующий тест.'},
+monetize:{why:'Чтобы охваты превращались в экономический результат, а не оставались просто статистикой.',result:'Поймёте путь от внимания до партнёрки, AI-инструмента или более дорогой ниши.'},
+community:{why:'Чтобы теория превращалась в реальные файлы, публикации, таблицы и навыки.',result:'Пройдёте практические задания и будете отправлять конкретный результат на проверку.'},
+faq:{why:'Чтобы быстро решить конкретный затык и не перечитывать весь курс.',result:'Найдёте короткие ответы по моделям, Flow, ошибкам, публикации и актуальности.'},
+library:{why:'Чтобы все оригинальные промпты, статьи, PDF и медиа были в одном месте.',result:'Сможете быстро открыть нужный оригинал и понять, чем он отличается от остальных.'}
+};
+
+function lessonGuideHtml(l){
+ const mg=moduleGuide[l.module.id]||{why:l.module.desc,result:l.subtitle};
+ const isTask=/задание|практика/i.test(l.title);
+ const action=isTask?'Выполните шаги на своём материале и отправьте результат @ferixdiii.':'Прочитайте урок, примените принцип на своём материале и переходите дальше.';
+ return `<section class="lesson-guide">
+ <div class="guide-card guide-main"><span>ЗАЧЕМ ЭТО НУЖНО</span><strong>${mg.why}</strong></div>
+ <div class="guide-card"><span>ЧТО ВЫ ПОЛУЧИТЕ</span><strong>${l.subtitle}</strong></div>
+ <div class="guide-card"><span>ЧТО СДЕЛАТЬ</span><strong>${action}</strong></div>
+ </section>`;
+}
+function moduleGuideHtml(m){
+ const g=moduleGuide[m.id]||{why:m.desc,result:'Поймёте ключевые действия этого этапа.'};
+ return `<section class="module-guide">
+ <div><span>Зачем модуль</span><strong>${g.why}</strong></div>
+ <div><span>Результат</span><strong>${g.result}</strong></div>
+ <div><span>Как проходить</span><strong>Идите сверху вниз. Один урок = одна понятная задача.</strong></div>
+ </section>`;
+}
+function lessonNavHtml(id){
+ const all=allLessons(),i=all.findIndex(x=>x.id===id),prev=i>0?all[i-1]:null,next=i>=0&&i<all.length-1?all[i+1]:null;
+ return `<div class="lesson-nav">${prev?`<button class="btn secondary" onclick="go('lesson/${prev.id}')">← ${prev.title}</button>`:'<span></span>'}${next?`<button class="btn" onclick="go('lesson/${next.id}')">${next.title} →</button>`:''}</div>`;
+}
+
 function allLessons(){return modules.flatMap(m=>m.lessons.map(l=>({module:m,id:l[0],title:l[1],subtitle:l[2]})))}
 const lessonMap=Object.fromEntries(allLessons().map(x=>[x.id,x]));
 function buildNav(){ $('#nav').innerHTML=`<a class="nav-item" data-route="home"><span class="nav-icon">⌂</span><span>Главная</span></a>`+modules.map(m=>`<a class="nav-item" data-route="module/${m.id}"><span class="nav-icon">${m.icon}</span><span>${m.title}</span></a>`).join(''); $$('.nav-item').forEach(x=>x.onclick=()=>go(x.dataset.route)); }
@@ -212,27 +255,33 @@ function render(){const r=route();$$('.nav-item').forEach(x=>x.classList.toggle(
 
 function renderHome(){
  const total=allLessons().length;
- $('#view').innerHTML=`<section class="hero"><div><div class="eyebrow">FERIXDI AI · ОХВАТЫ НА AI</div><h1>Система производства внимания через AI-контент</h1><p>Большая практическая база: от первого диалога в Qwen до регулярных охватов, аналитики, постоянных персонажей и монетизации трафика.</p><div class="hero-actions"><button class="btn" onclick="go('lesson/welcome')">Начать с первого урока</button><button class="btn secondary" onclick="go('prompts')">Библиотека промптов</button></div></div><div class="kpis"><div class="kpi"><strong>${total}</strong><span>структурированных уроков</span></div><div class="kpi"><strong>${modules.length}</strong><span>модулей</span></div><div class="kpi"><strong>15+</strong><span>практических заданий</span></div></div></section>
- <div class="callout"><strong>Как проходить:</strong> не пытайтесь прочитать всё за вечер. Открыли урок → сделали действие → опубликовали / проверили → только потом следующий. По заданиям и вопросам пишите <a href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a>.</div>
- <div class="callout"><strong>Актуальность:</strong> AI-модели, тарифы, лимиты и интерфейсы меняются быстро. Цифры и названия режимов в материалах фиксируют практику на момент записи — перед покупкой или настройкой проверяйте, что актуально сейчас.</div>
- <div class="section-head"><div><h2>Программа</h2><p>Большая база самостоятельных уроков: каждый раскрывает одну тему подробно и понятным языком.</p></div></div><div class="grid">${modules.map(m=>`<article class="card" onclick="go('module/${m.id}')"><div class="card-meta"><span class="badge">${m.icon}</span><span class="badge purple">${m.lessons.length} уроков</span></div><h3>${m.title}</h3><p class="desc">${m.desc}</p></article>`).join('')}</div>`;
+ $('#view').innerHTML=`<section class="hero simple-hero"><div class="eyebrow">FERIXDI AI · ОХВАТЫ НА AI</div><h1>От идеи до охватов и монетизации</h1><p>Не нужно изучать всё сразу. Сайт построен как маршрут: сначала инструменты, затем ролики, публикация, аналитика и монетизация.</p><div class="hero-actions"><button class="btn" onclick="go('lesson/welcome')">Начать обучение →</button><button class="btn secondary" onclick="go('prompts')">Открыть промпты</button></div></section>
+ <section class="start-map">
+ <div class="start-step"><span>01</span><div><strong>Понять систему</strong><p>Старт, рабочая область и вирусная механика.</p></div></div>
+ <div class="start-step"><span>02</span><div><strong>Собрать ролик</strong><p>Идея → Video Factory → Frame 0 → Omni 1.1.</p></div></div>
+ <div class="start-step"><span>03</span><div><strong>Опубликовать и повторить</strong><p>CapCut → Reels/Shorts → регулярность → аналитика.</p></div></div>
+ <div class="start-step"><span>04</span><div><strong>Направить внимание</strong><p>Монетизация, партнёрки и дальнейшее масштабирование.</p></div></div>
+ </section>
+ <div class="callout"><strong>Как проходить:</strong> идите по модулям сверху вниз. В каждом уроке сразу видно: зачем он нужен, что вы получите и что нужно сделать.</div>
+ <div class="callout"><strong>Стандарт видео:</strong> идея / референс → мастер-промпт → Frame 0 → <strong>Omni 1.1</strong> → CapCut → публикация.</div>
+ <div class="section-head"><div><h2>Программа</h2><p>${modules.length} модулей · ${total} уроков. Начинайте с первого.</p></div></div>
+ <div class="grid">${modules.map(m=>`<article class="card" onclick="go('module/${m.id}')"><div class="card-meta"><span class="badge">${m.icon}</span><span class="badge purple">${m.lessons.length} уроков</span></div><h3>${m.title}</h3><p class="desc">${m.desc}</p><div class="card-purpose">Зачем: ${moduleGuide[m.id]?.why||m.desc}</div></article>`).join('')}</div>`;
 }
-function renderModule(id){const m=modules.find(x=>x.id===id);if(!m)return renderHome();$('#view').innerHTML=`<div class="article"><div class="eyebrow">МОДУЛЬ</div><h1>${m.title}</h1><p>${m.desc}</p></div><div class="lesson-list">${m.lessons.map((l,i)=>`<div class="lesson-row" onclick="go('lesson/${l[0]}')"><div><span class="badge">${String(i+1).padStart(2,'0')}</span></div><div><strong>${l[1]}</strong><div class="muted small">${l[2]}</div></div><div>→</div></div>`).join('')}</div>`}
+function renderModule(id){
+ const m=modules.find(x=>x.id===id); if(!m)return renderHome();
+ $('#view').innerHTML=`<div class="article module-intro"><div class="eyebrow">МОДУЛЬ</div><h1>${m.title}</h1><p>${m.desc}</p>${moduleGuideHtml(m)}<h2>Уроки модуля</h2><p class="muted">Идите сверху вниз. Каждый следующий урок опирается на предыдущий.</p></div>
+ <div class="lesson-list">${m.lessons.map((l,i)=>`<div class="lesson-row" onclick="go('lesson/${l[0]}')"><div><span class="badge">${String(i+1).padStart(2,'0')}</span></div><div><strong>${l[1]}</strong><div class="muted small">${l[2]}</div></div><div>→</div></div>`).join('')}</div>`;
+}
 function renderLesson(id){
-  const l=lessonMap[id];
-  if(!l)return renderHome();
-  $('#view').innerHTML=`<div class="article">
-    <div class="eyebrow">${l.module.title}</div>
-    <h1>${l.title}</h1>
-    <p>${l.subtitle}</p>
-    ${lessonContent(id)}
-    ${lessonDeepDive(l)}
-    ${relatedPromptsHtml(id)}
-    ${omniStandardHtml(l)}
-    <div class="lesson-actions">
-      <a class="btn secondary" href="https://t.me/ferixdiii" target="_blank">Отправить работу / задать вопрос @ferixdiii</a>
-    </div>
-  </div>`;
+ const l=lessonMap[id]; if(!l)return renderHome();
+ $('#view').innerHTML=`<div class="article"><div class="eyebrow">${l.module.title}</div><h1>${l.title}</h1>
+ ${lessonGuideHtml(l)}
+ <div class="lesson-core"><h2>Суть урока</h2>${lessonContent(id)}</div>
+ ${relatedPromptsHtml(id)}
+ ${omniStandardHtml(l)}
+ ${lessonDeepDive(l)}
+ <div class="lesson-contact"><div><strong>Нужна проверка или что-то не получилось?</strong><span>Пришлите исходник, скрин или ссылку.</span></div><a class="btn secondary" href="https://t.me/ferixdiii" target="_blank">@ferixdiii</a></div>
+ ${lessonNavHtml(id)}</div>`;
 }
 
 const note=(t)=>`<div class="callout">${t}</div>`;

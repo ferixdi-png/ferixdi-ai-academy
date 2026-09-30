@@ -988,4 +988,74 @@ async function openPrompt(file,interactive=false){const txt=await fetch(file).th
 function explainLine(l){const s=l.toLowerCase();if(!l.trim())return'Разделитель логических блоков.';if(s.includes('mode')||s.includes('режим'))return'Маршрутизация входа и выбор сценария работы.';if(s.includes('character')||s.includes('персонаж')||s.includes('identity'))return'Консистентность личности и роли персонажа.';if(s.includes('frame 0')||s.includes('frame0'))return'Начальное физическое состояние будущего видео.';if(s.includes('dialog')||s.includes('реплик')||s.includes('speech')||s.includes('says in russian'))return'Контроль текста, speaker и lip-sync.';if(s.includes('camera')||s.includes('камера'))return'Поведение камеры и защита композиции.';if(s.includes('realism')||s.includes('реалист'))return'Физическая достоверность вместо AI-стерильности.';if(s.includes('audio')||s.includes('звук')||s.includes('voice'))return'Голос, акустика и синхронизация.';if(s.includes('laughter')||s.includes('смех'))return'Финальная реакция после панчлайна.';if(s.includes('negative')||s.includes('запрещ')||s.includes('do not')||s.includes('no '))return'Ограничение против типичной ошибки модели.';if(s.includes('priority')||s.includes('приоритет'))return'Иерархия при конфликте правил.';if(s.startsWith('#'))return'Заголовок функционального блока.';return'Рабочая строка, уменьшающая случайную интерпретацию.'}
 function search(q){q=q.trim().toLowerCase();if(!q)return render();const hits=allLessons().filter(x=>(x.title+' '+x.subtitle+' '+x.module.title).toLowerCase().includes(q));const ph=promptLibrary.filter(p=>(p.name+' '+p.desc+' '+p.tag).toLowerCase().includes(q));$('#view').innerHTML=`<div class="article"><div class="eyebrow">ПОИСК</div><h1>Результаты: «${q.replace(/[<>]/g,'')}»</h1></div><div class="search-results">${hits.map(h=>`<div class="search-hit" onclick="go('lesson/${h.id}')"><strong>${h.title}</strong><div class="muted small">${h.module.title} · ${h.subtitle}</div></div>`).join('')}${ph.map(p=>`<div class="search-hit" onclick="openPrompt('${p.file}',${!!p.interactive})"><strong>${p.name}</strong><div class="muted small">${p.desc}</div></div>`).join('')}${!hits.length&&!ph.length?'<div class="card">Ничего не найдено.</div>':''}</div>`}
 
-window.go=go;window.openPrompt=openPrompt;window.addEventListener('hashchange',render);$('#searchInput').addEventListener('input',e=>search(e.target.value));$('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open');$('#themeBtn').onclick=()=>document.documentElement.classList.toggle('light');$$('[data-close]').forEach(x=>x.onclick=()=>{$('#modal').classList.remove('open');$('#modal').setAttribute('aria-hidden','true')});buildNav();render();
+
+function ensureDesktopGuide(){
+  let el=document.getElementById('ferixdiGuide');
+  if(el) return el;
+  el=document.createElement('button');
+  el.id='ferixdiGuide';
+  el.className='ferixdi-guide';
+  el.type='button';
+  el.setAttribute('aria-label','Следующий шаг');
+  el.innerHTML=`
+    <span class="guide-copy">
+      <span class="guide-kicker">ДАЛЬШЕ</span>
+      <span class="guide-title">Следующий шаг</span>
+    </span>
+    <span class="guide-art" aria-hidden="true">
+      <svg viewBox="0 0 138 92" role="presentation">
+        <defs>
+          <filter id="guideGlow" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="2.6" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <marker id="guideArrowHead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto" markerUnits="strokeWidth">
+            <path d="M 0 0 L 10 5 L 0 10 z" class="guide-head"/>
+          </marker>
+        </defs>
+        <path class="guide-ghost" d="M18,18 C74,4 118,24 108,55 C101,75 72,79 53,69"/>
+        <path class="guide-path" d="M18,18 C74,4 118,24 108,55 C101,75 72,79 53,69" marker-end="url(#guideArrowHead)" filter="url(#guideGlow)"/>
+        <circle class="guide-orb" r="3.4">
+          <animateMotion dur="2.8s" repeatCount="indefinite" path="M18,18 C74,4 118,24 108,55 C101,75 72,79 53,69"/>
+        </circle>
+      </svg>
+    </span>`;
+  document.body.appendChild(el);
+  return el;
+}
+
+function nextRouteFromCurrent(){
+  const r=route();
+  const all=allLessons();
+  if(r==='home') return all[0] ? {route:'lesson/'+all[0].id,title:displayLessonTitle(all[0])} : null;
+  if(r.startsWith('module/')){
+    const id=r.split('/')[1], m=modules.find(x=>x.id===id);
+    const first=m?.lessons?.[0];
+    return first ? {route:'lesson/'+first[0],title:displayLessonTitle(first)} : null;
+  }
+  if(r.startsWith('lesson/')){
+    const id=r.split('/')[1], i=all.findIndex(x=>x.id===id);
+    const next=i>=0 && i<all.length-1 ? all[i+1] : null;
+    return next ? {route:'lesson/'+next.id,title:displayLessonTitle(next)} : {route:'home',title:'Вернуться к карте курса'};
+  }
+  if(r==='prompts') return {route:'lesson/v40',title:'Главный мастер-промпт'};
+  if(r==='media') return {route:'home',title:'Вернуться к маршруту'};
+  if(r==='community') return {route:'lesson/questions',title:'Проверка и вопросы'};
+  return {route:'home',title:'Вернуться к маршруту'};
+}
+
+function updateDesktopGuide(){
+  const el=ensureDesktopGuide();
+  const desktop=window.innerWidth>=1080;
+  const modalOpen=document.getElementById('modal')?.classList.contains('open');
+  if(!desktop || modalOpen){el.classList.remove('show');return;}
+  const next=nextRouteFromCurrent();
+  if(!next){el.classList.remove('show');return;}
+  const title=el.querySelector('.guide-title');
+  if(title) title.textContent=next.title;
+  el.onclick=()=>go(next.route);
+  requestAnimationFrame(()=>el.classList.add('show'));
+}
+
+window.go=go;window.openPrompt=openPrompt;window.addEventListener('hashchange',()=>{render();setTimeout(updateDesktopGuide,80)});$('#searchInput').addEventListener('input',e=>search(e.target.value));$('#menuBtn').onclick=()=>$('#sidebar').classList.toggle('open');$('#themeBtn').onclick=()=>document.documentElement.classList.toggle('light');$$('[data-close]').forEach(x=>x.onclick=()=>{$('#modal').classList.remove('open');$('#modal').setAttribute('aria-hidden','true')});buildNav();render();setTimeout(updateDesktopGuide,120);
+window.addEventListener('resize',()=>setTimeout(updateDesktopGuide,60));

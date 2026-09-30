@@ -236,7 +236,7 @@ function renderLesson(id){
 }
 
 const note=(t)=>`<div class="callout">${t}</div>`;
-const steps=(arr)=>`<div class="steps">${arr.map((x,i)=>`<div class="step"><strong>${i+1}</strong><span>${x}</span></div>`).join('')}</div>`;
+const steps=(arr)=>`<div class="steps">${arr.map(x=>`<div class="step"><span>${x}</span></div>`).join('')}</div>`;
 const links=(arr)=>`<div class="mini-links">${arr.map(([t,u])=>`<a href="${u}" target="_blank" rel="noreferrer">${t} ↗</a>`).join('')}</div>`;
 const img=(src,cap)=>`<div class="media-card"><img src="${src}" alt="${cap}"><div class="media-body"><h4>${cap}</h4></div></div>`;
 const vid=(src,title,desc='')=>`<div class="media-card"><video controls preload="metadata" src="${src}"></video><div class="media-body"><h4>${title}</h4>${desc?`<p class="muted">${desc}</p>`:''}</div></div>`;
@@ -517,10 +517,28 @@ function lessonDeepDive(l){
     `После практики зафиксируйте один короткий вывод, который будете использовать в следующей итерации.`
   ];
   const sentences=[...common,...deep,...tail];
-  const paragraphs=[];
-  for(let i=0;i<sentences.length;i+=5) paragraphs.push(`<p>${sentences.slice(i,i+5).join(' ')}</p>`);
-  return `<section class="lesson-block"><h2>Подробный разбор</h2>${paragraphs.join('')}</section>`;
+  const groups=[
+    ['Что важно понять',sentences.slice(0,9)],
+    ['Как применять на практике',sentences.slice(9,18)],
+    ['Как не сломать результат',sentences.slice(18,27)],
+    ['Что сделать после урока',sentences.slice(27)]
+  ];
+  return `<section class="lesson-block deep-dive">
+    <div class="lesson-section-head">
+      <span class="section-kicker">ПОДРОБНО</span>
+      <h2>Подробный разбор</h2>
+      <p class="section-intro">Не сухая памятка, а нормальное объяснение логики урока и того, как перенести её в свою работу.</p>
+    </div>
+    <div class="deep-grid">
+      ${groups.map(([title,items],idx)=>`<section class="deep-card">
+        <div class="deep-num">0${idx+1}</div>
+        <h3>${title}</h3>
+        ${items.map((s,i)=> i===0 ? `<p class="lead">${s}</p>` : `<p>${s}</p>`).join('')}
+      </section>`).join('')}
+    </div>
+  </section>`;
 }
+
 
 function omniStandardHtml(l){
   const generationModules=['workspace','factory','realism','voice','characters','video','publish'];

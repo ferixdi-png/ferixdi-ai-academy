@@ -235,3 +235,108 @@ if(proofCard){
     else document.body.appendChild(section);
   }
 })();
+
+
+// v18 — final compact site pass: all requested corrections in one place.
+(function(){
+  const analyticsUrl='https://t.me/ferixdi_ai/1863';
+  const setText=(el,txt)=>{ if(el) el.textContent=txt; };
+
+  // Manifest: one concrete workflow, no jumping between services.
+  const manifest=document.querySelector('.manifest-inner');
+  if(manifest){
+    setText(manifest.querySelector('span'),'Один рабочий процесс');
+    const h=manifest.querySelector('h2');
+    if(h) h.innerHTML='Взял конкретную идею.<br>В конкретном сервисе сгенерировал.<br>Опубликовал. Всё.';
+    setText(manifest.querySelector('p'),'Работаешь на охваты. Не прыгаешь из стороны в сторону.');
+  }
+
+  // Approach: compact and practical.
+  const approach=document.querySelector('#approach');
+  if(approach){
+    const h=approach.querySelector('.section-intro h2');
+    const p=approach.querySelector('.section-intro p');
+    setText(h,'Одна идея → один ролик → публикация → данные.');
+    setText(p,'Без бесконечных сервисов и красивых генераций ради генераций. Берём рабочую механику, выпускаем сериями и смотрим охваты.');
+  }
+
+  // The attached screenshots belong in "Как устроена база".
+  const baseHead=document.querySelector('.base-preview-head span');
+  if(baseHead) baseHead.textContent='КАК УСТРОЕНА БАЗА';
+  const baseSmall=document.querySelector('.base-preview-head small');
+  if(baseSmall) baseSmall.textContent='реальные экраны обучения';
+
+  // Personal accounts: simple story before the screenshots.
+  const ph=document.querySelector('.personal-proof-head');
+  if(ph){
+    setText(ph.querySelector('h3'),'Вот мой старый аккаунт. Вот мой новый аккаунт.');
+    setText(ph.querySelector('p'),'Дальше — кейсы учеников. Без лишних подписей: сами аккаунты и цифры.');
+  }
+
+  // Cases: all blocks must be the same size, including the old Artem case.
+  const grid=document.querySelector('.case-shot-grid');
+  const legacy=document.querySelector('.legacy-case-shot');
+  if(grid && legacy){
+    const oldImg=legacy.querySelector('img');
+    const card=document.createElement('figure');
+    card.className='case-shot case-shot-artem';
+    card.innerHTML='<img src="./media/sharp/artem.webp" alt="@artem.ai_reels — 56,8 тыс. подписчиков"><figcaption><b>56,8K</b><span>7 КЕЙС · ДОЛГОСРОЧНЫЙ</span></figcaption>';
+    grid.appendChild(card);
+    legacy.remove();
+  }
+
+  // Keep the "new cases" message only after every existing case.
+  const coming=document.querySelector('.cases-coming-after');
+  if(coming){
+    const casesSection=document.querySelector('#cases');
+    if(casesSection) casesSection.appendChild(coming);
+  }
+
+  // Strict 16:9 meme, entire image visible.
+  const meme=document.querySelector('.reach-meme img');
+  if(meme){
+    meme.src='./media/meme-final-16x9.webp';
+    meme.alt='Опять о бабах думает — Бабах на охватах';
+  }
+
+  // Compact captions that were taking too much space.
+  const traffic=document.querySelector('.poster-traffic .poster-inline-caption strong');
+  if(traffic) traffic.textContent='Охват → трафик → следующий шаг.';
+  const noSecret=document.querySelector('.poster-no-secret .poster-inline-caption strong');
+  if(noSecret) noSecret.textContent='Практика, реальные кейсы, работа по шагам.';
+
+  // Audience: keep the meaning, remove needless vertical volume.
+  const audience=document.querySelector('.audience-section');
+  if(audience){
+    setText(audience.querySelector('.section-intro h2'),'Кому подходит');
+    setText(audience.querySelector('.section-intro p'),'Креатору, автору, маркетологу или предпринимателю, которому нужны охваты и трафик.');
+  }
+
+  // Closed base: short, not a giant sales block.
+  const access=document.querySelector('.access-section');
+  if(access){
+    setText(access.querySelector('.access-card h2'),'Закрытая база');
+    setText(access.querySelector('.access-card p'),'Материалы, практика, задания и поддержка в одном месте.');
+  }
+
+  // Analytics first, then the group.
+  document.querySelectorAll('.price-button').forEach(a=>{
+    a.href=analyticsUrl;
+    a.target='_blank';
+    a.rel='noopener';
+    a.textContent='Сначала читать аналитику ↗';
+  });
+  document.querySelectorAll('.price-note').forEach(n=>{
+    n.textContent='7 кейсов · 1228 Reels · около 79 млн просмотров за 90 дней. После разбора уже решай, идти ли в группу.';
+  });
+
+  // Hide any obsolete photo placeholders if a previous cached markup still contains them.
+  document.querySelectorAll('.placeholder').forEach(el=>{
+    if((el.textContent||'').includes('PHOTO 02') ||
+       (el.textContent||'').includes('PHOTO 03') ||
+       (el.textContent||'').includes('PHOTO 04') ||
+       (el.textContent||'').includes('PHOTO 05') ||
+       (el.textContent||'').includes('PHOTO 06') ||
+       (el.textContent||'').includes('PHOTO 07')) el.remove();
+  });
+})();

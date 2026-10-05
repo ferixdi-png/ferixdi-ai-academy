@@ -238,3 +238,14 @@ footer{background:#0b0c0a;color:#fff;padding:28px 0}
 .results-note-clean p{font-size:18px;line-height:1.35;letter-spacing:-.02em;max-width:920px;margin:0;color:rgba(255,255,255,.82)}
 @media(max-width:1120px){.results-clean{grid-template-columns:1fr}.feed-card-clean{max-width:620px}.proof-panel-clean{min-height:560px}}
 @media(max-width:760px){.proof-panel-clean{min-height:auto}.proof-main-clean strong{font-size:76px}.proof-rows-clean>div{grid-template-columns:1fr auto}.proof-rows-clean small{grid-column:1/-1;text-align:left}.results-note-clean{grid-template-columns:1fr;gap:10px}.feed-card-clean figcaption{align-items:flex-start;flex-direction:column}.feed-card-clean figcaption b{text-align:left}}
+
+/* v7 — reach meme + harmony quote */
+.reach-harmony{padding:110px 0;background:#e8e5dc;color:var(--ink)}
+.reach-harmony-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:16px;align-items:stretch}
+.reach-meme{margin:0;border-radius:var(--radius);overflow:hidden;background:#111;min-height:560px;border:1px solid var(--line)}
+.reach-meme img{width:100%;height:100%;object-fit:cover;display:block}
+.harmony-quote{border-radius:var(--radius);background:var(--paper);border:1px solid var(--line);padding:32px;display:flex;flex-direction:column;justify-content:space-between;min-height:560px}
+.harmony-quote blockquote{border:0;margin:36px 0;font-size:clamp(42px,4.5vw,76px);line-height:.94;letter-spacing:-.055em;font-weight:800;max-width:none;padding:0}
+.harmony-foot{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+@media(max-width:1120px){.reach-harmony-grid{grid-template-columns:1fr}.reach-meme,.harmony-quote{min-height:460px}}
+@media(max-width:760px){.reach-harmony{padding:76px 0}.reach-meme{min-height:340px}.harmony-quote{min-height:430px;padding:22px}.harmony-quote blockquote{font-size:40px}}

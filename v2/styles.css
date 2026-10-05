@@ -457,3 +457,10 @@ footer{background:#0b0c0a;color:#fff;padding:28px 0}
   .poster-break{padding:70px 0}
   .poster-side-copy{min-height:300px;padding:22px}
 }
+
+/* v12 — cases coming after proof */
+.cohort-count-only{grid-template-columns:260px;margin-bottom:18px}
+.cases-coming-after{margin-top:16px;border-radius:24px;background:var(--acid);color:#000;padding:26px 28px;min-height:220px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid rgba(0,0,0,.16)}
+.cases-coming-after span{font-size:10px;text-transform:uppercase;letter-spacing:.1em;opacity:.55}
+.cases-coming-after strong{font-size:clamp(46px,6vw,92px);line-height:.86;letter-spacing:-.065em;max-width:1000px}
+@media(max-width:760px){.cohort-count-only{grid-template-columns:1fr}.cases-coming-after{min-height:180px;padding:22px}.cases-coming-after strong{font-size:44px}}

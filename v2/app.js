@@ -496,3 +496,20 @@ if(proofCard){
 
   document.documentElement.classList.add('final-audit-v19');
 })();
+
+
+// v19 — fix learning base image: one full readable image, no broken placeholder.
+(function(){
+  const base=document.querySelector('.program-visual.base-preview') || document.querySelector('.base-preview');
+  if(base){
+    base.innerHTML=`
+      <div class="base-preview-head">
+        <span>КАК УСТРОЕНА БАЗА</span>
+        <small>реальные экраны обучения</small>
+      </div>
+      <figure class="base-overview-figure">
+        <img class="base-overview-img" src="./media/base-overview.png?v=19" alt="Как устроена база Ferixdi AI">
+      </figure>
+    `;
+  }
+})();

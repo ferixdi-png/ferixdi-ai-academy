@@ -154,7 +154,7 @@ if(proofCard){
   // Force real high-quality screenshots from repo assets and simplify captions.
   const profiles=[...document.querySelectorAll('.personal-proof-grid .profile-shot')];
   const profileData=[
-    ['./media/sharp/culebros.webp','59,5K','МОЙ СТАРЫЙ АККАУНТ'],
+    ['./media/sharp/culebros.webp','69K','СТАРЫЙ КЕЙС · АККАУНТ ПРОДАН'],
     ['./media/sharp/feriiixdi.webp','15,7K','МОЙ НОВЫЙ АККАУНТ']
   ];
   profiles.forEach((card,i)=>{
@@ -162,11 +162,17 @@ if(proofCard){
     const img=card.querySelector('img'); if(img) img.src=d[0];
     setText(card.querySelector('figcaption b'),d[1]);
     setText(card.querySelector('figcaption span'),d[2]);
+    if(i===0 && !card.querySelector('.sold-account-note')){
+      const note=document.createElement('div');
+      note.className='sold-account-note';
+      note.textContent='Аккаунт продан после кейса. Текущий владелец не имеет отношения к обучению Ferixdi AI.';
+      card.appendChild(note);
+    }
   });
   const personalHead=document.querySelector('.personal-proof-head');
   if(personalHead){
-    setText(personalHead.querySelector('h3'),'СНАЧАЛА МОЙ СТАРЫЙ АККАУНТ. ПОТОМ НОВЫЙ.');
-    setText(personalHead.querySelector('p'),'Не теория. Перенос одной механики охватов между разными нишами.');
+    setText(personalHead.querySelector('h3'),'СТАРЫЙ АККАУНТ ПРОДАН. НОВЫЙ — МОЙ ТЕКУЩИЙ.');
+    personalHead.querySelector('p').innerHTML='Старый AI-аккаунт — мой кейс роста, после результата я его <b>продал</b>. Текущий владелец аккаунта не связан с обучением Ferixdi AI. Новый Instagram по недвижимости — мой текущий аккаунт.';
   }
 
   const cases=[...document.querySelectorAll('.case-shot-grid .case-shot')];

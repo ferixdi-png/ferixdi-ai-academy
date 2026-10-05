@@ -1305,3 +1305,335 @@ body{font-size:13px}
   .reach-meme{aspect-ratio:16/9!important}
   .poster-break{padding:34px 0!important}
 }
+
+
+/* v18 — final compact corrections */
+:root{
+  --shell:min(980px,calc(100vw - 28px));
+  --radius:14px;
+}
+
+/* Make all no-photo sections compact */
+.manifest-compact,
+.approach-compact,
+.audience-section,
+.access-section,
+.poster-break,
+.faq-section{
+  padding-top:34px!important;
+  padding-bottom:34px!important;
+}
+.manifest-inner{max-width:860px}
+.manifest-inner h2{
+  font-size:clamp(30px,3.8vw,48px)!important;
+  line-height:.94!important;
+  margin:14px 0 10px!important;
+}
+.manifest-inner p{font-size:11px!important;margin:0}
+.manifest-inner>span{font-size:8px!important}
+
+.section-intro{margin-bottom:18px!important}
+.section-intro h2{
+  font-size:clamp(26px,3vw,42px)!important;
+  line-height:.96!important;
+  margin:0!important;
+}
+.section-intro p{font-size:10px!important;line-height:1.4!important}
+.eyebrow{font-size:7px!important}
+
+/* 01/02/03 approach blocks: tiny, equal, no wasted vertical space */
+.feature-grid-compact{
+  grid-template-columns:repeat(3,1fr)!important;
+  gap:8px!important;
+}
+.feature-grid-compact .feature{
+  min-height:112px!important;
+  padding:13px!important;
+  border-radius:12px!important;
+}
+.feature-grid-compact .feature span{font-size:7px!important}
+.feature-grid-compact .feature h3{
+  font-size:15px!important;
+  line-height:1.05!important;
+  margin:18px 0 7px!important;
+}
+.feature-grid-compact .feature p{
+  font-size:9px!important;
+  line-height:1.35!important;
+  margin:0!important;
+}
+
+/* Learning base: real screenshots in a compact mosaic */
+.program-section{padding:46px 0!important}
+.program-tabs{margin-bottom:12px!important}
+.tab{padding:9px 12px!important;font-size:9px!important}
+.program-stage{
+  grid-template-columns:.9fr 1.1fr!important;
+  gap:10px!important;
+  align-items:start!important;
+}
+.program-visual.base-preview{
+  min-height:0!important;
+  padding:12px!important;
+  border-radius:14px!important;
+}
+.base-preview-head{
+  margin-bottom:10px!important;
+  padding-bottom:8px!important;
+}
+.base-preview-head span{font-size:8px!important}
+.base-preview-head small{font-size:7px!important}
+.base-shot-grid{
+  display:grid!important;
+  grid-template-columns:repeat(2,1fr)!important;
+  gap:7px!important;
+}
+.base-shot{
+  margin:0!important;
+  border-radius:10px!important;
+  overflow:hidden!important;
+  background:#090c11!important;
+}
+.base-shot-main{grid-column:1/-1!important}
+.base-shot img{
+  width:100%!important;
+  height:150px!important;
+  object-fit:contain!important;
+  display:block!important;
+  background:#090c11!important;
+}
+.base-shot-main img{height:190px!important}
+
+.program-content{min-height:0!important}
+.panel{
+  padding:18px!important;
+  min-height:0!important;
+  border-radius:14px!important;
+}
+.panel-num{font-size:8px!important}
+.panel h3{
+  font-size:clamp(23px,2.8vw,34px)!important;
+  line-height:.96!important;
+  margin:18px 0 10px!important;
+}
+.panel p{font-size:10px!important;line-height:1.4!important}
+.panel li{font-size:9px!important;padding:7px 0!important}
+
+/* Real screenshots: all account cards equal and small */
+.personal-proof-grid.real-shots,
+.case-shot-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:8px!important;
+  max-width:900px!important;
+}
+.profile-shot,
+.case-shot{
+  border-radius:12px!important;
+  overflow:hidden!important;
+}
+.profile-shot img,
+.case-shot img{
+  width:100%!important;
+  height:165px!important;
+  object-fit:contain!important;
+  background:#090d10!important;
+  display:block!important;
+}
+.profile-shot figcaption,
+.case-shot figcaption{
+  min-height:36px!important;
+  padding:8px 10px!important;
+}
+.profile-shot figcaption b,
+.case-shot figcaption b{font-size:16px!important}
+.profile-shot figcaption span,
+.case-shot figcaption span{font-size:7px!important}
+
+/* 25 people + new cases notice */
+.cohort-strip{margin-bottom:8px!important}
+.cohort-strip>div{
+  min-height:88px!important;
+  padding:12px!important;
+  border-radius:12px!important;
+}
+.cohort-strip b{font-size:44px!important;margin:12px 0 3px!important}
+.cases-coming-after{
+  min-height:92px!important;
+  padding:14px 16px!important;
+  border-radius:12px!important;
+}
+.cases-coming-after strong{
+  font-size:clamp(28px,3.4vw,44px)!important;
+  line-height:.9!important;
+}
+
+/* Meme: strict 16:9 and every word visible */
+.reach-harmony{padding:36px 0!important}
+.reach-harmony-grid{
+  grid-template-columns:1fr!important;
+  max-width:900px!important;
+  gap:10px!important;
+}
+.reach-meme{
+  width:100%!important;
+  aspect-ratio:16/9!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+  border-radius:12px!important;
+  overflow:hidden!important;
+  background:#111!important;
+}
+.reach-meme img{
+  width:100%!important;
+  height:100%!important;
+  aspect-ratio:16/9!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  display:block!important;
+}
+.harmony-quote{
+  padding:14px 16px!important;
+  min-height:0!important;
+  border-radius:12px!important;
+}
+.harmony-quote blockquote{
+  font-size:clamp(20px,2.5vw,30px)!important;
+  margin:10px 0!important;
+}
+.harmony-foot{font-size:7px!important}
+
+/* "Охват → трафик..." should be a caption, not a giant section */
+.poster-traffic{padding:26px 0!important}
+.poster-traffic .poster-break-inner{
+  grid-template-columns:minmax(0,1fr) 250px!important;
+  gap:8px!important;
+  max-width:900px!important;
+}
+.poster-traffic .editorial-poster{
+  border-radius:12px!important;
+  max-height:330px!important;
+}
+.poster-traffic .editorial-poster img{
+  width:100%!important;
+  max-height:330px!important;
+  object-fit:contain!important;
+}
+.poster-inline-caption{
+  min-height:0!important;
+  padding:14px!important;
+  border-radius:12px!important;
+}
+.poster-inline-caption span{font-size:7px!important}
+.poster-inline-caption strong{
+  font-size:clamp(20px,2.5vw,30px)!important;
+  line-height:.96!important;
+}
+
+/* Audience: four short equal cards */
+.audience-grid-compact{
+  grid-template-columns:repeat(4,1fr)!important;
+  gap:8px!important;
+}
+.audience-grid-compact article{
+  min-height:112px!important;
+  padding:12px!important;
+  border-radius:12px!important;
+}
+.audience-grid-compact article>span{font-size:7px!important}
+.audience-grid-compact h3{
+  font-size:15px!important;
+  margin:18px 0 6px!important;
+}
+.audience-grid-compact p{
+  font-size:8px!important;
+  line-height:1.35!important;
+  margin:0!important;
+}
+
+/* Closed base: no giant sales card */
+.access-compact{padding:28px 0!important}
+.access-card{
+  grid-template-columns:1.2fr 1fr auto!important;
+  align-items:center!important;
+  gap:16px!important;
+  padding:16px!important;
+  min-height:0!important;
+  border-radius:12px!important;
+}
+.access-card h2{
+  font-size:24px!important;
+  margin:8px 0!important;
+}
+.access-card p{font-size:9px!important;line-height:1.35!important;margin:0!important}
+.access-card ul{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:4px 12px!important;
+  margin:0!important;
+}
+.access-card li{font-size:8px!important;padding:3px 0!important}
+.access-card .wide{
+  width:auto!important;
+  white-space:nowrap!important;
+  padding:0 14px!important;
+}
+
+/* "Практика, реальные кейсы..." stays, but as a compact proof strip */
+.poster-no-secret{padding:28px 0!important}
+.poster-no-secret .poster-break-inner{
+  grid-template-columns:260px minmax(0,1fr)!important;
+  gap:8px!important;
+  max-width:900px!important;
+}
+.poster-no-secret .editorial-poster{
+  max-height:300px!important;
+  border-radius:12px!important;
+}
+.poster-no-secret .editorial-poster img{
+  max-height:300px!important;
+  width:100%!important;
+  object-fit:contain!important;
+}
+
+/* Final price + analytics: tighter */
+.final-price{padding:42px 0!important}
+.final-price-grid{gap:10px!important}
+.final-price-copy h2{
+  font-size:clamp(30px,4vw,54px)!important;
+  margin:16px 0!important;
+}
+.price-card{min-height:0!important;padding:16px!important}
+.price-top>span{margin-bottom:14px!important}
+.price-top del{font-size:20px!important}
+.price-top strong{font-size:58px!important}
+.promo-box{margin-top:22px!important;padding-top:12px!important}
+.analytics-final{padding:44px 0!important}
+.analytics-final-copy h2{
+  font-size:clamp(30px,4vw,52px)!important;
+  max-width:700px!important;
+}
+
+/* FAQs compact */
+.faq-q{min-height:48px!important;padding:0 12px!important;font-size:10px!important}
+.faq-a p{font-size:9px!important;line-height:1.4!important}
+
+/* Responsive */
+@media(max-width:900px){
+  .program-stage{grid-template-columns:1fr!important}
+  .audience-grid-compact{grid-template-columns:repeat(2,1fr)!important}
+  .access-card{grid-template-columns:1fr!important}
+  .poster-traffic .poster-break-inner,
+  .poster-no-secret .poster-break-inner{grid-template-columns:1fr!important}
+}
+@media(max-width:620px){
+  :root{--shell:calc(100vw - 20px)}
+  .feature-grid-compact,
+  .personal-proof-grid.real-shots,
+  .case-shot-grid,
+  .audience-grid-compact{grid-template-columns:1fr!important}
+  .base-shot-grid{grid-template-columns:1fr!important}
+  .base-shot-main{grid-column:auto!important}
+  .base-shot img,.base-shot-main img{height:auto!important;max-height:260px!important}
+  .profile-shot img,.case-shot img{height:auto!important;max-height:220px!important}
+}

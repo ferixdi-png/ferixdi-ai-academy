@@ -566,3 +566,32 @@ if(proofCard){
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ready,{once:true});
   else ready();
 })();
+
+
+// v19 — final visual-only audit. No copy changes: only media presentation and rendering quality.
+(function(){
+  // Replace the old three-shot base mosaic with the approved single overview image.
+  const baseGrid=document.querySelector('.base-shot-grid');
+  if(baseGrid){
+    const figure=document.createElement('figure');
+    figure.className='base-overview-figure';
+    figure.innerHTML='<img src="./media/base-overview.png" alt="Как устроена база Ferixdi AI — реальные экраны обучения">';
+    baseGrid.replaceWith(figure);
+  }
+
+  // Image rendering/performance: preserve sharpness and avoid layout jumps.
+  document.querySelectorAll('img').forEach((img,i)=>{
+    img.decoding='async';
+    if(!img.closest('.hero-visual') && !img.closest('.reach-meme')) img.loading='lazy';
+  });
+  const heroImg=document.querySelector('.hero-visual img');
+  if(heroImg){ heroImg.loading='eager'; heroImg.fetchPriority='high'; }
+
+  // Keep the approved meme as a strict 16:9 asset.
+  const memeImg=document.querySelector('.reach-meme img');
+  if(memeImg){
+    memeImg.src='./media/meme-final-16x9.webp';
+    memeImg.loading='eager';
+    memeImg.decoding='async';
+  }
+})();

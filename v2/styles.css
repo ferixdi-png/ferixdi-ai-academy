@@ -329,3 +329,82 @@ footer{background:#0b0c0a;color:#fff;padding:28px 0}
   .partner-shot{padding:0 18px 18px}
   .money-manifest{grid-template-columns:1fr;gap:10px}
 }
+
+/* v9 — final proof wall + cohort + pricing */
+.personal-proof-wide{margin:0;border-radius:22px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#0d0f12}
+.personal-proof-wide img{display:block;width:100%;height:auto}
+
+.cohort-strip{display:grid;grid-template-columns:260px 1fr;gap:14px;margin:0 0 18px}
+.cohort-strip>div{border:1px solid var(--line);border-radius:22px;padding:22px;background:var(--paper)}
+.cohort-strip span{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.cohort-strip b{display:block;font-size:86px;line-height:.82;letter-spacing:-.075em;margin:28px 0 10px}
+.cohort-strip small{font-size:12px;color:var(--muted)}
+.cohort-message{background:var(--acid)!important;display:flex;flex-direction:column;justify-content:flex-end}
+.cohort-message strong{font-size:clamp(34px,4.6vw,70px);line-height:.9;letter-spacing:-.06em;max-width:760px}
+.cohort-message p{font-size:13px;line-height:1.45;max-width:640px;margin:18px 0 0;opacity:.72}
+
+.cases-proof-wall{margin:0;border-radius:24px;overflow:hidden;background:#0d0f12;border:1px solid var(--line)}
+.cases-proof-wall img{display:block;width:100%;height:auto}
+.case-list-clean{margin-top:14px;border-top:1px solid var(--ink)}
+.case-list-clean>div{display:grid;grid-template-columns:130px 240px 1fr;gap:18px;align-items:center;padding:15px 0;border-bottom:1px solid var(--line)}
+.case-list-clean b{font-size:34px;letter-spacing:-.055em}
+.case-list-clean span{font-size:13px;font-weight:700}
+.case-list-clean small{font-size:11px;color:var(--muted)}
+.legacy-case-clean{margin-top:14px;border-radius:22px;background:#171914;color:#fff;padding:24px;display:grid;grid-template-columns:220px 1fr;gap:16px 26px;align-items:start}
+.legacy-case-clean>span{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.legacy-case-clean>b{font-size:clamp(34px,4vw,58px);letter-spacing:-.055em;line-height:.95}
+.legacy-case-clean p{grid-column:2;font-size:13px;line-height:1.5;color:rgba(255,255,255,.6);max-width:680px;margin:0}
+
+.final-price{padding:110px 0;background:var(--acid);color:#000}
+.final-price-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:18px;align-items:stretch}
+.final-price-copy{border-top:1px solid rgba(0,0,0,.5);padding-top:18px;display:flex;flex-direction:column;justify-content:space-between}
+.final-price-copy>span{font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+.final-price-copy h2{font-size:clamp(54px,6.8vw,108px);line-height:.86;letter-spacing:-.075em;text-transform:uppercase;margin:34px 0}
+.final-price-copy p{font-size:14px;line-height:1.5;max-width:650px;margin:0;opacity:.7}
+.price-card{border-radius:26px;background:#f3f0e8;border:1px solid rgba(0,0,0,.18);padding:28px;display:flex;flex-direction:column;min-height:560px}
+.price-top>span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);margin-bottom:28px}
+.price-top del{display:block;font-size:32px;line-height:1;color:#777;text-decoration-thickness:2px;margin-bottom:10px}
+.price-top strong{display:block;font-size:clamp(78px,8vw,126px);line-height:.78;letter-spacing:-.08em}
+.promo-box{margin-top:auto;border-top:1px solid var(--line);padding-top:20px}
+.promo-box small{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.promo-box b{display:block;font-size:32px;letter-spacing:.02em;margin:10px 0 8px}
+.promo-box p{font-size:13px;margin:0;color:var(--muted)}
+.price-button{margin-top:24px;text-align:center;justify-content:center;width:100%}
+.price-note{display:block;margin-top:12px;font-size:10px;color:var(--muted);text-align:center}
+
+/* v10 — generation economics */
+.economics-section{padding:120px 0;background:var(--bg);color:var(--ink)}
+.economics-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:16px;align-items:stretch}
+.economics-copy{border-radius:var(--radius);background:var(--paper);border:1px solid var(--line);padding:28px;display:flex;flex-direction:column;justify-content:space-between;min-height:560px}
+.economics-index{font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.economics-copy h3{font-size:clamp(46px,5.2vw,82px);line-height:.9;letter-spacing:-.065em;text-transform:uppercase;margin:32px 0 22px}
+.economics-copy p{font-size:14px;line-height:1.55;color:var(--muted);max-width:620px;margin:0}
+.economics-points{display:flex;flex-wrap:wrap;gap:8px;margin-top:34px}
+.economics-points span{border:1px solid var(--line);border-radius:999px;padding:10px 13px;font-size:10px;text-transform:uppercase;letter-spacing:.05em}
+.credit-proof{border-radius:var(--radius);background:#0b0f11;border:1px solid rgba(0,0,0,.2);padding:26px;color:#fff;display:flex;flex-direction:column;justify-content:space-between;min-height:560px}
+.credit-window{width:min(100%,760px);margin:auto;border-radius:18px;background:#0f1518;border:1px solid rgba(255,255,255,.12);padding:28px 30px;box-shadow:0 22px 70px rgba(0,0,0,.35)}
+.credit-topline{display:flex;align-items:center;gap:10px;font-size:14px}
+.credit-dot{width:9px;height:9px;border-radius:50%;background:#32f03f;box-shadow:0 0 14px rgba(50,240,63,.6)}
+.credit-reset{font-size:11px;color:rgba(255,255,255,.46);margin:8px 0 34px 19px}
+.credit-label{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:12px}
+.credit-value{font-size:clamp(58px,7vw,110px);line-height:.85;letter-spacing:-.07em;font-weight:900;color:#21ff3e}
+.credit-total{font-size:clamp(28px,3vw,46px);letter-spacing:-.04em;font-weight:800;color:#21ff3e;margin-top:12px}
+.credit-button{margin-top:30px;border:1px solid rgba(255,255,255,.15);border-radius:10px;padding:12px 14px;text-align:center;font-size:11px;color:rgba(255,255,255,.7);background:#141b1f}
+.credit-caption{display:grid;grid-template-columns:180px 1fr;gap:18px;border-top:1px solid rgba(255,255,255,.12);padding-top:18px;margin-top:24px}
+.credit-caption span{font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:rgba(255,255,255,.45)}
+.credit-caption p{font-size:12px;line-height:1.45;color:rgba(255,255,255,.6);margin:0}
+@media(max-width:1120px){
+  .economics-grid{grid-template-columns:1fr}
+  .economics-copy,.credit-proof{min-height:480px}
+}
+@media(max-width:760px){
+  .cohort-strip{grid-template-columns:1fr}
+  .case-list-clean>div{grid-template-columns:90px 1fr;gap:8px 14px}
+  .case-list-clean small{grid-column:2}
+  .legacy-case-clean{grid-template-columns:1fr}.legacy-case-clean p{grid-column:auto}
+  .final-price-grid{grid-template-columns:1fr}.price-card{min-height:480px}
+  .economics-section{padding:80px 0}
+  .economics-copy,.credit-proof{padding:20px;min-height:auto}
+  .credit-window{padding:22px 18px}
+  .credit-caption{grid-template-columns:1fr;gap:8px}
+}

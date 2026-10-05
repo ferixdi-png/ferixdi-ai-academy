@@ -504,3 +504,19 @@ footer{background:#0b0c0a;color:#fff;padding:28px 0}
 @media(max-width:760px){
   .legacy-case-shot{grid-template-columns:1fr}
 }
+
+/* v13 — crisp screenshot rendering */
+.profile-shot img,
+.case-shot img,
+.legacy-case-shot img,
+.partner-shot img{
+  image-rendering:auto;
+  filter:none;
+  transform:none;
+  opacity:1;
+  backface-visibility:hidden;
+}
+.profile-shot img,
+.case-shot img,
+.legacy-case-shot img,
+.partner-shot img{object-fit:contain}

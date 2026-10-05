@@ -513,3 +513,56 @@ if(proofCard){
     `;
   }
 })();
+
+
+// v19 — base overview and final cleanup.
+(function(){
+  const ready=()=>{
+    // Replace the old multi-screenshot learning-base mosaic with the approved single overview image.
+    const base=document.querySelector('.program-visual.base-preview');
+    if(base){
+      base.innerHTML=`
+        <div class="base-preview-head">
+          <span>КАК УСТРОЕНА БАЗА</span>
+          <small>реальные экраны обучения</small>
+        </div>
+        <figure class="base-overview-final">
+          <img src="./media/base-overview.png" alt="Как устроена закрытая база Ferixdi AI">
+        </figure>`;
+    }
+
+    // Remove the old placeholder gallery / "visual worlds" section completely.
+    [...document.querySelectorAll('section')].forEach(section=>{
+      const t=(section.textContent||'').replace(/\s+/g,' ').trim();
+      if(t.includes('Один подход.') && t.includes('Много визуальных миров.')) section.remove();
+      if(t.includes('Эти места специально оставлены под будущие генерации')) section.remove();
+    });
+
+    // User asked to remove this transition completely.
+    document.querySelectorAll('.poster-traffic').forEach(el=>el.remove());
+    [...document.querySelectorAll('section,div')].forEach(el=>{
+      const t=(el.textContent||'').replace(/\s+/g,' ').trim();
+      if(t==='После генерации Охват → трафик → следующий шаг.' ||
+         (t.includes('После генерации') && t.includes('Охват → трафик → следующий шаг.'))){
+        const sec=el.closest('section');
+        if(sec) sec.remove();
+      }
+    });
+
+    // Short, human wording in the closed-base block.
+    const access=document.querySelector('.access-section');
+    if(access){
+      const p=access.querySelector('.access-card p');
+      if(p) p.textContent='Все материалы чиназес.';
+    }
+
+    // Keep the meme as a true horizontal 16:9 image with no crop.
+    const meme=document.querySelector('.reach-meme img');
+    if(meme){
+      meme.src='./media/meme-final-16x9.webp';
+      meme.alt='Опять о бабах думает — Бабах на охватах';
+    }
+  };
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',ready,{once:true});
+  else ready();
+})();

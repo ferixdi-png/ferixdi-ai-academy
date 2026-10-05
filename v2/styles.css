@@ -211,3 +211,8 @@ footer{background:#0b0c0a;color:#fff;padding:28px 0}
 .meme-note p{font-size:14px;line-height:1.5;max-width:470px;margin:40px 0 0}
 @media(max-width:1120px){.results-media-grid,.meme-grid{grid-template-columns:1fr}.reel-proof{min-height:700px;max-width:520px}.meme-media img{min-height:420px}}
 @media(max-width:760px){.results-media-grid{grid-template-columns:1fr}.reel-proof{min-height:560px;max-width:none}.reel-proof-copy h3{font-size:34px}.results-media-copy{min-height:330px}.meme-break{padding:76px 0}.meme-note,.meme-media img{min-height:360px}.meme-note h2{font-size:54px}}
+
+.reel-sim{position:absolute;inset:0;overflow:hidden;background:#050505}
+.reel-sim-img{position:absolute;left:0;top:0;width:100%;height:auto;min-height:118%;object-fit:cover;transform:translateY(-2%);animation:feedScroll 9s ease-in-out infinite alternate;will-change:transform}
+@keyframes feedScroll{0%{transform:translateY(-2%) scale(1.015)}100%{transform:translateY(-20%) scale(1.015)}}
+@media (prefers-reduced-motion:reduce){.reel-sim-img{animation:none;transform:translateY(-10%) scale(1.015)}}

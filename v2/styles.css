@@ -2674,3 +2674,36 @@ p{max-width:68ch;text-wrap:pretty}
   image-rendering:auto!important;
   filter:none!important;
 }
+
+
+/* v19 — approved base overview */
+.program-stage{
+  grid-template-columns:minmax(0,1.18fr) minmax(320px,.82fr)!important;
+  align-items:start!important;
+}
+.program-visual.base-preview{
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  overflow:visible!important;
+}
+.base-overview-final{
+  margin:0;
+  width:100%;
+  border-radius:14px;
+  overflow:hidden;
+  border:1px solid var(--line);
+  background:#f3f0e8;
+}
+.base-overview-final img{
+  display:block;
+  width:100%;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  image-rendering:auto;
+}
+@media(max-width:900px){
+  .program-stage{grid-template-columns:1fr!important}
+}

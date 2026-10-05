@@ -101,3 +101,131 @@ if(proofCard){
   },{rootMargin:'500px 0px',threshold:0.01});
   proofVideoIO.observe(proofCard);
 }
+
+
+// v15 — final editorial pass: smaller scale, clear story, 16:9 meme, analytics-first CTA.
+(function(){
+  const analyticsUrl='https://t.me/ferixdi_ai/1863';
+
+  function setText(el,value){ if(el) el.textContent=value; }
+
+  // HERO: one idea, one real photo, one set of numbers.
+  const hero=document.querySelector('.hero');
+  if(hero){
+    setText(hero.querySelector('h1'),'ВНИМАНИЕ = ЗОЛОТО В ВЕК AI-ТЕХНОЛОГИЙ');
+    setText(hero.querySelector('.hero-lead'),'Последние 3 месяца мы системно раскачиваем несколько Instagram-аккаунтов через AI-Reels. Цель простая: охваты → трафик → заявки → ПАРТНЁРКИ.');
+
+    const visual=hero.querySelector('.hero-visual');
+    if(visual){
+      visual.innerHTML='<img class="hero-duck-img" src="./media/hero-duck.webp" alt="Ferixdi AI — Дмитрий с гусём">';
+    }
+
+    const stats=hero.querySelectorAll('.hero-stats > div');
+    const data=[
+      ['90 дней','период анализа'],
+      ['7 кейсов','реальная выборка'],
+      ['1228 Reels','создано и опубликовано'],
+      ['≈79 млн','просмотров за 90 дней']
+    ];
+    stats.forEach((node,i)=>{
+      if(!data[i]) return;
+      const b=node.querySelector('b');
+      const span=node.querySelector('span');
+      setText(b,data[i][0]); setText(span,data[i][1]);
+    });
+  }
+
+  // Remove old floating infobusiness-style badges: REAL DATA / FORMAT etc.
+  document.querySelectorAll('.floating-card').forEach(el=>el.remove());
+  [...document.querySelectorAll('body *')].forEach(el=>{
+    if(el.children.length) return;
+    const t=(el.textContent||'').trim().replace(/\s+/g,' ').toUpperCase();
+    if(t==='REAL DATA' || t==='FORMAT') el.style.display='none';
+  });
+
+  // Results: current 90-day analytics instead of a vague giant number.
+  const proof=document.querySelector('.proof-panel-clean');
+  if(proof){
+    setText(proof.querySelector('.proof-main-clean > span'),'90 ДНЕЙ / 7 КЕЙСОВ');
+    setText(proof.querySelector('.proof-main-clean > strong'),'≈79 МЛН');
+    setText(proof.querySelector('.proof-main-clean > p'),'1228 Reels в текущей выборке. Смотрим, что реально даёт охват, затем ведём внимание в трафик, заявки и партнёрки.');
+  }
+
+  // Force real high-quality screenshots from repo assets and simplify captions.
+  const profiles=[...document.querySelectorAll('.personal-proof-grid .profile-shot')];
+  const profileData=[
+    ['./media/sharp/culebros.webp','59,5K','МОЙ СТАРЫЙ АККАУНТ'],
+    ['./media/sharp/feriiixdi.webp','15,7K','МОЙ НОВЫЙ АККАУНТ']
+  ];
+  profiles.forEach((card,i)=>{
+    const d=profileData[i]; if(!d) return;
+    const img=card.querySelector('img'); if(img) img.src=d[0];
+    setText(card.querySelector('figcaption b'),d[1]);
+    setText(card.querySelector('figcaption span'),d[2]);
+  });
+  const personalHead=document.querySelector('.personal-proof-head');
+  if(personalHead){
+    setText(personalHead.querySelector('h3'),'СНАЧАЛА МОЙ СТАРЫЙ АККАУНТ. ПОТОМ НОВЫЙ.');
+    setText(personalHead.querySelector('p'),'Не теория. Перенос одной механики охватов между разными нишами.');
+  }
+
+  const cases=[...document.querySelectorAll('.case-shot-grid .case-shot')];
+  const caseData=[
+    ['./media/sharp/sukaflex.webp','34,2K','1 КЕЙС УЧЕНИКА'],
+    ['./media/sharp/dreams.webp','28,7K','2 КЕЙС УЧЕНИКА'],
+    ['./media/sharp/oladoll.webp','26,6K','3 КЕЙС УЧЕНИКА'],
+    ['./media/sharp/maxmetr.webp','10K','4 КЕЙС УЧЕНИКА'],
+    ['./media/sharp/funny.webp','7,4K','5 КЕЙС УЧЕНИКА'],
+    ['./media/sharp/alexsmart.webp','7,1K','6 КЕЙС УЧЕНИКА']
+  ];
+  cases.forEach((card,i)=>{
+    const d=caseData[i]; if(!d) return;
+    const img=card.querySelector('img'); if(img) img.src=d[0];
+    setText(card.querySelector('figcaption b'),d[1]);
+    setText(card.querySelector('figcaption span'),d[2]);
+  });
+
+  const legacy=document.querySelector('.legacy-case-shot');
+  if(legacy){
+    const img=legacy.querySelector('img'); if(img) img.src='./media/sharp/artem.webp';
+    setText(legacy.querySelector('.legacy-label span'),'ОТДЕЛЬНЫЙ ДОЛГОСРОЧНЫЙ КЕЙС');
+  }
+  const partner=document.querySelector('.partner-shot img');
+  if(partner) partner.src='./media/sharp/partner.webp';
+
+  // Meme must be a real 16:9 asset and must never crop its text.
+  const meme=document.querySelector('.reach-meme img');
+  if(meme){
+    meme.src='./media/meme-16x9.webp';
+    meme.alt='Опять о бабах думает — Бабах на охватах';
+  }
+
+  // Price CTA no longer jumps straight into a sale. First: analytics.
+  document.querySelectorAll('.price-button').forEach(a=>{
+    a.href=analyticsUrl;
+    a.target='_blank';
+    a.rel='noopener';
+    a.textContent='Сначала читать аналитику ↗';
+  });
+  document.querySelectorAll('.price-note').forEach(n=>{
+    n.textContent='Сначала посмотри реальные цифры за 90 дней. После разбора уже решай, идти ли в группу.';
+  });
+
+  // Add the final, non-sales analytics destination once.
+  if(!document.querySelector('.analytics-final')){
+    const anchor=document.querySelector('.final-price') || document.querySelector('footer') || document.body.lastElementChild;
+    const section=document.createElement('section');
+    section.className='analytics-final';
+    section.innerHTML=`
+      <div class="shell analytics-final-inner">
+        <div class="analytics-final-copy">
+          <span>НЕ ПРОДАЖА. СНАЧАЛА ДАННЫЕ.</span>
+          <h2>АНАЛИТИКА РАСКАЧКИ REELS ПОД ОХВАТЫ И ПАРТНЁРКИ ЗА 90 ДНЕЙ.</h2>
+          <p>7 кейсов · 1228 Reels · около 79 млн просмотров. Читай разбор, смотри цифры и только потом залетай к нам в группу.</p>
+        </div>
+        <a class="analytics-final-button" href="${analyticsUrl}" target="_blank" rel="noopener">Читать аналитику ↗</a>
+      </div>`;
+    if(anchor && anchor.parentNode) anchor.insertAdjacentElement('afterend',section);
+    else document.body.appendChild(section);
+  }
+})();

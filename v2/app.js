@@ -376,3 +376,123 @@ if(proofCard){
   box.addEventListener('click',e=>{ if(e.target===box || e.target.classList.contains('media-lightbox-close')) close(); });
   document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&box.classList.contains('open')) close(); });
 })();
+
+
+// v19 — final visual audit: compact, readable, equal cards, one clean base overview.
+(function(){
+  const q=(s,root=document)=>root.querySelector(s);
+  const qa=(s,root=document)=>[...root.querySelectorAll(s)];
+  const norm=s=>(s||'').replace(/\s+/g,' ').trim();
+
+  // Replace the old learning-base mosaic with the approved overview image.
+  const base=q('.program-visual.base-preview');
+  if(base){
+    base.innerHTML=`
+      <div class="base-overview-head">
+        <span>КАК УСТРОЕНА БАЗА</span>
+        <small>реальные экраны обучения</small>
+      </div>
+      <figure class="base-overview-card">
+        <img src="./media/base-overview.webp" alt="Как устроена база Ferixdi AI — реальные экраны обучения">
+      </figure>`;
+  }
+
+  // Remove the old decorative "visual worlds / PHOTO 02...07" section completely.
+  qa('section').forEach(section=>{
+    const t=norm(section.textContent);
+    if(
+      t.includes('Один подход. Много визуальных миров.') ||
+      (t.includes('PHOTO 02') && t.includes('PHOTO 07')) ||
+      t.includes('Эти места специально оставлены под будущие генерации')
+    ){
+      section.remove();
+    }
+  });
+
+  // Compact the three method cards and keep only the useful copy.
+  const approach=q('#approach');
+  if(approach){
+    const cards=qa('.feature',approach);
+    const copy=[
+      ['01','Идея и удержание','Темы, вирусные механики и первый кадр как часть самого ролика.'],
+      ['02','Сборка контента','Персонажи, промпты, движение, русская речь и единый визуальный язык.'],
+      ['03','Данные и деньги','Смотрим цифры, масштабируем рабочее и связываем охват с трафиком и лидами.']
+    ];
+    cards.slice(0,3).forEach((card,i)=>{
+      const d=copy[i]; if(!d) return;
+      const n=q('span',card), h=q('h3',card), p=q('p',card);
+      if(n) n.textContent=d[0];
+      if(h) h.textContent=d[1];
+      if(p) p.textContent=d[2];
+    });
+  }
+
+  // Personal proof: keep both cards exactly the same height; disclaimer stays in the intro text.
+  qa('.sold-account-note').forEach(el=>el.remove());
+
+  // Student cases: numbering only, no verbose captions.
+  qa('.case-shot-grid .case-shot').forEach((card,i)=>{
+    const span=q('figcaption span',card);
+    if(span){
+      span.textContent=(i===6)
+        ? '7 КЕЙС · ДОЛГОСРОЧНЫЙ'
+        : (i+1)+' КЕЙС УЧЕНИКА';
+    }
+  });
+
+  // New cases callout must stay after every existing case.
+  const cases=q('#cases');
+  const coming=q('.cases-coming-after');
+  if(cases && coming) cases.appendChild(coming);
+
+  // Strict 16:9 meme, no cropping.
+  const meme=q('.reach-meme img');
+  if(meme){
+    meme.src='./media/meme-final-16x9.webp';
+    meme.style.objectFit='contain';
+    meme.style.objectPosition='center';
+  }
+
+  // Keep supporting text sections deliberately short.
+  const audience=q('.audience-section');
+  if(audience){
+    const introH=q('.section-intro h2',audience);
+    const introP=q('.section-intro p',audience);
+    if(introH) introH.textContent='Кому подходит';
+    if(introP) introP.textContent='Тем, кому нужны охваты, контент и понятный следующий шаг.';
+    const rows=[
+      ['AI-креатор','Собираешь форматы под охват, а не просто красивые генерации.'],
+      ['Автор / блогер','Нужен конвейер контента и быстрые тесты идей.'],
+      ['Маркетолог','Используешь AI как производственный инструмент.'],
+      ['Предприниматель','Нужны внимание, аудитория и связка с лидом или партнёркой.']
+    ];
+    qa('article',audience).slice(0,4).forEach((card,i)=>{
+      const d=rows[i]; if(!d) return;
+      const h=q('h3',card), p=q('p',card);
+      if(h) h.textContent=d[0];
+      if(p) p.textContent=d[1];
+    });
+  }
+
+  // Compact supporting captions.
+  qa('.poster-traffic strong').forEach(el=>el.textContent='Охват → трафик → следующий шаг.');
+  qa('.poster-no-secret strong').forEach(el=>el.textContent='Практика, реальные кейсы, работа по шагам.');
+
+  const access=q('.access-section');
+  if(access){
+    const h=q('.access-card h2',access);
+    const p=q('.access-card p',access);
+    if(h) h.textContent='Закрытая база';
+    if(p) p.textContent='Материалы, практика, задания и поддержка — без лишнего шума.';
+  }
+
+  // The manifesto should state the operating rule as simply as possible.
+  const manifest=q('.manifest-inner');
+  if(manifest){
+    const h=q('h2',manifest), p=q('p',manifest);
+    if(h) h.innerHTML='Взял конкретную идею.<br>В конкретном сервисе сгенерировал.<br>Опубликовал. Всё.';
+    if(p) p.textContent='Работаешь на охваты. Не прыгаешь из стороны в сторону.';
+  }
+
+  document.documentElement.classList.add('final-audit-v19');
+})();

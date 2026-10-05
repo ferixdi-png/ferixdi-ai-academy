@@ -464,3 +464,43 @@ footer{background:#0b0c0a;color:#fff;padding:28px 0}
 .cases-coming-after span{font-size:10px;text-transform:uppercase;letter-spacing:.1em;opacity:.55}
 .cases-coming-after strong{font-size:clamp(46px,6vw,92px);line-height:.86;letter-spacing:-.065em;max-width:1000px}
 @media(max-width:760px){.cohort-count-only{grid-template-columns:1fr}.cases-coming-after{min-height:180px;padding:22px}.cases-coming-after strong{font-size:44px}}
+
+/* v13 — readable Instagram proof screenshots */
+.personal-proof-grid.real-shots{
+  grid-template-columns:1fr;
+  max-width:1180px;
+}
+.real-shots .profile-shot{
+  border-radius:20px;
+}
+.real-shots .profile-shot img,
+.case-shot img,
+.legacy-case-shot img,
+.partner-shot img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  display:block;
+}
+.case-shot-grid{
+  grid-template-columns:1fr;
+  max-width:1180px;
+}
+.case-shot{
+  border-radius:20px;
+}
+.case-shot figcaption,
+.real-shots .profile-shot figcaption{
+  padding:13px 18px;
+}
+.case-shot figcaption b,
+.real-shots .profile-shot figcaption b{
+  font-size:26px;
+}
+.legacy-case-shot{
+  grid-template-columns:260px 1fr;
+  max-width:1180px;
+}
+@media(max-width:760px){
+  .legacy-case-shot{grid-template-columns:1fr}
+}

@@ -595,3 +595,11 @@ if(proofCard){
     memeImg.decoding='async';
   }
 })();
+
+
+// v19 — final learning-base overview: use the approved composite image instead of cropped screenshots.
+(function(){
+  const base=document.querySelector('.program-visual.base-preview');
+  if(!base) return;
+  base.innerHTML='<figure class="base-overview-final"><img src="./media/base/base-overview.png" alt="Как устроена закрытая база Ferixdi AI: реальные разделы обучения 01–05"></figure>';
+})();

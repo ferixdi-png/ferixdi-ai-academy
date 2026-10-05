@@ -340,3 +340,39 @@ if(proofCard){
        (el.textContent||'').includes('PHOTO 07')) el.remove();
   });
 })();
+
+
+// v20 — screenshot lightbox: keep cards compact while screenshots stay readable at full resolution.
+(function(){
+  const selector='.base-shot img,.profile-shot img,.case-shot img,.partner-shot img,.editorial-poster img';
+  const images=[...document.querySelectorAll(selector)];
+  if(!images.length) return;
+
+  let box=document.querySelector('.media-lightbox');
+  if(!box){
+    box=document.createElement('div');
+    box.className='media-lightbox';
+    box.setAttribute('role','dialog');
+    box.setAttribute('aria-modal','true');
+    box.setAttribute('aria-label','Просмотр изображения');
+    box.innerHTML='<button class="media-lightbox-close" aria-label="Закрыть">×</button><img alt="">';
+    document.body.appendChild(box);
+  }
+  const full=box.querySelector('img');
+  const close=()=>{ box.classList.remove('open'); document.body.style.overflow=''; full.removeAttribute('src'); };
+  const open=(img)=>{
+    full.src=img.currentSrc||img.src;
+    full.alt=img.alt||'Изображение';
+    box.classList.add('open');
+    document.body.style.overflow='hidden';
+  };
+
+  images.forEach(img=>{
+    img.tabIndex=0;
+    img.setAttribute('title','Нажми, чтобы открыть в полном размере');
+    img.addEventListener('click',()=>open(img));
+    img.addEventListener('keydown',e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault();open(img);} });
+  });
+  box.addEventListener('click',e=>{ if(e.target===box || e.target.classList.contains('media-lightbox-close')) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'&&box.classList.contains('open')) close(); });
+})();

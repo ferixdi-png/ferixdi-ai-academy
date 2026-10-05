@@ -2649,3 +2649,28 @@ p{max-width:68ch;text-wrap:pretty}
   .final-audit-v19 .audience-grid article{height:auto!important;min-height:104px!important}
   .final-audit-v19 .base-overview-head{align-items:flex-start;flex-direction:column;gap:2px}
 }
+
+
+/* v19 — base overview image fix */
+.program-visual.base-preview{
+  padding:12px!important;
+  overflow:visible!important;
+}
+.base-overview-figure{
+  margin:0!important;
+  width:100%!important;
+  border-radius:12px!important;
+  overflow:hidden!important;
+  background:#f3f0e8!important;
+  border:1px solid rgba(255,255,255,.1)!important;
+}
+.base-overview-img{
+  display:block!important;
+  width:100%!important;
+  height:auto!important;
+  max-height:none!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  image-rendering:auto!important;
+  filter:none!important;
+}

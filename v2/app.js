@@ -630,3 +630,30 @@ if(proofCard){
     applyCopy();
   }
 })();
+
+
+// v22 — make the long hero headline readable on desktop and mobile.
+(function(){
+  const style=document.createElement('style');
+  style.id='hero-readable-v22';
+  style.textContent=`
+    .hero h1{
+      font-size:clamp(34px,3.45vw,54px)!important;
+      line-height:.96!important;
+      letter-spacing:-.045em!important;
+      max-width:780px!important;
+      margin-top:28px!important;
+      margin-bottom:24px!important;
+      text-wrap:balance;
+    }
+    @media (max-width:760px){
+      .hero h1{
+        font-size:clamp(30px,9.4vw,42px)!important;
+        line-height:.97!important;
+        letter-spacing:-.04em!important;
+        max-width:100%!important;
+      }
+    }
+  `;
+  document.head.appendChild(style);
+})();

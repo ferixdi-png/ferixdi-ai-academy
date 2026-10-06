@@ -1,4 +1,4 @@
-name: Build site video assets
+name: Build site media assets
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
   build-videos:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout staged video assets
+      - name: Checkout staged media assets
         uses: actions/checkout@v4
         with:
           ref: video-assets-v29
@@ -28,19 +28,28 @@ jobs:
           path: site
           fetch-depth: 1
 
-      - name: Rebuild browser MP4 files
+      - name: Rebuild browser media files
         shell: bash
         run: |
           set -euo pipefail
           mkdir -p site/v2/media
           cat assets/v2/media/.hex-hero/part-*.txt | tr -d '\n\r ' | xxd -r -p > site/v2/media/hero-loop-v28.mp4
           cat assets/v2/media/.hex-access/part-*.txt | tr -d '\n\r ' | xxd -r -p > site/v2/media/access-loop-v28.mp4
+          cat assets/v2/media/.hex-final-race/part-*.txt | tr -d '\n\r ' | xxd -r -p > site/v2/media/final-race.webp
+          cat assets/v2/media/.hex-new-account-million/part-*.txt | tr -d '\n\r ' | xxd -r -p > site/v2/media/new-account-million.webp
+          cat assets/v2/media/.hex-partner-earnings/part-*.txt | tr -d '\n\r ' | xxd -r -p > site/v2/media/partner-earnings.webp
 
           test "$(stat -c%s site/v2/media/hero-loop-v28.mp4)" = "2095974"
           test "$(stat -c%s site/v2/media/access-loop-v28.mp4)" = "1742638"
+          test "$(stat -c%s site/v2/media/final-race.webp)" = "1156812"
+          test "$(stat -c%s site/v2/media/new-account-million.webp)" = "1663918"
+          test "$(stat -c%s site/v2/media/partner-earnings.webp)" = "1151098"
 
           echo "939f822d1fa414407bcdb03d1ad7915469943417127f2a68e1b485bee44142ab  site/v2/media/hero-loop-v28.mp4" | sha256sum -c -
           echo "42e6277fb37a79764519a7c54c4a3876aed239b3b040ef4e0a183be00ec61cfa  site/v2/media/access-loop-v28.mp4" | sha256sum -c -
+          echo "d7c2f004da8be9211ca351fe3dbc113067e958f7eed851a4a50293ea61851acd  site/v2/media/final-race.webp" | sha256sum -c -
+          echo "6e351e287a037a6fef617c76709aae2c813c95b9f84acbeafc7f8c76ee0a8a42  site/v2/media/new-account-million.webp" | sha256sum -c -
+          echo "3704b3c3530adde83f946405c8da33b19b1ba5d78a3aca4c0983597ed225311c  site/v2/media/partner-earnings.webp" | sha256sum -c -
 
       - name: Bust app cache
         shell: bash
@@ -50,21 +59,21 @@ jobs:
           import re
           p = Path("site/v2/index.html")
           s = p.read_text(encoding="utf-8")
-          s2 = re.sub(r'app\.js(?:\?v=\d+)?', 'app.js?v=30', s)
+          s2 = re.sub(r'app\.js(?:\?v=\d+)?', 'app.js?v=31', s)
           p.write_text(s2, encoding="utf-8")
           PY
 
-      - name: Publish video assets to Pages
+      - name: Publish media assets to Pages
         shell: bash
         run: |
           set -euo pipefail
           cd site
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add v2/media/hero-loop-v28.mp4 v2/media/access-loop-v28.mp4 v2/index.html
+          git add v2/media/hero-loop-v28.mp4 v2/media/access-loop-v28.mp4 v2/media/final-race.webp v2/media/new-account-million.webp v2/media/partner-earnings.webp v2/index.html
           if git diff --cached --quiet; then
             echo "No changes to publish"
             exit 0
           fi
-          git commit -m "Deploy looping hero and training videos"
+          git commit -m "Deploy looping videos and new proof visuals"
           git push origin HEAD:gh-pages

@@ -657,3 +657,37 @@ if(proofCard){
   `;
   document.head.appendChild(style);
 })();
+
+
+// v23 — remove the five program tabs/content blocks, keep the learning-base image.
+(function(){
+  const simplifyProgram=()=>{
+    const program=document.querySelector('#program');
+    if(!program) return;
+
+    const tabs=program.querySelector('.program-tabs');
+    if(tabs) tabs.remove();
+
+    const content=program.querySelector('.program-content');
+    if(content) content.remove();
+
+    const stage=program.querySelector('.program-stage');
+    if(stage){
+      stage.style.display='block';
+      stage.style.gridTemplateColumns='1fr';
+    }
+
+    const visual=program.querySelector('.program-visual');
+    if(visual){
+      visual.style.width='100%';
+      visual.style.maxWidth='100%';
+      visual.style.margin='0 auto';
+    }
+  };
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',simplifyProgram,{once:true});
+  }else{
+    simplifyProgram();
+  }
+})();

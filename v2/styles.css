@@ -3659,3 +3659,84 @@ footer{padding:20px 0!important}
     aspect-ratio:16/9!important;
   }
 }
+
+
+/* v31 — uploaded proof visuals */
+.new-account-million-proof,
+.partner-earnings-proof,
+.site-finale-frame{
+  margin:26px auto 0!important;
+  background:#080A0B!important;
+  border:1px solid #6CA9D4!important;
+  border-radius:12px!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+}
+
+.new-account-million-proof{
+  max-width:980px!important;
+}
+
+.partner-earnings-proof{
+  max-width:1040px!important;
+  margin-top:18px!important;
+}
+
+.new-account-million-proof img,
+.partner-earnings-proof img,
+.site-finale-frame img{
+  width:100%!important;
+  height:auto!important;
+  display:block!important;
+  object-fit:contain!important;
+  background:#080A0B!important;
+}
+
+.new-account-million-proof figcaption,
+.partner-earnings-proof figcaption{
+  padding:12px 14px 13px!important;
+  color:#FFFFFF!important;
+  background:#080A0B!important;
+  border-top:1px solid #6CA9D4!important;
+  font-size:10px!important;
+  line-height:1.35!important;
+  letter-spacing:.01em!important;
+}
+
+.new-account-million-proof figcaption::before,
+.partner-earnings-proof figcaption::before{
+  content:'';
+  display:inline-block;
+  width:7px;
+  height:7px;
+  border-radius:50%;
+  margin-right:8px;
+  background:#C41F48;
+  vertical-align:1px;
+}
+
+.site-finale-visual{
+  background:#080A0B!important;
+  padding:34px 0 42px!important;
+  border-top:1px solid #6CA9D4!important;
+}
+
+.site-finale-frame{
+  margin:0 auto!important;
+  max-width:1180px!important;
+  border-color:#6CA9D4!important;
+}
+
+@media(max-width:760px){
+  .new-account-million-proof,
+  .partner-earnings-proof{
+    margin-top:18px!important;
+    border-radius:10px!important;
+  }
+  .site-finale-visual{
+    padding:22px 0 28px!important;
+  }
+  .site-finale-frame{
+    border-radius:10px!important;
+  }
+}

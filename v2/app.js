@@ -767,12 +767,12 @@ if(proofCard){
 
 // v25 — force fresh RaceCore theme stylesheet.
 (function(){
-  document.documentElement.classList.add('racecore-v27');
+  document.documentElement.classList.add('racecore-v28');
   const current=[...document.querySelectorAll('link[rel="stylesheet"]')].find(l=>/styles\.css/.test(l.getAttribute('href')||''));
   const fresh=document.createElement('link');
   fresh.rel='stylesheet';
-  fresh.href='./styles.css?v=27';
-  fresh.dataset.racecore='v27';
+  fresh.href='./styles.css?v=28';
+  fresh.dataset.racecore='v28';
   fresh.addEventListener('load',()=>{
     if(current && current!==fresh) current.remove();
   },{once:true});
@@ -823,5 +823,82 @@ if(proofCard){
     document.addEventListener('DOMContentLoaded',removeObsoleteQuote,{once:true});
   }else{
     removeObsoleteQuote();
+  }
+})();
+
+
+// v28 — native looping video slots: hero + training trigger.
+(function(){
+  const HERO_VIDEO='./media/hero-loop-v28.mp4';
+  const ACCESS_VIDEO='./media/access-loop-v28.mp4';
+
+  const makeLoopVideo=(src,className,poster)=>{
+    const v=document.createElement('video');
+    v.className=className;
+    v.autoplay=true;
+    v.muted=true;
+    v.loop=true;
+    v.playsInline=true;
+    v.preload='auto';
+    v.disablePictureInPicture=true;
+    v.setAttribute('muted','');
+    v.setAttribute('playsinline','');
+    v.setAttribute('webkit-playsinline','');
+    v.setAttribute('aria-hidden','true');
+    if(poster) v.poster=poster;
+
+    const source=document.createElement('source');
+    source.src=src;
+    source.type='video/mp4';
+    v.appendChild(source);
+    return v;
+  };
+
+  const exists=async src=>{
+    try{
+      const r=await fetch(src,{method:'HEAD',cache:'no-store'});
+      return r.ok;
+    }catch(e){
+      return false;
+    }
+  };
+
+  const installHero=async()=>{
+    if(!(await exists(HERO_VIDEO))) return;
+    const visual=document.querySelector('.hero-visual');
+    if(!visual || visual.querySelector('.hero-loop-video')) return;
+    const oldImg=visual.querySelector('img');
+    const poster=oldImg ? oldImg.currentSrc || oldImg.src : '';
+    const video=makeLoopVideo(HERO_VIDEO,'hero-loop-video',poster);
+    visual.replaceChildren(video);
+    video.play().catch(()=>{});
+  };
+
+  const installAccess=async()=>{
+    if(!(await exists(ACCESS_VIDEO))) return;
+    const section=document.querySelector('.final-price');
+    const grid=section && section.querySelector('.final-price-grid');
+    const card=grid && grid.querySelector('.price-card');
+    if(!grid || !card || grid.querySelector('.training-trigger-loop')) return;
+
+    const stack=document.createElement('div');
+    stack.className='training-trigger-stack';
+    const media=document.createElement('div');
+    media.className='training-trigger-loop';
+    media.appendChild(makeLoopVideo(ACCESS_VIDEO,'training-trigger-video',''));
+    card.replaceWith(stack);
+    stack.append(media,card);
+    media.querySelector('video').play().catch(()=>{});
+  };
+
+  const boot=()=>{
+    installHero();
+    installAccess();
+  };
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',boot,{once:true});
+  }else{
+    boot();
   }
 })();

@@ -5666,36 +5666,6 @@ p,span,small,li{
   margin-top:132px!important;
 }
 
-/* 3) Original .cur cursor only; touch devices remain untouched */
-@media (pointer:fine){
-  html,
-  body,
-  body *{
-    cursor:url("./assets/cursors/pop-art-mickey-black-glossy-glove-cursor.cur"),auto!important;
-  }
-
-  a,
-  button,
-  [role="button"],
-  input[type="button"],
-  input[type="submit"],
-  input[type="reset"],
-  summary,
-  select,
-  .clickable,
-  .cta,
-  .card[href],
-  .tab,
-  .faq-q,
-  .media-lightbox-close,
-  [tabindex="0"],
-  video,
-  a img,
-  button img{
-    cursor:url("./assets/cursors/pop-art-mickey-black-glossy-glove-pointer.cur"),pointer!important;
-  }
-}
-
 /* Tablet */
 @media(max-width:1050px) and (min-width:861px){
   .hero{

@@ -772,7 +772,7 @@ if(proofCard){
   const fresh=document.createElement('link');
   fresh.rel='stylesheet';
   fresh.href='./styles.css?v=31';
-  fresh.dataset.racecore='v30';
+  fresh.dataset.racecore='v31';
   fresh.addEventListener('load',()=>{
     if(current && current!==fresh) current.remove();
   },{once:true});

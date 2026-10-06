@@ -767,12 +767,12 @@ if(proofCard){
 
 // v25 — force fresh RaceCore theme stylesheet.
 (function(){
-  document.documentElement.classList.add('racecore-v25');
+  document.documentElement.classList.add('racecore-v27');
   const current=[...document.querySelectorAll('link[rel="stylesheet"]')].find(l=>/styles\.css/.test(l.getAttribute('href')||''));
   const fresh=document.createElement('link');
   fresh.rel='stylesheet';
-  fresh.href='./styles.css?v=25';
-  fresh.dataset.racecore='v25';
+  fresh.href='./styles.css?v=27';
+  fresh.dataset.racecore='v27';
   fresh.addEventListener('load',()=>{
     if(current && current!==fresh) current.remove();
   },{once:true});
@@ -799,5 +799,29 @@ if(proofCard){
     document.addEventListener('DOMContentLoaded',cleanupHarmony,{once:true});
   }else{
     cleanupHarmony();
+  }
+})();
+
+
+// v27 — hard-remove obsolete post-results quote copy.
+(function(){
+  const removeObsoleteQuote=()=>{
+    document.querySelectorAll('.harmony-quote').forEach(el=>el.remove());
+    [...document.querySelectorAll('section,div,blockquote')].forEach(el=>{
+      const t=(el.textContent||'').replace(/\s+/g,' ').trim();
+      if(
+        t==='После всех цифр' ||
+        t.includes('Мне уже этот алгоритм абсолютно понятен') ||
+        (t.includes('После всех цифр') && t.includes('гармонии'))
+      ){
+        const target=el.closest('.harmony-quote') || el;
+        if(target && target!==document.body) target.remove();
+      }
+    });
+  };
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',removeObsoleteQuote,{once:true});
+  }else{
+    removeObsoleteQuote();
   }
 })();

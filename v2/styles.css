@@ -3614,3 +3614,48 @@ footer{padding:20px 0!important}
     max-height:none!important;
   }
 }
+
+
+/* v30 — strict video aspect ratios */
+.hero-visual{
+  aspect-ratio:9/16!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:none!important;
+}
+.hero-loop-video{
+  width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  aspect-ratio:9/16!important;
+  object-fit:cover!important;
+}
+.training-trigger-loop{
+  aspect-ratio:16/9!important;
+  height:auto!important;
+  max-height:none!important;
+}
+.training-trigger-video{
+  width:100%!important;
+  height:100%!important;
+  aspect-ratio:16/9!important;
+  object-fit:cover!important;
+}
+@media(max-width:900px){
+  .hero-visual,.hero-loop-video{
+    aspect-ratio:9/16!important;
+    min-height:0!important;
+  }
+  .training-trigger-loop,.training-trigger-video{
+    aspect-ratio:16/9!important;
+  }
+}
+@media(max-width:620px){
+  .hero-visual,.hero-loop-video{
+    aspect-ratio:9/16!important;
+    min-height:0!important;
+  }
+  .training-trigger-loop,.training-trigger-video{
+    aspect-ratio:16/9!important;
+  }
+}

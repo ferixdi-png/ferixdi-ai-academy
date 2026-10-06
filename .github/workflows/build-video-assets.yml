@@ -1,0 +1,70 @@
+name: Build site video assets
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/build-video-assets.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-videos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staged video assets
+        uses: actions/checkout@v4
+        with:
+          ref: video-assets-v29
+          path: assets
+          fetch-depth: 1
+
+      - name: Checkout GitHub Pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: site
+          fetch-depth: 1
+
+      - name: Rebuild browser MP4 files
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p site/v2/media
+          cat assets/v2/media/.hex-hero/part-*.txt | tr -d '\n\r ' | xxd -r -p > site/v2/media/hero-loop-v28.mp4
+          cat assets/v2/media/.hex-access/part-*.txt | tr -d '\n\r ' | xxd -r -p > site/v2/media/access-loop-v28.mp4
+
+          test "$(stat -c%s site/v2/media/hero-loop-v28.mp4)" = "2095974"
+          test "$(stat -c%s site/v2/media/access-loop-v28.mp4)" = "1742638"
+
+          echo "939f822d1fa414407bcdb03d1ad7915469943417127f2a68e1b485bee44142ab  site/v2/media/hero-loop-v28.mp4" | sha256sum -c -
+          echo "42e6277fb37a79764519a7c54c4a3876aed239b3b040ef4e0a183be00ec61cfa  site/v2/media/access-loop-v28.mp4" | sha256sum -c -
+
+      - name: Bust app cache
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import re
+          p = Path("site/v2/index.html")
+          s = p.read_text(encoding="utf-8")
+          s2 = re.sub(r'app\.js(?:\?v=\d+)?', 'app.js?v=29', s)
+          p.write_text(s2, encoding="utf-8")
+          PY
+
+      - name: Publish video assets to Pages
+        shell: bash
+        run: |
+          set -euo pipefail
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add v2/media/hero-loop-v28.mp4 v2/media/access-loop-v28.mp4 v2/index.html
+          if git diff --cached --quiet; then
+            echo "No changes to publish"
+            exit 0
+          fi
+          git commit -m "Deploy looping hero and training videos"
+          git push origin HEAD:gh-pages

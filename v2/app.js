@@ -778,3 +778,26 @@ if(proofCard){
   },{once:true});
   document.head.appendChild(fresh);
 })();
+
+
+// v26 — remove the post-results harmony quote block, keep the meme.
+(function(){
+  const cleanupHarmony=()=>{
+    document.querySelectorAll('.harmony-quote').forEach(el=>el.remove());
+    document.querySelectorAll('.reach-harmony-grid').forEach(grid=>{
+      grid.style.gridTemplateColumns='1fr';
+      grid.style.maxWidth='920px';
+      grid.style.margin='0 auto';
+    });
+    document.querySelectorAll('.reach-meme').forEach(meme=>{
+      meme.style.width='100%';
+      meme.style.maxWidth='920px';
+      meme.style.margin='0 auto';
+    });
+  };
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',cleanupHarmony,{once:true});
+  }else{
+    cleanupHarmony();
+  }
+})();

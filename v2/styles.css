@@ -5463,3 +5463,333 @@ p,span,small,li{
   :root{--shell:min(100% - 36px,375px)!important}
   .hero h1{font-size:38px!important}
 }
+
+/* v33 — HERO + account cases + custom cursor only */
+
+/* 1) HERO architecture: stable split-screen, zero overlap */
+.hero{
+  width:min(1180px,calc(100% - 48px))!important;
+  margin-inline:auto!important;
+  display:grid!important;
+  grid-template-columns:minmax(0,.92fr) minmax(440px,1.08fr)!important;
+  grid-template-areas:
+    "copy media"
+    "stats media"!important;
+  column-gap:clamp(48px,5vw,88px)!important;
+  row-gap:42px!important;
+  align-items:start!important;
+  min-height:0!important;
+  padding-top:58px!important;
+  padding-bottom:72px!important;
+}
+.hero-copy{
+  grid-area:copy!important;
+  position:static!important;
+  width:100%!important;
+  max-width:540px!important;
+  min-width:0!important;
+  padding:0!important;
+  margin:0!important;
+  transform:none!important;
+  z-index:auto!important;
+}
+.hero-copy h1,
+.hero h1{
+  position:static!important;
+  width:100%!important;
+  max-width:100%!important;
+  margin:0!important;
+  padding:0!important;
+  font-size:clamp(46px,4.1vw,68px)!important;
+  line-height:.98!important;
+  letter-spacing:-.045em!important;
+  overflow-wrap:normal!important;
+  word-break:normal!important;
+  hyphens:none!important;
+  transform:none!important;
+  left:auto!important;
+  right:auto!important;
+  top:auto!important;
+}
+.hero-lead{
+  width:100%!important;
+  max-width:540px!important;
+}
+.hero-actions{
+  width:100%!important;
+  max-width:540px!important;
+}
+.hero-visual{
+  grid-area:media!important;
+  position:relative!important;
+  width:100%!important;
+  max-width:none!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  aspect-ratio:9/16!important;
+  justify-self:end!important;
+  align-self:start!important;
+  margin:0!important;
+  transform:none!important;
+  left:auto!important;
+  right:auto!important;
+  top:auto!important;
+  overflow:hidden!important;
+  z-index:auto!important;
+}
+.hero-visual video,
+.hero-visual img,
+.hero-loop-video{
+  display:block!important;
+  width:100%!important;
+  max-width:100%!important;
+  height:100%!important;
+  min-height:0!important;
+  aspect-ratio:9/16!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0!important;
+  transform:none!important;
+}
+.hero-stats{
+  grid-area:stats!important;
+  position:static!important;
+  width:100%!important;
+  max-width:540px!important;
+  min-width:0!important;
+  margin:0!important;
+  transform:none!important;
+  z-index:auto!important;
+}
+
+/* Existing PHOTO / REAL DATA / FORMAT annotations stay editorial and non-invasive */
+.hero .floating-card,
+.hero [class*="annotation"],
+.hero [class*="label"]{
+  pointer-events:none!important;
+  position:static!important;
+  transform:none!important;
+  margin:8px 0 0!important;
+  padding:0!important;
+  width:auto!important;
+  max-width:100%!important;
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  color:rgba(255,255,255,.28)!important;
+  font-size:9px!important;
+  line-height:1.35!important;
+  letter-spacing:.08em!important;
+}
+
+/* 2) Two Instagram account cases: each text/number stays paired with its own screenshot */
+.personal-proof-grid.real-shots{
+  display:block!important;
+  width:100%!important;
+  max-width:1180px!important;
+  margin:0 auto!important;
+  padding:0!important;
+}
+.personal-proof-grid.real-shots .profile-shot{
+  display:grid!important;
+  grid-template-columns:minmax(260px,.72fr) minmax(420px,1.28fr)!important;
+  gap:clamp(56px,7vw,110px)!important;
+  align-items:center!important;
+  width:100%!important;
+  max-width:none!important;
+  margin:0!important;
+  padding:clamp(56px,7vw,96px) 0!important;
+  position:relative!important;
+  transform:none!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  overflow:visible!important;
+}
+.personal-proof-grid.real-shots .profile-shot + .profile-shot{
+  border-top:1px solid rgba(255,255,255,.10)!important;
+}
+.personal-proof-grid.real-shots .profile-shot img{
+  grid-column:2!important;
+  grid-row:1!important;
+  display:block!important;
+  width:100%!important;
+  max-width:620px!important;
+  height:auto!important;
+  justify-self:end!important;
+  align-self:center!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  margin:0!important;
+  transform:none!important;
+}
+.personal-proof-grid.real-shots .profile-shot figcaption{
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:center!important;
+  display:flex!important;
+  flex-direction:column!important;
+  width:100%!important;
+  max-width:340px!important;
+  min-width:0!important;
+  margin:0!important;
+  padding:0!important;
+  background:transparent!important;
+  border:0!important;
+  transform:none!important;
+}
+.personal-proof-grid.real-shots .profile-shot figcaption span{
+  order:1!important;
+  display:block!important;
+  margin:0 0 16px!important;
+  color:rgba(255,255,255,.42)!important;
+  font-size:11px!important;
+  line-height:1.4!important;
+  letter-spacing:.08em!important;
+}
+.personal-proof-grid.real-shots .profile-shot figcaption b{
+  order:2!important;
+  display:block!important;
+  margin:0!important;
+  color:#FFFFFF!important;
+  font-size:clamp(64px,7vw,96px)!important;
+  line-height:.88!important;
+  letter-spacing:-.065em!important;
+  font-weight:700!important;
+}
+.personal-proof-grid.real-shots .sold-account-note{
+  grid-column:1!important;
+  grid-row:1!important;
+  align-self:end!important;
+  max-width:340px!important;
+  margin-top:132px!important;
+}
+
+/* 3) Original .cur cursor only; touch devices remain untouched */
+@media (pointer:fine){
+  html,
+  body,
+  body *{
+    cursor:url("./assets/cursors/pop-art-mickey-black-glossy-glove-cursor.cur"),auto!important;
+  }
+
+  a,
+  button,
+  [role="button"],
+  input[type="button"],
+  input[type="submit"],
+  input[type="reset"],
+  summary,
+  select,
+  .clickable,
+  .cta,
+  .card[href],
+  .tab,
+  .faq-q,
+  .media-lightbox-close,
+  [tabindex="0"],
+  video,
+  a img,
+  button img{
+    cursor:url("./assets/cursors/pop-art-mickey-black-glossy-glove-pointer.cur"),pointer!important;
+  }
+}
+
+/* Tablet */
+@media(max-width:1050px) and (min-width:861px){
+  .hero{
+    width:min(100% - 48px,1000px)!important;
+    grid-template-columns:minmax(0,1fr) minmax(380px,.9fr)!important;
+    column-gap:36px!important;
+  }
+  .hero-copy h1,
+  .hero h1{
+    font-size:clamp(40px,4.4vw,54px)!important;
+  }
+  .hero-copy,
+  .hero-lead,
+  .hero-actions,
+  .hero-stats{
+    max-width:100%!important;
+  }
+
+  .personal-proof-grid.real-shots .profile-shot{
+    grid-template-columns:minmax(230px,.72fr) minmax(380px,1.28fr)!important;
+    gap:44px!important;
+  }
+}
+
+/* Mobile / narrow tablet */
+@media(max-width:860px){
+  .hero{
+    width:min(100% - 40px,650px)!important;
+    grid-template-columns:1fr!important;
+    grid-template-areas:
+      "copy"
+      "stats"
+      "media"!important;
+    gap:32px!important;
+    padding-top:44px!important;
+    padding-bottom:72px!important;
+  }
+  .hero-copy{
+    max-width:650px!important;
+  }
+  .hero-copy h1,
+  .hero h1{
+    font-size:clamp(38px,10.2vw,42px)!important;
+    line-height:1.01!important;
+    letter-spacing:-.042em!important;
+  }
+  .hero-lead,
+  .hero-actions,
+  .hero-stats{
+    max-width:650px!important;
+  }
+  .hero-visual{
+    width:100%!important;
+    max-width:650px!important;
+    justify-self:start!important;
+    margin:0!important;
+  }
+
+  .personal-proof-grid.real-shots .profile-shot{
+    grid-template-columns:1fr!important;
+    gap:28px!important;
+    padding:56px 0!important;
+  }
+  .personal-proof-grid.real-shots .profile-shot img{
+    grid-column:1!important;
+    grid-row:2!important;
+    width:100%!important;
+    max-width:none!important;
+    justify-self:stretch!important;
+  }
+  .personal-proof-grid.real-shots .profile-shot figcaption{
+    grid-column:1!important;
+    grid-row:1!important;
+    max-width:none!important;
+  }
+  .personal-proof-grid.real-shots .profile-shot figcaption b{
+    font-size:72px!important;
+  }
+  .personal-proof-grid.real-shots .sold-account-note{
+    grid-column:1!important;
+    grid-row:auto!important;
+    margin-top:0!important;
+  }
+}
+
+@media(max-width:430px){
+  .hero{width:calc(100% - 40px)!important}
+  .hero-copy h1,.hero h1{font-size:42px!important}
+}
+@media(max-width:390px){
+  .hero{width:calc(100% - 38px)!important}
+  .hero-copy h1,.hero h1{font-size:40px!important}
+}
+@media(max-width:375px){
+  .hero{width:calc(100% - 36px)!important}
+  .hero-copy h1,.hero h1{font-size:38px!important}
+}

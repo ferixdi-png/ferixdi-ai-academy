@@ -4422,3 +4422,169 @@ footer{padding:34px 0!important;background:#080A0B!important;color:#FFFFFF!impor
   :root{--shell:min(100% - 36px,375px)!important}
   .hero h1{font-size:38px!important}
 }
+
+/* v32b — composition QA / no-content changes */
+/* Uploaded/current proof media: make them editorial evidence, not bordered cards */
+.new-account-million-proof,
+.partner-earnings-proof{
+  width:100%!important;
+  max-width:1120px!important;
+  margin:92px auto 0!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:16px!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+}
+.new-account-million-proof img,
+.partner-earnings-proof img{
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  background:#080A0B!important;
+  border-radius:16px!important;
+}
+.new-account-million-proof figcaption,
+.partner-earnings-proof figcaption{
+  margin:0!important;
+  padding:14px 2px 0!important;
+  color:rgba(255,255,255,.38)!important;
+  background:transparent!important;
+  border:0!important;
+  font-size:12px!important;
+  line-height:1.45!important;
+  letter-spacing:0!important;
+}
+.new-account-million-proof figcaption::before,
+.partner-earnings-proof figcaption::before{display:none!important}
+
+.site-finale-visual{
+  position:relative!important;
+  padding:20px 0 104px!important;
+  background:#080A0B!important;
+  border:0!important;
+}
+.site-finale-frame{
+  width:100%!important;
+  max-width:1360px!important;
+  margin:0 auto!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:20px!important;
+  overflow:hidden!important;
+  box-shadow:none!important;
+}
+.site-finale-frame img{
+  width:100%!important;
+  height:auto!important;
+  object-fit:contain!important;
+  object-position:center!important;
+  border-radius:20px!important;
+}
+
+/* Any legacy card primitives that survive DOM transforms are flattened into editorial layout */
+.result-card,.student-card,.case-proof-card,.legacy-case-clean,.cohort-message,
+.money-proof-label,.poster-inline-caption,.harmony-quote,.results-media-copy,.results-note-clean{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.result-grid{
+  display:grid!important;
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  gap:24px!important;
+  border-top:1px solid rgba(255,255,255,.075)!important;
+}
+.result-card{
+  min-height:330px!important;
+  padding:34px 0!important;
+  border-bottom:1px solid rgba(255,255,255,.075)!important;
+}
+.result-card:first-child{grid-column:1/span 7!important}
+.result-card:nth-child(2){grid-column:9/span 4!important}
+.result-card span{color:rgba(255,255,255,.34)!important;font-size:11px!important}
+.result-card b{margin:auto 0 24px!important;color:#FFFFFF!important;font-size:92px!important;line-height:.82!important;letter-spacing:-.07em!important}
+.result-card p{max-width:420px!important;color:rgba(255,255,255,.48)!important;font-size:16px!important;line-height:1.55!important}
+.result-card.accent{background:transparent!important;color:#FFFFFF!important}
+.result-card.accent span,.result-card.accent p{color:rgba(255,255,255,.48)!important}
+
+.proof-pills{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  gap:18px 26px!important;
+  margin-top:28px!important;
+}
+.proof-pills span{
+  padding:0!important;
+  border:0!important;
+  border-radius:0!important;
+  color:rgba(255,255,255,.38)!important;
+  background:transparent!important;
+  font-size:12px!important;
+}
+
+.student-card{
+  min-height:260px!important;
+  padding:28px 0!important;
+  border-bottom:1px solid rgba(255,255,255,.075)!important;
+}
+.student-card span{color:rgba(255,255,255,.34)!important;font-size:11px!important}
+.student-card b{margin:auto 0 18px!important;color:#FFFFFF!important;font-size:68px!important;line-height:.84!important}
+.student-card p{color:rgba(255,255,255,.48)!important;font-size:16px!important}
+
+.placeholder{
+  background:#080A0B!important;
+  border:0!important;
+  box-shadow:none!important;
+}
+.placeholder:before,.placeholder:after{display:none!important}
+
+/* Prevent old decorative separators from taking over the composition */
+.results-section,.program-section,.monetization-section,.economics-section,
+.personal-proof,.audience-section,.access-section,.faq-section,.final-price,.analytics-final{
+  border-top:0!important;
+  border-bottom:0!important;
+}
+
+/* 768-specific layout: media gets room, text stays readable */
+@media(min-width:761px) and (max-width:860px){
+  :root{--shell:min(100% - 56px,804px)!important}
+  .hero{grid-template-columns:repeat(8,minmax(0,1fr))!important}
+  .hero-copy{grid-column:1/span 5!important}
+  .hero h1{font-size:48px!important;line-height:1.025!important}
+  .hero-visual{grid-column:6/span 3!important;width:100%!important}
+  .hero-stats{grid-column:1/-1!important;gap:18px!important}
+  .section-intro .eyebrow{grid-column:1/span 2!important}
+  .section-intro>div:last-child{grid-column:3/span 6!important}
+  .section-intro h2{font-size:40px!important}
+  .personal-proof-grid.real-shots .profile-shot:first-child{grid-column:1/span 7!important}
+  .personal-proof-grid.real-shots .profile-shot:nth-child(2){grid-column:8/span 5!important;margin-top:72px!important}
+  .new-account-million-proof,.partner-earnings-proof{margin-top:72px!important}
+}
+
+/* Mobile proof media stays large and uncropped */
+@media(max-width:760px){
+  .new-account-million-proof,
+  .partner-earnings-proof{
+    max-width:none!important;
+    margin-top:58px!important;
+    border-radius:12px!important;
+  }
+  .new-account-million-proof img,
+  .partner-earnings-proof img{
+    border-radius:12px!important;
+  }
+  .new-account-million-proof figcaption,
+  .partner-earnings-proof figcaption{
+    padding-top:11px!important;
+    font-size:11px!important;
+  }
+  .site-finale-visual{padding:8px 0 72px!important}
+  .site-finale-frame,.site-finale-frame img{border-radius:12px!important}
+  .result-grid{grid-template-columns:1fr!important}
+  .result-card:first-child,.result-card:nth-child(2){grid-column:1!important}
+  .result-card{min-height:250px!important}
+  .result-card b{font-size:72px!important}
+}

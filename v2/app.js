@@ -665,6 +665,9 @@ if(proofCard){
     const program=document.querySelector('#program');
     if(!program) return;
 
+    const intro=program.querySelector('.section-intro');
+    if(intro) intro.remove();
+
     const tabs=program.querySelector('.program-tabs');
     if(tabs) tabs.remove();
 

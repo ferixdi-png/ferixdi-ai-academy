@@ -694,3 +694,72 @@ if(proofCard){
     simplifyProgram();
   }
 })();
+
+
+// v24 — give ready users a direct path to the paid training access.
+(function(){
+  const accessUrl='https://t.me/Ferixdishopbot/menu?startapp=product_295766';
+
+  const makeAccessLink=(className,text)=>{
+    const a=document.createElement('a');
+    a.className=className;
+    a.href=accessUrl;
+    a.target='_blank';
+    a.rel='noopener';
+    a.textContent=text;
+    return a;
+  };
+
+  const applyDirectAccess=()=>{
+    // Header: keep analytics, add a direct access CTA beside it.
+    const headerInner=document.querySelector('.site-header .header-inner');
+    if(headerInner && !headerInner.querySelector('.direct-access-header')){
+      const a=makeAccessLink('pill pill-accent direct-access-header','Доступ к обучению ↗');
+      headerInner.appendChild(a);
+    }
+
+    // Price block: analytics stays first, direct purchase is the second clear option.
+    document.querySelectorAll('.price-button').forEach(btn=>{
+      if(btn.parentElement && !btn.parentElement.querySelector('.direct-access-price')){
+        const direct=makeAccessLink('price-button direct-access-price','Сразу получить доступ ↗');
+        btn.insertAdjacentElement('afterend',direct);
+      }
+    });
+
+    // Closed-base block gets a direct CTA as well.
+    const accessCard=document.querySelector('.access-section .access-card');
+    if(accessCard && !accessCard.querySelector('.direct-access-base')){
+      accessCard.appendChild(makeAccessLink('pill pill-dark direct-access-base','Получить доступ к обучению ↗'));
+    }
+
+    // Final analytics block: show both choices together.
+    const analyticsBtn=document.querySelector('.analytics-final .analytics-final-button');
+    if(analyticsBtn && !document.querySelector('.analytics-final .direct-access-final')){
+      const direct=makeAccessLink('analytics-final-button direct-access-final','Сразу в обучение ↗');
+      analyticsBtn.insertAdjacentElement('afterend',direct);
+    }
+
+    if(!document.getElementById('direct-access-v24-style')){
+      const style=document.createElement('style');
+      style.id='direct-access-v24-style';
+      style.textContent=`
+        .direct-access-header{margin-left:8px}
+        .direct-access-price{margin-left:10px;background:#dfff00!important;color:#111!important}
+        .direct-access-base{display:inline-flex;margin-top:18px}
+        .analytics-final-button + .direct-access-final{margin-left:10px;background:#dfff00;color:#111}
+        @media (max-width:760px){
+          .direct-access-header{display:none}
+          .direct-access-price{margin:10px 0 0!important}
+          .analytics-final-button + .direct-access-final{margin:10px 0 0!important}
+        }
+      `;
+      document.head.appendChild(style);
+    }
+  };
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',applyDirectAccess,{once:true});
+  }else{
+    applyDirectAccess();
+  }
+})();

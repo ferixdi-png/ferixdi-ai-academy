@@ -3559,3 +3559,58 @@ footer{padding:20px 0!important}
   .direct-access-base{justify-self:start!important}
   .price-top strong{font-size:48px!important}
 }
+
+
+/* v28 — native loop video presentation */
+.hero-loop-video,
+.training-trigger-video{
+  display:block!important;
+  width:100%!important;
+  height:100%!important;
+  object-fit:cover!important;
+  object-position:center!important;
+  background:#080A0B!important;
+  border:0!important;
+  margin:0!important;
+  padding:0!important;
+  image-rendering:auto!important;
+  transform:translateZ(0);
+}
+.hero-loop-video{
+  min-height:520px!important;
+  border-radius:0!important;
+}
+.training-trigger-stack{
+  display:grid!important;
+  grid-template-columns:1fr!important;
+  gap:10px!important;
+  min-width:0!important;
+}
+.training-trigger-loop{
+  position:relative!important;
+  width:100%!important;
+  aspect-ratio:4/5!important;
+  max-height:430px!important;
+  overflow:hidden!important;
+  background:#080A0B!important;
+  border:1px solid #6CA9D4!important;
+  border-radius:10px!important;
+}
+.training-trigger-video{
+  position:absolute!important;
+  inset:0!important;
+}
+@media(max-width:900px){
+  .hero-loop-video{min-height:420px!important}
+  .training-trigger-loop{
+    aspect-ratio:9/12!important;
+    max-height:520px!important;
+  }
+}
+@media(max-width:620px){
+  .hero-loop-video{min-height:360px!important}
+  .training-trigger-loop{
+    aspect-ratio:9/12!important;
+    max-height:none!important;
+  }
+}

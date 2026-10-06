@@ -767,11 +767,11 @@ if(proofCard){
 
 // v25 — force fresh RaceCore theme stylesheet.
 (function(){
-  document.documentElement.classList.add('racecore-v33');
+  document.documentElement.classList.add('racecore-v34');
   const current=[...document.querySelectorAll('link[rel="stylesheet"]')].find(l=>/styles\.css/.test(l.getAttribute('href')||''));
   const fresh=document.createElement('link');
   fresh.rel='stylesheet';
-  fresh.href='./styles.css?v=33';
+  fresh.href='./styles.css?v=34';
   fresh.dataset.racecore='v33';
   fresh.addEventListener('load',()=>{
     if(current && current!==fresh) current.remove();

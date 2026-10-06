@@ -771,7 +771,7 @@ if(proofCard){
   const current=[...document.querySelectorAll('link[rel="stylesheet"]')].find(l=>/styles\.css/.test(l.getAttribute('href')||''));
   const fresh=document.createElement('link');
   fresh.rel='stylesheet';
-  fresh.href='./styles.css?v=36';
+  fresh.href='./styles.css?v=37';
   fresh.dataset.racecore='v33';
   fresh.addEventListener('load',()=>{
     if(current && current!==fresh) current.remove();

@@ -767,11 +767,11 @@ if(proofCard){
 
 // v25 — force fresh RaceCore theme stylesheet.
 (function(){
-  document.documentElement.classList.add('racecore-v30');
+  document.documentElement.classList.add('racecore-v31');
   const current=[...document.querySelectorAll('link[rel="stylesheet"]')].find(l=>/styles\.css/.test(l.getAttribute('href')||''));
   const fresh=document.createElement('link');
   fresh.rel='stylesheet';
-  fresh.href='./styles.css?v=30';
+  fresh.href='./styles.css?v=31';
   fresh.dataset.racecore='v30';
   fresh.addEventListener('load',()=>{
     if(current && current!==fresh) current.remove();
@@ -900,5 +900,79 @@ if(proofCard){
     document.addEventListener('DOMContentLoaded',boot,{once:true});
   }else{
     boot();
+  }
+})();
+
+
+// v31 — place new proof visuals in the right narrative positions.
+(function(){
+  const makeFigure=(className,src,alt,caption)=>{
+    const figure=document.createElement('figure');
+    figure.className=className;
+
+    const img=document.createElement('img');
+    img.src=src;
+    img.alt=alt;
+    img.loading='lazy';
+    img.decoding='async';
+    figure.appendChild(img);
+
+    if(caption){
+      const figcaption=document.createElement('figcaption');
+      figcaption.textContent=caption;
+      figure.appendChild(figcaption);
+    }
+    return figure;
+  };
+
+  const mountProofImages=()=>{
+    // New account: show that million-view reels already exist on the current account.
+    const personal=document.querySelector('.personal-proof');
+    if(personal && !personal.querySelector('.new-account-million-proof')){
+      const grid=personal.querySelector('.personal-proof-grid') || personal.querySelector('.personal-proof-head');
+      const figure=makeFigure(
+        'new-account-million-proof',
+        './media/new-account-million.webp',
+        'Новый Instagram-аккаунт: ролики с 1,5 млн и 1 млн просмотров',
+        'Новый аккаунт. Уже есть ролики на 1+ млн просмотров.'
+      );
+      if(grid) grid.insertAdjacentElement('afterend',figure);
+      else personal.appendChild(figure);
+    }
+
+    // Partner program: real example of aggregator affiliate accruals.
+    const monetization=document.querySelector('.monetization-section');
+    if(monetization && !monetization.querySelector('.partner-earnings-proof')){
+      const paths=monetization.querySelector('.money-paths') || monetization.querySelector('.money-manifest');
+      const figure=makeFigure(
+        'partner-earnings-proof',
+        './media/partner-earnings.webp',
+        'Пример начислений по партнёрской программе агрегатора',
+        'Пример начислений по партнёрской программе агрегатора.'
+      );
+      if(paths) paths.insertAdjacentElement('afterend',figure);
+      else monetization.appendChild(figure);
+    }
+
+    // Final visual: keep the wide racing image as the last visual before footer.
+    const footer=document.querySelector('footer');
+    if(footer && !document.querySelector('.site-finale-visual')){
+      const section=document.createElement('section');
+      section.className='site-finale-visual';
+      section.innerHTML=`
+        <div class="shell">
+          <figure class="site-finale-frame">
+            <img src="./media/final-race.webp" alt="Финальный визуальный кадр" loading="lazy" decoding="async">
+          </figure>
+        </div>
+      `;
+      footer.parentNode.insertBefore(section,footer);
+    }
+  };
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',mountProofImages,{once:true});
+  }else{
+    mountProofImages();
   }
 })();

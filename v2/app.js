@@ -59,7 +59,7 @@ async function loadFerixdiProofVideo(){
   video.playsInline=true;
   video.preload='auto';
   video.setAttribute('aria-label','Реальное видео с лентой и охватами');
-  video.style.background='#050505';
+  video.style.background='#080A0B';
 
   if(oldImg) oldImg.replaceWith(video);
   else card.prepend(video);
@@ -744,9 +744,9 @@ if(proofCard){
       style.id='direct-access-v24-style';
       style.textContent=`
         .direct-access-header{margin-left:8px}
-        .direct-access-price{margin-left:10px;background:#dfff00!important;color:#111!important}
+        .direct-access-price{margin-left:10px;background:#6CA9D4!important;color:#080A0B!important}
         .direct-access-base{display:inline-flex;margin-top:18px}
-        .analytics-final-button + .direct-access-final{margin-left:10px;background:#dfff00;color:#111}
+        .analytics-final-button + .direct-access-final{margin-left:10px;background:#6CA9D4;color:#080A0B}
         @media (max-width:760px){
           .direct-access-header{display:none}
           .direct-access-price{margin:10px 0 0!important}
@@ -762,4 +762,19 @@ if(proofCard){
   }else{
     applyDirectAccess();
   }
+})();
+
+
+// v25 — force fresh RaceCore theme stylesheet.
+(function(){
+  document.documentElement.classList.add('racecore-v25');
+  const current=[...document.querySelectorAll('link[rel="stylesheet"]')].find(l=>/styles\.css/.test(l.getAttribute('href')||''));
+  const fresh=document.createElement('link');
+  fresh.rel='stylesheet';
+  fresh.href='./styles.css?v=25';
+  fresh.dataset.racecore='v25';
+  fresh.addEventListener('load',()=>{
+    if(current && current!==fresh) current.remove();
+  },{once:true});
+  document.head.appendChild(fresh);
 })();

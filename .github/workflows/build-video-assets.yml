@@ -50,7 +50,7 @@ jobs:
           import re
           p = Path("site/v2/index.html")
           s = p.read_text(encoding="utf-8")
-          s2 = re.sub(r'app\.js(?:\?v=\d+)?', 'app.js?v=29', s)
+          s2 = re.sub(r'app\.js(?:\?v=\d+)?', 'app.js?v=30', s)
           p.write_text(s2, encoding="utf-8")
           PY
 

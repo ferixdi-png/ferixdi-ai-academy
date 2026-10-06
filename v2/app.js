@@ -632,33 +632,6 @@ if(proofCard){
 })();
 
 
-// v22 — make the long hero headline readable on desktop and mobile.
-(function(){
-  const style=document.createElement('style');
-  style.id='hero-readable-v22';
-  style.textContent=`
-    .hero h1{
-      font-size:clamp(34px,3.45vw,54px)!important;
-      line-height:.96!important;
-      letter-spacing:-.045em!important;
-      max-width:780px!important;
-      margin-top:28px!important;
-      margin-bottom:24px!important;
-      text-wrap:balance;
-    }
-    @media (max-width:760px){
-      .hero h1{
-        font-size:clamp(30px,9.4vw,42px)!important;
-        line-height:.97!important;
-        letter-spacing:-.04em!important;
-        max-width:100%!important;
-      }
-    }
-  `;
-  document.head.appendChild(style);
-})();
-
-
 // v23 — remove the five program tabs/content blocks, keep the learning-base image.
 (function(){
   const simplifyProgram=()=>{
@@ -739,22 +712,7 @@ if(proofCard){
       analyticsBtn.insertAdjacentElement('afterend',direct);
     }
 
-    if(!document.getElementById('direct-access-v24-style')){
-      const style=document.createElement('style');
-      style.id='direct-access-v24-style';
-      style.textContent=`
-        .direct-access-header{margin-left:8px}
-        .direct-access-price{margin-left:10px;background:#6CA9D4!important;color:#080A0B!important}
-        .direct-access-base{display:inline-flex;margin-top:18px}
-        .analytics-final-button + .direct-access-final{margin-left:10px;background:#6CA9D4;color:#080A0B}
-        @media (max-width:760px){
-          .direct-access-header{display:none}
-          .direct-access-price{margin:10px 0 0!important}
-          .analytics-final-button + .direct-access-final{margin:10px 0 0!important}
-        }
-      `;
-      document.head.appendChild(style);
-    }
+
   };
 
   if(document.readyState==='loading'){
@@ -762,21 +720,6 @@ if(proofCard){
   }else{
     applyDirectAccess();
   }
-})();
-
-
-// v25 — force fresh RaceCore theme stylesheet.
-(function(){
-  document.documentElement.classList.add('racecore-v32');
-  const current=[...document.querySelectorAll('link[rel="stylesheet"]')].find(l=>/styles\.css/.test(l.getAttribute('href')||''));
-  const fresh=document.createElement('link');
-  fresh.rel='stylesheet';
-  fresh.href='./styles.css?v=32';
-  fresh.dataset.racecore='v32';
-  fresh.addEventListener('load',()=>{
-    if(current && current!==fresh) current.remove();
-  },{once:true});
-  document.head.appendChild(fresh);
 })();
 
 
@@ -976,3 +919,24 @@ if(proofCard){
     mountProofImages();
   }
 })();
+
+// Make late-inserted proof images accessible through the existing lightbox.
+document.addEventListener('DOMContentLoaded',()=>{
+  const box=document.querySelector('.media-lightbox');
+  if(!box) return;
+  const full=box.querySelector('img');
+  document.querySelectorAll('.base-overview-final img,.new-account-million-proof img,.partner-earnings-proof img').forEach(img=>{
+    img.tabIndex=0;
+    img.title='Нажми, чтобы открыть в полном размере';
+    const open=()=>{
+      full.src=img.currentSrc||img.src;
+      full.alt=img.alt;
+      box.classList.add('open');
+      document.body.style.overflow='hidden';
+    };
+    img.addEventListener('click',open);
+    img.addEventListener('keydown',e=>{
+      if(e.key==='Enter'||e.key===' '){e.preventDefault();open();}
+    });
+  });
+},{once:true});

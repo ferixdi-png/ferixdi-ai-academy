@@ -1000,3 +1000,32 @@ document.addEventListener('DOMContentLoaded',()=>{
   document.addEventListener('visibilitychange',()=>{if(document.hidden)reset();});
   capability.addEventListener('change',reset);
 },{once:true});
+
+// Storytelling pass: bridge real adjacent chapters without altering existing copy.
+document.addEventListener('DOMContentLoaded',()=>{
+  const offer=document.querySelector('.final-price');if(offer)offer.id='training-access';
+  const bridge=(parent,text,href)=>{
+    if(!parent)return;
+    const a=document.createElement('a');a.className='story-bridge';a.href=href;
+    const copy=document.createElement('span');copy.className='story-bridge-copy';copy.textContent=text;
+    const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
+    svg.setAttribute('viewBox','0 0 20 28');svg.setAttribute('aria-hidden','true');svg.setAttribute('focusable','false');
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');path.setAttribute('d','M10 1v24M3 18l7 7 7-7');svg.appendChild(path);
+    a.append(copy,svg);parent.appendChild(a);
+  };
+  bridge(document.querySelector('#program .shell'),'Механика понятна. Теперь — результаты на реальных аккаунтах.','#results');
+  bridge(document.querySelector('.reach-harmony-grid'),'Что получилось у учеников?','#cases');
+  bridge(document.querySelector('#cases'),'Охваты видны. Сколько стоит выпускать такой контент?','#economics');
+  bridge(document.querySelector('#economics .shell'),'Себестоимость посчитали. Теперь — куда ведёт охват.','#monetization');
+  bridge(document.querySelector('.poster-break-inner'),'Сколько стоит доступ к этой системе?','#training-access');
+  // Two pixels of progress, with one scheduled paint per scroll frame and no idle loop.
+  const progress=document.createElement('div');progress.className='reading-progress';progress.setAttribute('aria-hidden','true');document.body.appendChild(progress);
+  let frame=0;
+  const paint=()=>{
+    frame=0;const extent=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+    progress.style.transform=`scaleX(${extent>0?Math.min(1,Math.max(0,window.scrollY/extent)):0})`;
+  };
+  const schedule=()=>{if(!frame)frame=requestAnimationFrame(paint);};
+  window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule,{passive:true});
+  new ResizeObserver(schedule).observe(document.body);paint();
+},{once:true});

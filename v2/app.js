@@ -1029,3 +1029,21 @@ document.addEventListener('DOMContentLoaded',()=>{
   window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule,{passive:true});
   new ResizeObserver(schedule).observe(document.body);paint();
 },{once:true});
+
+// Editorial context: additive only; all existing nodes retain their order and copy.
+document.addEventListener('DOMContentLoaded',()=>{
+  const insert=(selector,key,lead,accent)=>{
+    const target=document.querySelector(selector);
+    if(!target||document.querySelector('[data-editorial="'+key+'"]'))return;
+    const note=document.createElement('aside');
+    note.className='editorial-context editorial-'+key;note.dataset.editorial=key;
+    const p=document.createElement('p');
+    p.append(document.createTextNode(lead+' '));
+    const strong=document.createElement('strong');strong.textContent=accent;p.append(strong);
+    note.append(p);target.before(note);
+  };
+  insert('.hero-stats','visibility','Можно быть сильным в своём деле.','Но пока тебя не видят, об этом знают только свои.');
+  insert('.manifest','system','Промпты сохранены. Подписки оплачены.','А какую идею делать завтра?');
+  insert('#economics .section-intro','attempts','Если каждая попытка — полдня работы,','на следующую идею уже не остаётся сил.');
+  insert('#monetization .section-intro','attention','Ролик посмотрели. И пролистнули.','Что должно произойти между просмотром и заявкой?');
+},{once:true});

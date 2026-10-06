@@ -102,3 +102,65 @@ a{color:inherit;text-decoration:none}button{font:inherit}img,video{display:block
 }
 
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.ticker-track{animation:none}*,*::before,*::after{transition:none!important}}
+
+/* Added editorial context, integrated into the existing rhythm without new cards. */
+.editorial-context{border-top:1px solid var(--line);padding:30px 0 34px;margin-bottom:32px}
+.editorial-context p{font-size:clamp(26px,2.6vw,38px);line-height:1.17;letter-spacing:-.035em;font-weight:500;max-width:38ch;color:var(--muted);text-wrap:pretty}
+.editorial-context strong{font-weight:500;color:var(--ink)}
+.editorial-visibility{margin:28px 0 0;padding:22px 0 0;border-color:var(--blue)}
+.editorial-visibility p{font-size:clamp(21px,1.7vw,25px);line-height:1.3;max-width:44ch}
+.hero-stats{margin-top:24px}
+.editorial-system{width:var(--shell);margin:0 auto;padding:40px 0 44px;display:flex;justify-content:flex-end}
+.editorial-system p{max-width:34ch;width:calc(100% - 206px)}
+.editorial-attempts,.editorial-attention{margin-bottom:36px;padding:0 0 32px;border-top:0;border-bottom:1px solid var(--line)}
+.editorial-attempts p{margin-left:auto}
+.editorial-attention p{max-width:37ch}
+/* Desktop density approximates the requested 72–78% view using actual layout sizes. */
+@media(min-width:861px){
+  :root{--shell:min(1060px,calc(100% - 72px));--section:72px}
+  body{font-size:16px}
+  h2{font-size:38px}h3{font-size:28px}
+  .header-inner{min-height:64px;gap:14px}.desktop-nav{gap:15px;font-size:12px}
+  .header-inner .pill{min-height:38px;padding:9px 11px}
+  .hero{grid-template-columns:minmax(0,1.8fr) minmax(0,1fr);padding-block:42px 52px;gap:42px}
+  .hero h1{font-size:36px;max-width:none;margin:20px 0}.hero-lead{font-size:16px}
+  .hero-visual{max-width:315px}.hero-actions{margin-top:22px;gap:16px}
+  .hero-stats{gap:14px;padding-top:20px}.hero-stats b{font-size:21px}
+  .section-intro,.manifest-inner,.personal-proof-head,.results-note-clean{grid-template-columns:170px minmax(0,1fr);gap:24px 36px}
+  .section-intro{margin-bottom:34px}.section-intro p{font-size:16px;margin-top:16px}
+  .manifest{padding-block:30px}.manifest h2{font-size:35px}.manifest p{font-size:14px}
+  .approach-compact{padding-block:50px}.approach-compact .section-intro h2{font-size:44px}
+  .feature h3{font-size:24px}.feature{padding-right:30px}.feature:nth-child(2){padding-top:52px}.feature:nth-child(3){padding-top:64px}
+  .program-section{padding-block:38px}.base-overview-final{max-width:820px}
+  .program-section .story-bridge,.economics-section .story-bridge{margin-left:206px}
+  .story-bridge-copy{font-size:23px}.results-section,.economics-section,.monetization-section{padding-top:52px}
+  .feed-card-clean>video,.feed-card-clean>img{max-height:380px}.proof-main-clean strong{font-size:80px}
+  .proof-rows-clean b{font-size:26px}.personal-proof{margin-top:48px}
+  .profile-shot{gap:36px;padding-block:28px}.profile-shot figcaption b{font-size:55px}
+  .new-account-million-proof{gap:36px}.new-account-million-proof figcaption{font-size:28px}
+  .case-shot-grid{gap:30px 26px}.case-shot b{font-size:31px}.case-shot:last-child{gap:36px}
+  .economics-grid{gap:48px}.economics-poster img{max-height:520px}.economics-copy p{font-size:16px}
+  .money-path{padding-block:32px;gap:26px}.money-copy p{font-size:16px;line-height:1.65}
+  .money-copy h3{margin:14px 0 18px}.partner-earnings-proof img{max-height:410px}
+  .money-manifest strong{font-size:32px}.money-manifest{margin-top:42px}
+  .audience-grid{gap:24px}.audience-grid h3{font-size:21px}
+  .access-section{padding-block:48px}.access-card{padding-block:32px;gap:24px 48px}
+  .faq{margin-left:206px}.faq-q{padding-block:20px}.faq-q span{font-size:18px}
+  .poster-break-inner{max-width:780px;gap:24px 48px}.poster-break img{max-height:300px}
+  .poster-inline-caption strong{font-size:32px}.final-price{padding-block:56px}
+  .final-price-copy h2{font-size:41px}.training-trigger-stack{max-width:360px}.price-top strong{font-size:52px}
+  .analytics-final h2{font-size:30px}.site-finale-frame img{max-height:330px}
+}
+@media(min-width:1600px){:root{--shell:min(1140px,calc(100% - 112px))}.hero h1{font-size:38px}.hero-visual{max-width:330px}}
+@media(min-width:861px) and (max-width:1190px){.hero{gap:30px}.hero h1{font-size:32px}.hero-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.header-inner{padding-block:12px}}
+@media(max-width:860px){
+  .editorial-system p{width:100%;max-width:32ch}.editorial-system{padding-block:32px}
+  .editorial-context p{font-size:29px}.editorial-visibility p{font-size:22px}
+  .editorial-attempts p{margin-left:0}.editorial-attempts,.editorial-attention{padding-bottom:26px;margin-bottom:28px}
+}
+@media(max-width:600px){
+  .editorial-context p{font-size:27px;line-height:1.2}.editorial-visibility p{font-size:22px;line-height:1.3}
+  .editorial-visibility{margin-top:26px;padding-top:20px}.editorial-system{padding-block:30px 34px}
+  .hero h1{font-size:28px}.hero-visual{max-width:260px}.hero{gap:28px;padding-bottom:36px}
+  .approach-compact .section-intro h2{font-size:32px}.section-intro h2{font-size:30px}
+}

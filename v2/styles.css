@@ -4588,3 +4588,574 @@ footer{padding:34px 0!important;background:#080A0B!important;color:#FFFFFF!impor
   .result-card{min-height:250px!important}
   .result-card b{font-size:72px!important}
 }
+
+/* v34 — screenshot-driven agency pass / CONTENT LOCK */
+
+/* 01 — HERO: calmer copy, much stronger media, less UI */
+@media(min-width:1025px){
+  .hero{
+    grid-template-columns:repeat(12,minmax(0,1fr))!important;
+    column-gap:28px!important;
+    min-height:auto!important;
+    padding-top:72px!important;
+    padding-bottom:108px!important;
+    align-items:start!important;
+  }
+  .hero-copy{
+    grid-column:1/span 8!important;
+    padding-top:18px!important;
+  }
+  .hero h1{
+    width:min(100%,900px)!important;
+    max-width:900px!important;
+    font-size:52px!important;
+    line-height:1.035!important;
+    letter-spacing:-.048em!important;
+    font-weight:680!important;
+    text-wrap:balance!important;
+  }
+  .hero-lead{
+    max-width:690px!important;
+    margin-top:28px!important;
+    font-size:18px!important;
+    line-height:1.6!important;
+  }
+  .hero-visual{
+    grid-column:9/span 4!important;
+    width:min(39vw,520px)!important;
+    max-width:520px!important;
+    justify-self:end!important;
+    margin-right:-18px!important;
+    border-radius:18px!important;
+  }
+  .hero-stats{
+    grid-column:1/span 8!important;
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+    gap:34px!important;
+    margin-top:64px!important;
+    padding-top:28px!important;
+  }
+}
+.hero .micro,
+.floating-card,
+.hero [class*="annotation"],
+.hero [class*="label"]{
+  color:rgba(255,255,255,.26)!important;
+  font-size:10px!important;
+  font-weight:520!important;
+  letter-spacing:.10em!important;
+}
+.floating-card{
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  padding:0!important;
+}
+
+/* 02 — ONE WORKFLOW: create silence, not another section template */
+.manifest,.manifest-compact{
+  padding-top:176px!important;
+  padding-bottom:184px!important;
+}
+.manifest-inner h2{
+  max-width:860px!important;
+  font-size:50px!important;
+  line-height:1.06!important;
+  font-weight:650!important;
+}
+.manifest-inner p{
+  max-width:560px!important;
+  color:rgba(255,255,255,.44)!important;
+}
+
+/* 03 — PROCESS: no bordered cards */
+.feature-grid,.feature-grid-compact{
+  gap:46px!important;
+  border:0!important;
+  border-top:1px solid rgba(255,255,255,.07)!important;
+}
+.feature,
+.feature:nth-child(n){
+  min-height:220px!important;
+  padding:34px 0 30px!important;
+  background:transparent!important;
+  border:0!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.feature+.feature{padding-left:0!important}
+.feature h3{
+  margin:74px 0 12px!important;
+  max-width:330px!important;
+  font-size:28px!important;
+}
+.feature p{max-width:360px!important}
+.feature span{color:rgba(108,169,212,.82)!important}
+
+/* 04 — PROGRAM: media is the proof, copy is supporting architecture */
+.program-stage{
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  gap:34px!important;
+}
+.program-visual,.program-visual.base-preview{
+  grid-column:1/span 9!important;
+  border-radius:14px!important;
+}
+.program-content{
+  grid-column:10/span 3!important;
+  padding-top:2px!important;
+}
+.panel h3{
+  font-size:34px!important;
+  line-height:1.08!important;
+}
+.panel p{font-size:16px!important}
+.program-tabs{
+  gap:26px!important;
+  margin-bottom:64px!important;
+}
+
+/* 05 — ACCOUNT / CASE PROOF: make screenshots dramatically larger */
+.personal-proof{
+  overflow:hidden!important;
+}
+.personal-proof-grid.real-shots{
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  gap:28px!important;
+}
+.personal-proof-grid.real-shots .profile-shot:first-child{
+  grid-column:1/span 8!important;
+  width:100%!important;
+}
+.personal-proof-grid.real-shots .profile-shot:nth-child(2){
+  grid-column:8/span 5!important;
+  width:100%!important;
+  margin-top:170px!important;
+}
+.profile-shot img,
+.case-shot img,
+.legacy-case-shot img,
+.new-account-million-proof img,
+.partner-earnings-proof img{
+  object-fit:contain!important;
+  background:transparent!important;
+}
+.profile-shot figcaption,
+.case-shot figcaption{
+  padding-top:18px!important;
+}
+.new-account-million-proof,
+.partner-earnings-proof{
+  width:min(100%,1240px)!important;
+  max-width:1240px!important;
+  margin-top:112px!important;
+}
+.new-account-million-proof figcaption,
+.partner-earnings-proof figcaption{
+  max-width:760px!important;
+  padding-top:16px!important;
+  color:rgba(255,255,255,.32)!important;
+}
+
+/* 06 — STUDENT CASES: alternating proof wall, no postage stamps */
+.case-shot-grid{
+  gap:96px 30px!important;
+}
+.case-shot-grid .case-shot:nth-child(odd){
+  grid-column:1/span 7!important;
+  width:100%!important;
+}
+.case-shot-grid .case-shot:nth-child(even){
+  grid-column:7/span 6!important;
+  width:100%!important;
+  margin-top:144px!important;
+}
+.cohort-strip{
+  margin-top:116px!important;
+}
+
+/* 07 — ECONOMICS: kill pill UI, make it mathematical */
+.economics-grid,.economics-with-poster{
+  align-items:end!important;
+}
+.economics-copy{
+  grid-column:1/span 7!important;
+}
+.economics-points{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  gap:0 34px!important;
+  margin-top:42px!important;
+  border-top:1px solid rgba(255,255,255,.07)!important;
+}
+.economics-points span,
+.economics-points span:nth-child(n){
+  min-height:auto!important;
+  padding:15px 0!important;
+  margin:0!important;
+  background:transparent!important;
+  color:rgba(255,255,255,.42)!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.055)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+  font-size:13px!important;
+  line-height:1.35!important;
+}
+.credit-proof{
+  grid-column:9/span 4!important;
+  align-self:center!important;
+}
+.credit-value{
+  font-size:124px!important;
+}
+.credit-total{
+  font-size:30px!important;
+}
+
+/* 08 — MONETIZATION: override legacy specificity and remove colored slabs */
+.money-path,
+.money-path:nth-child(n),
+.money-path:nth-child(2n),
+.money-path:nth-child(3n),
+.path-partner,
+.path-estate{
+  background:transparent!important;
+  color:#FFFFFF!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.07)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.money-path{
+  padding:72px 0!important;
+}
+.money-num{
+  color:rgba(108,169,212,.84)!important;
+}
+.money-copy h3{
+  max-width:780px!important;
+  font-size:40px!important;
+}
+.money-copy p,
+.money-copy small,
+.money-path .money-copy>span,
+.money-path .money-copy p,
+.money-path .money-copy small{
+  color:rgba(255,255,255,.48)!important;
+}
+.money-manifest{
+  margin-top:132px!important;
+}
+
+/* 09 — AUDIENCE: explicit override of old nth-child colored cards */
+.audience-grid,.audience-grid-compact{
+  gap:0 64px!important;
+  border-top:1px solid rgba(255,255,255,.07)!important;
+}
+.audience-grid article,
+.audience-grid article:nth-child(n),
+.audience-grid article:nth-child(2n),
+.audience-grid article:nth-child(3){
+  min-height:210px!important;
+  padding:34px 0!important;
+  background:transparent!important;
+  color:#FFFFFF!important;
+  border:0!important;
+  border-bottom:1px solid rgba(255,255,255,.065)!important;
+  border-radius:0!important;
+  box-shadow:none!important;
+}
+.audience-grid article:nth-child(n) p,
+.audience-grid article:nth-child(n) span{
+  color:rgba(255,255,255,.46)!important;
+}
+.audience-grid article:nth-child(n) span{
+  color:rgba(108,169,212,.84)!important;
+}
+.audience-grid h3{
+  font-size:27px!important;
+  font-weight:620!important;
+}
+
+/* 10 — ACCESS: stop feeling like a form block */
+.access-card{
+  max-width:1040px!important;
+}
+.access-card ul{
+  display:grid!important;
+  grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  column-gap:46px!important;
+  margin-top:58px!important;
+}
+.access-card li{
+  padding:17px 0!important;
+}
+
+/* 11 — FAQ: pure editorial list */
+.faq-section{
+  padding-top:118px!important;
+  padding-bottom:154px!important;
+}
+.faq{
+  max-width:1000px!important;
+}
+.faq-q{
+  min-height:88px!important;
+}
+.faq-q i{
+  opacity:.55!important;
+}
+.faq-a p{
+  color:rgba(255,255,255,.48)!important;
+}
+
+/* 12 — FINAL PRICE: stronger right media, cleaner sales composition */
+.final-price{
+  padding-top:142px!important;
+  padding-bottom:148px!important;
+}
+.final-price-grid{
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  gap:30px!important;
+}
+.final-price-copy{
+  grid-column:1/span 6!important;
+  align-self:center!important;
+}
+.final-price-copy h2{
+  max-width:690px!important;
+  font-size:50px!important;
+  line-height:1.04!important;
+}
+.training-trigger-stack{
+  grid-column:8/span 5!important;
+  width:100%!important;
+}
+.training-trigger-loop{
+  border-radius:14px!important;
+}
+.price-card{
+  margin-top:4px!important;
+}
+.price-top strong{
+  font-size:62px!important;
+}
+
+/* 13 — FINAL ANALYTICS: clear hierarchy + sane CTA sizing */
+.analytics-final{
+  padding-top:118px!important;
+  padding-bottom:82px!important;
+}
+.analytics-final-inner{
+  grid-template-columns:repeat(12,minmax(0,1fr))!important;
+  gap:20px 28px!important;
+  align-items:end!important;
+}
+.analytics-final-copy{
+  grid-column:1/span 8!important;
+}
+.analytics-final-copy h2{
+  max-width:760px!important;
+  font-size:44px!important;
+}
+.analytics-final-inner > .analytics-final-button{
+  grid-column:10/span 3!important;
+  width:100%!important;
+  min-height:54px!important;
+  justify-self:stretch!important;
+  align-self:end!important;
+}
+.analytics-final-inner > .direct-access-final{
+  grid-column:10/span 3!important;
+  width:100%!important;
+  min-height:54px!important;
+  margin-top:-8px!important;
+  justify-self:stretch!important;
+}
+.site-finale-visual{
+  padding-top:0!important;
+  padding-bottom:112px!important;
+}
+.site-finale-frame{
+  max-width:1380px!important;
+  border-radius:16px!important;
+}
+.site-finale-frame img{
+  border-radius:16px!important;
+}
+
+/* Desktop editorial labels recede globally */
+.eyebrow,
+.economics-index,
+.panel-num,
+.cohort-strip span,
+.cases-coming-after span,
+.poster-side-copy span,
+.personal-proof-head>span,
+.proof-main-clean>span,
+.analytics-final-copy>span,
+.final-price-copy>span{
+  color:rgba(255,255,255,.28)!important;
+  font-size:10px!important;
+  letter-spacing:.09em!important;
+}
+.final-price .eyebrow,
+.final-price-copy>span{
+  color:rgba(196,31,72,.78)!important;
+}
+
+/* 768: keep asymmetry, remove postage-stamp media */
+@media(min-width:761px) and (max-width:1024px){
+  :root{--shell:min(100% - 56px,920px)!important}
+  .hero{
+    grid-template-columns:repeat(8,minmax(0,1fr))!important;
+    padding-top:54px!important;
+  }
+  .hero-copy{grid-column:1/span 5!important}
+  .hero h1{font-size:46px!important;max-width:560px!important}
+  .hero-visual{
+    grid-column:6/span 3!important;
+    width:100%!important;
+    max-width:360px!important;
+    margin-right:0!important;
+  }
+  .hero-stats{
+    grid-column:1/-1!important;
+    grid-template-columns:repeat(5,minmax(0,1fr))!important;
+  }
+  .program-visual{grid-column:1/span 7!important}
+  .program-content{grid-column:8/span 5!important}
+  .personal-proof-grid.real-shots .profile-shot:first-child{grid-column:1/span 8!important}
+  .personal-proof-grid.real-shots .profile-shot:nth-child(2){grid-column:7/span 6!important;margin-top:104px!important}
+  .case-shot-grid .case-shot:nth-child(odd){grid-column:1/span 7!important}
+  .case-shot-grid .case-shot:nth-child(even){grid-column:7/span 6!important;margin-top:96px!important}
+  .credit-value{font-size:94px!important}
+  .final-price-copy{grid-column:1/span 7!important}
+  .training-trigger-stack{grid-column:8/span 5!important}
+}
+
+/* Mobile: separate composition, no compressed desktop */
+@media(max-width:760px){
+  :root{--shell:min(100% - 38px,720px)!important}
+
+  .hero{
+    padding-top:40px!important;
+    padding-bottom:82px!important;
+  }
+  .hero h1{
+    font-size:40px!important;
+    line-height:1.045!important;
+    letter-spacing:-.042em!important;
+    max-width:100%!important;
+  }
+  .hero-lead{
+    font-size:16px!important;
+    line-height:1.58!important;
+  }
+  .hero-visual{
+    width:min(100%,360px)!important;
+    max-width:360px!important;
+    margin-top:38px!important;
+    margin-right:0!important;
+  }
+  .hero-stats{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:28px 18px!important;
+  }
+
+  .manifest,.manifest-compact{
+    padding-top:104px!important;
+    padding-bottom:112px!important;
+  }
+
+  .feature-grid,.feature-grid-compact{
+    gap:0!important;
+  }
+  .feature,.feature:nth-child(n),.feature+.feature{
+    padding:30px 0!important;
+  }
+  .feature h3{
+    margin:46px 0 12px!important;
+  }
+
+  .program-stage{
+    grid-template-columns:1fr!important;
+    gap:44px!important;
+  }
+  .program-visual,.program-content{
+    grid-column:1!important;
+  }
+
+  .personal-proof-grid.real-shots,
+  .case-shot-grid{
+    grid-template-columns:1fr!important;
+    gap:48px!important;
+  }
+  .personal-proof-grid.real-shots .profile-shot:first-child,
+  .personal-proof-grid.real-shots .profile-shot:nth-child(2),
+  .case-shot-grid .case-shot:nth-child(odd),
+  .case-shot-grid .case-shot:nth-child(even){
+    grid-column:1!important;
+    margin-top:0!important;
+  }
+  .new-account-million-proof,
+  .partner-earnings-proof{
+    margin-top:62px!important;
+  }
+
+  .economics-points{
+    grid-template-columns:1fr!important;
+  }
+  .credit-value{
+    font-size:82px!important;
+  }
+
+  .money-path{
+    padding:44px 0!important;
+  }
+  .money-copy h3{
+    font-size:31px!important;
+  }
+
+  .audience-grid,.audience-grid-compact{
+    grid-template-columns:1fr!important;
+    gap:0!important;
+  }
+  .audience-grid article,
+  .audience-grid article:nth-child(n){
+    min-height:0!important;
+    padding:28px 0!important;
+  }
+
+  .access-card ul{
+    grid-template-columns:1fr!important;
+    column-gap:0!important;
+  }
+
+  .final-price{
+    padding-top:90px!important;
+    padding-bottom:96px!important;
+  }
+  .final-price-copy h2{
+    font-size:38px!important;
+  }
+  .training-trigger-stack{
+    grid-column:1!important;
+  }
+
+  .analytics-final{
+    padding-top:88px!important;
+    padding-bottom:64px!important;
+  }
+  .analytics-final-inner > .analytics-final-button,
+  .analytics-final-inner > .direct-access-final{
+    grid-column:1!important;
+    width:100%!important;
+    margin-top:0!important;
+  }
+  .site-finale-visual{
+    padding-bottom:72px!important;
+  }
+}

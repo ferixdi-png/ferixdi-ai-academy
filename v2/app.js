@@ -603,3 +603,30 @@ if(proofCard){
   if(!base) return;
   base.innerHTML='<figure class="base-overview-final"><img src="./media/base/base-overview.png" alt="Как устроена закрытая база Ferixdi AI: реальные разделы обучения 01–05"></figure>';
 })();
+
+
+// v21 — user copy update: hero positioning + cases intro.
+(function(){
+  const applyCopy=()=>{
+    const hero=document.querySelector('.hero');
+    if(hero){
+      const h1=hero.querySelector('h1');
+      if(h1) h1.textContent='Прокачай полезный навык: создавай охватные AI-видео для Instagram с низкой себестоимостью и зарабатывай на партнёрках, контенте для бизнеса и обучении других.';
+    }
+
+    const cases=document.querySelector('#cases');
+    if(cases){
+      const intro=cases.querySelector('.section-intro') || cases.querySelector('.cases-intro') || cases;
+      const h2=intro.querySelector('h2');
+      const p=intro.querySelector('p');
+      if(h2) h2.textContent='Я год изучал, как работают охваты в Instagram.';
+      if(p) p.textContent='Затем поделился с другими — и вот что получилось. Реальные кейсы, можешь проверить.';
+    }
+  };
+
+  if(document.readyState==='loading'){
+    document.addEventListener('DOMContentLoaded',applyCopy,{once:true});
+  }else{
+    applyCopy();
+  }
+})();

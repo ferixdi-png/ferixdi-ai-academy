@@ -1047,3 +1047,25 @@ document.addEventListener('DOMContentLoaded',()=>{
   insert('#economics .section-intro','attempts','Если каждая попытка — полдня работы,','на следующую идею уже не остаётся сил.');
   insert('#monetization .section-intro','attention','Ролик посмотрели. И пролистнули.','Что должно произойти между просмотром и заявкой?');
 },{once:true});
+
+
+// v32 — one clear price, no crossed-out amount or promo code.
+(function(){
+  const simplifyPrice = () => {
+    const card = document.querySelector('.final-price .price-card');
+    if (!card || card.dataset.simplePrice === '1') return;
+    card.dataset.simplePrice = '1';
+    card.innerHTML = `
+      <div class="price-top">
+        <span>Доступ к системе Ferixdi AI</span>
+        <strong>10 000 ₽</strong>
+      </div>
+      <a class="price-button direct-access-price" href="https://t.me/Ferixdishopbot/menu?startapp=product_295766" target="_blank" rel="noopener">Получить доступ ↗</a>
+    `;
+  };
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', simplifyPrice, { once: true });
+  } else {
+    simplifyPrice();
+  }
+})();
